@@ -1,27 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
+import dao.DepartamentoDao;
+import dao.EstacionamientoDao;
+import dao.ResidenteDao;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JOptionPane;
+import models.Departamento;
+import models.Estacionamiento;
+import models.Residente;
 
-/**
- *
- * @author informatica_prac
- */
 public class RegistroVisita extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Reserva_Sala
-     */
    private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
    
+   private DepartamentoDao departamentoDao;
+   private ResidenteDao residenteDao;
+   private EstacionamientoDao estacionamientoDao;
    
     public RegistroVisita() {
         initComponents();
+        
+        String numeroDepartamento = "";
+        String nombre = "";
+        String numero = "";
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
@@ -39,6 +41,20 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSeleccionarEstacionamiento.setEnabled(false);
         //Carga de combobox en duro hasta que se conecte con la base de datos
         //DEPARTAMENTO
+        try {
+            departamentoDao = new DepartamentoDao();
+            cbSelecionarDpto.addItem("Seleccione un departamento");
+            List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
+            for (int i = 0; i < departamentos.size(); i++) {
+                numeroDepartamento = departamentos.get(i).getNumero();
+                System.out.println("Número: " + numeroDepartamento);
+                cbSelecionarDpto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        /*
         cbSelecionarDpto.addItem("");
         cbSelecionarDpto.addItem("101");
         cbSelecionarDpto.addItem("201");
@@ -46,7 +62,21 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSelecionarDpto.addItem("401");
         cbSelecionarDpto.addItem("501");
         cbSelecionarDpto.addItem("601");
+        */
          //ESTACIONAMIENTO
+        try {   
+            estacionamientoDao = new EstacionamientoDao();
+            cbSeleccionarEstacionamiento.addItem("Seleccione un número");
+            List<Estacionamiento> estacionamientos = estacionamientoDao.listadoEstacionamientos();
+            for (int i = 0; i < estacionamientos.size(); i++) {
+                numero = String.valueOf(estacionamientos.get(i).getNumero());
+                System.out.println("Número: " + numero);
+                cbSeleccionarEstacionamiento.addItem(numero);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        /*
         cbSeleccionarEstacionamiento.addItem("");
         cbSeleccionarEstacionamiento.addItem("1");
         cbSeleccionarEstacionamiento.addItem("2");
@@ -54,12 +84,26 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSeleccionarEstacionamiento.addItem("4");
         cbSeleccionarEstacionamiento.addItem("5");
         cbSeleccionarEstacionamiento.addItem("6");
+        */
          //RESIDENTE
+        try {   
+            residenteDao = new ResidenteDao();
+            cbSeleccionarResidente.addItem("Seleccione un residente");
+            List<Residente> residentes = residenteDao.listadoResidentes();
+            for (int i = 0; i < residentes.size(); i++) {
+                nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                System.out.println("Nombre: " + nombre);
+                cbSeleccionarResidente.addItem(nombre);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        /*
         cbSeleccionarResidente.addItem("");
         cbSeleccionarResidente.addItem("JUANITO");
         cbSeleccionarResidente.addItem("LUCHITO");
         cbSeleccionarResidente.addItem("PEPITO");
-       
+        */
         
     }
 
@@ -325,19 +369,17 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         String selectest = (String)cbSeleccionarEstacionamiento.getSelectedItem();
         // Valida vacios
        // if(rut.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || selectdpto.isEmpty()|| selectest.isEmpty()){
-        if(rut.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || selectdpto.isEmpty()){
-            
-        JOptionPane.showMessageDialog(this, "Debe completar todos los campos");
-        }else{
-        //Metodo validador de rut 
-        boolean valida = validarRut(rut);
-        if(valida == false){
-                JOptionPane.showMessageDialog(this, "Rut invalido");
-            }else{
-             JOptionPane.showMessageDialog(this, "Visita Ingresada Correctamente al Sistema");
-             //System.out.println("lista deptos"+selectdpto);
-        }
-           
+        if (rut.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || selectdpto.isEmpty()){  
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos");
+        } else {
+            //Metodo validador de rut 
+            boolean valida = validarRut(rut);
+            if (!valida){
+                    JOptionPane.showMessageDialog(this, "Rut invalido");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Visita Ingresada Correctamente al Sistema");
+                    System.out.println("lista deptos " + selectdpto);
+            } 
         }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
@@ -351,29 +393,29 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_chAutorizacionResidenteActionPerformed
     public static boolean validarRut(String rut) {
+        boolean validacion = false;
+        try {
+            rut =  rut.toUpperCase();
+            //rut = rut.replace(".", "");
+            rut = rut.replace("-", "");
+            int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
 
-    boolean validacion = false;
-    try {
-        rut =  rut.toUpperCase();
-        rut = rut.replace(".", "");
-        rut = rut.replace("-", "");
-        int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+            char dv = rut.charAt(rut.length() - 1);
 
-        char dv = rut.charAt(rut.length() - 1);
-
-        int m = 0, s = 1;
-        for (; rutAux != 0; rutAux /= 10) {
-            s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+            int m = 0, s = 1;
+            for (; rutAux != 0; rutAux /= 10) {
+                s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
+            }
+            if (dv == (char) (s != 0 ? s + 47 : 75)) {
+                validacion = true;
+            }
+        } catch (java.lang.NumberFormatException e) {
+            
+        } catch (Exception e) {
+            
         }
-        if (dv == (char) (s != 0 ? s + 47 : 75)) {
-            validacion = true;
-        }
-
-    } catch (java.lang.NumberFormatException e) {
-    } catch (Exception e) {
+        return validacion;
     }
-    return validacion;
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;

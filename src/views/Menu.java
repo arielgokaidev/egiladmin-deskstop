@@ -191,9 +191,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuAsignarEstadoDptoActionPerformed
 
     private void MenuIngresoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuIngresoVisitasActionPerformed
-        // Abrir informe de Visitas
+        // Abrir registro de visitas
         RegistroVisita rv = new RegistroVisita();
         escritorio.add(rv);
+        // Maximizar JInternalFrame
+        escritorio.getDesktopManager().maximizeFrame(rv);
         rv.show();   
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 

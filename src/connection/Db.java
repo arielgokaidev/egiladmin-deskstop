@@ -6,36 +6,36 @@ import java.sql.SQLException;
 
 public class Db {
     
-    private Connection jdbcConnection;
-    private String url = "jdbc:mysql://localhost:3306/egiladmin";
-    private String user = "root";
-    private String pass = "root";
+    private Connection conexion;
+    private String url;
+    private String user;
+    private String pass;
     
-    public Db(String url, String user, String pass) {
-        this.url = url;
-        this.user = user;
-        this.pass = pass;
+    public Db() {
+        url = "jdbc:mysql://localhost/egiladmin";
+        user = "root";
+        pass = "";
     }
     
     public void conectar() throws SQLException {
-        if (jdbcConnection == null || jdbcConnection.isClosed()) {
+        if (conexion == null || conexion.isClosed()) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
             } catch (ClassNotFoundException e) {
                 throw new SQLException(e);
             }
-            jdbcConnection = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(url, user, pass);
         }
     }
      
     public void desconectar() throws SQLException {
-        if (jdbcConnection != null && !jdbcConnection.isClosed()) {
-            jdbcConnection.close();
+        if (conexion != null && !conexion.isClosed()) {
+            conexion.close();
         }
     }
 
-    public Connection getJdbcConnection() {
-	return jdbcConnection;
+    public Connection getConexion() {
+	return conexion;
     }  
     
 }
