@@ -6,6 +6,7 @@
 package views;
 
 import java.util.Calendar;
+import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,6 +26,10 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     
     public ListarReserva() {
         initComponents();
+        // Bloquear redimension
+        this.setResizable(false);
+        // Boton cerrar y ocultar JInternalFrame
+        this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         

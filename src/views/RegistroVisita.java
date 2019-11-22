@@ -5,6 +5,7 @@ import dao.EstacionamientoDao;
 import dao.ResidenteDao;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import models.Departamento;
 import models.Estacionamiento;
@@ -20,7 +21,11 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
    
     public RegistroVisita() {
         initComponents();
-        
+        // Bloquear redimension
+        this.setResizable(false);
+        // Boton cerrar y ocultar JInternalFrame
+        this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+        // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         String nombre = "";
         String numero = "";

@@ -5,6 +5,7 @@
  */
 package views;
 
+import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +27,10 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     
     public ListarVisita() {
         initComponents();
+        // Bloquear redimension
+        this.setResizable(false);
+        // Boton cerrar y ocultar JInternalFrame
+        this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         //INSTANCIA DE LA TABLA
         md=new DefaultTableModel(data, cabeza);
         //VARIABLE DE LA JTABLE
