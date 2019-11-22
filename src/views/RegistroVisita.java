@@ -43,7 +43,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         //DEPARTAMENTO
         try {
             departamentoDao = new DepartamentoDao();
-            cbSelecionarDpto.addItem("Seleccione un departamento");
+            cbSelecionarDpto.addItem("");
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumero();
