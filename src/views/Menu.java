@@ -10,8 +10,15 @@ ch = checkbox
 btn = button
 */
 
-
 public class Menu extends javax.swing.JFrame {
+    
+    RegistroVisita registroVisita;
+    RegistroSalida registroSalida;
+    ListarVisita listarVisita;
+    AsignarEstado asignarEstado;
+    ListarEstado listarEstado;
+    ReservaSala reservaSala;
+    ListarReserva listarReserva;
     
     public Menu() {
         //TITULO
@@ -24,6 +31,24 @@ public class Menu extends javax.swing.JFrame {
         //CERRAR VENTANA JDESKTOP PANE
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        // Cargar instancias JInternalFrame
+        registroVisita = new RegistroVisita();
+        registroSalida = new RegistroSalida();
+        listarVisita = new ListarVisita();
+        asignarEstado = new AsignarEstado();
+        listarEstado = new ListarEstado();
+        reservaSala = new ReservaSala();
+        listarReserva = new ListarReserva();
+                
+        // Agregar JInternalFrame a JDesktopPane
+        escritorio.add(registroVisita);
+        escritorio.add(registroSalida);
+        escritorio.add(listarVisita);
+        escritorio.add(asignarEstado);
+        escritorio.add(listarEstado);
+        escritorio.add(reservaSala);
+        escritorio.add(listarReserva);
+        
         Calendar cal=Calendar.getInstance();
         
         String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
@@ -32,6 +57,9 @@ public class Menu extends javax.swing.JFrame {
        
         //fecha y hora sistema
         //JOptionPane.showMessageDialog(null, fechahora);
+        
+        RegistroVisita rv = new RegistroVisita();
+        escritorio.add(rv);
    
     }
 
@@ -185,59 +213,44 @@ public class Menu extends javax.swing.JFrame {
 
     private void MenuAsignarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAsignarEstadoDptoActionPerformed
         // Abrir informe de Visitas
-        AsignarEstado as=new AsignarEstado();
-        escritorio.add(as);
-        as.show();
+        escritorio.getDesktopManager().maximizeFrame(asignarEstado);
+        asignarEstado.show();
     }//GEN-LAST:event_MenuAsignarEstadoDptoActionPerformed
 
     private void MenuIngresoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuIngresoVisitasActionPerformed
-        // Abrir registro de visitas
-        RegistroVisita rv = new RegistroVisita();
-        escritorio.add(rv);
         // Maximizar JInternalFrame
-        escritorio.getDesktopManager().maximizeFrame(rv);
-        rv.show();   
+        escritorio.getDesktopManager().maximizeFrame(registroVisita);
+        // Mostrar JInternalFrame
+        registroVisita.show();   
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 
     private void MenuReservaSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservaSalaActionPerformed
-        ReservaSala rs=new ReservaSala();
-        escritorio.add(rs);
-        rs.show();    
+        escritorio.getDesktopManager().maximizeFrame(reservaSala);
+        reservaSala.show();    
     }//GEN-LAST:event_MenuReservaSalaActionPerformed
 
     private void MenuSalidaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSalidaVisitaActionPerformed
-        // TODO add your handling code here:
-        RegistroSalida rsa= new RegistroSalida();
-        escritorio.add(rsa);
-        rsa.show();
+        escritorio.getDesktopManager().maximizeFrame(registroSalida);
+        registroSalida.show();
     }//GEN-LAST:event_MenuSalidaVisitaActionPerformed
 
     private void MenuSalirAplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSalirAplicacionActionPerformed
-        // TODO add your handling code here:
          this.dispose();
-         
     }//GEN-LAST:event_MenuSalirAplicacionActionPerformed
 
     private void MenuListarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarEstadoActionPerformed
-        // TODO add your handling code here:
-         ListarEstado listest= new ListarEstado();
-        escritorio.add(listest);
-        listest.show();
+        escritorio.getDesktopManager().maximizeFrame(listarEstado);
+        listarEstado.show();
     }//GEN-LAST:event_MenuListarEstadoActionPerformed
 
     private void MenuListarVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarVisitasActionPerformed
-        // TODO add your handling code here:
-        ListarVisita listvisita= new ListarVisita();
-        escritorio.add(listvisita);
-        listvisita.show();
-        
+        escritorio.getDesktopManager().maximizeFrame(listarVisita);
+        listarVisita.show();
     }//GEN-LAST:event_MenuListarVisitasActionPerformed
 
     private void MenuListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarReservasActionPerformed
-        // TODO add your handling code here:
-        ListarReserva listres= new ListarReserva();
-        escritorio.add(listres);
-        listres.show();
+        escritorio.getDesktopManager().maximizeFrame(listarReserva);
+        listarReserva.show();
     }//GEN-LAST:event_MenuListarReservasActionPerformed
 
     /**

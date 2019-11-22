@@ -6,6 +6,7 @@
 package views;
 
 import java.util.Calendar;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -18,6 +19,10 @@ public class ReservaEliminar extends javax.swing.JInternalFrame {
      */
     public ReservaEliminar() {
         initComponents();
+        // Bloquear redimension
+        this.setResizable(false);
+        // Boton cerrar y ocultar JInternalFrame
+        this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
