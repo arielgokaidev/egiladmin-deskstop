@@ -44,31 +44,26 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSeleccionarResidente.setEnabled(false);
         //Check apagado uso estacionamiento
         cbSeleccionarEstacionamiento.setEnabled(false);
-        //Carga de combobox en duro hasta que se conecte con la base de datos
-        //DEPARTAMENTO
+        
+        // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
+<<<<<<< HEAD
             cbSelecionarDpto.addItem("");
+=======
+            cbSeleccionarDpto.addItem("Seleccione un departamento");
+>>>>>>> a473e62889686a4e53b879294110d57760badf00
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumero();
                 System.out.println("Número: " + numeroDepartamento);
-                cbSelecionarDpto.addItem(numeroDepartamento);
+                cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
         
-        /*
-        cbSelecionarDpto.addItem("");
-        cbSelecionarDpto.addItem("101");
-        cbSelecionarDpto.addItem("201");
-        cbSelecionarDpto.addItem("301");
-        cbSelecionarDpto.addItem("401");
-        cbSelecionarDpto.addItem("501");
-        cbSelecionarDpto.addItem("601");
-        */
-         //ESTACIONAMIENTO
+        // ESTACIONAMIENTOS
         try {   
             estacionamientoDao = new EstacionamientoDao();
             cbSeleccionarEstacionamiento.addItem("Seleccione un número");
@@ -81,16 +76,8 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        /*
-        cbSeleccionarEstacionamiento.addItem("");
-        cbSeleccionarEstacionamiento.addItem("1");
-        cbSeleccionarEstacionamiento.addItem("2");
-        cbSeleccionarEstacionamiento.addItem("3");
-        cbSeleccionarEstacionamiento.addItem("4");
-        cbSeleccionarEstacionamiento.addItem("5");
-        cbSeleccionarEstacionamiento.addItem("6");
-        */
-         //RESIDENTE
+
+        // RESIDENTES
         try {   
             residenteDao = new ResidenteDao();
             cbSeleccionarResidente.addItem("Seleccione un residente");
@@ -103,12 +90,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        /*
-        cbSeleccionarResidente.addItem("");
-        cbSeleccionarResidente.addItem("JUANITO");
-        cbSeleccionarResidente.addItem("LUCHITO");
-        cbSeleccionarResidente.addItem("PEPITO");
-        */
         
     }
 
@@ -121,7 +102,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbSelecionarDpto = new javax.swing.JComboBox<>();
+        cbSeleccionarDpto = new javax.swing.JComboBox<>();
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
         btnGuardarVisita = new javax.swing.JButton();
         chSeleccionarEstacionamientoVisita = new javax.swing.JCheckBox();
@@ -146,9 +127,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("REGISTRAR VISITAS");
 
-        cbSelecionarDpto.addActionListener(new java.awt.event.ActionListener() {
+        cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSelecionarDptoActionPerformed(evt);
+                cbSeleccionarDptoActionPerformed(evt);
             }
         });
 
@@ -251,7 +232,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbSelecionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbSeleccionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jLabel7))
                             .addGap(153, 153, 153)
                             .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -291,7 +272,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSelecionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbSeleccionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -326,10 +307,10 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbSelecionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSelecionarDptoActionPerformed
+    private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_cbSelecionarDptoActionPerformed
+    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
     private void cbSeleccionarEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstacionamientoActionPerformed
         // TODO add your handling code here:
@@ -370,7 +351,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         rut = txtRut.getText();
         nombre = txtNombre.getText();
         apellido = txtApellido.getText();
-        String selectdpto = (String)cbSelecionarDpto.getSelectedItem();
+        String selectdpto = (String)cbSeleccionarDpto.getSelectedItem();
         String selectest = (String)cbSeleccionarEstacionamiento.getSelectedItem();
         // Valida vacios
        // if(rut.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || selectdpto.isEmpty()|| selectest.isEmpty()){
@@ -426,9 +407,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnGuardarVisita;
+    private javax.swing.JComboBox<String> cbSeleccionarDpto;
     private javax.swing.JComboBox<String> cbSeleccionarEstacionamiento;
     private javax.swing.JComboBox<String> cbSeleccionarResidente;
-    private javax.swing.JComboBox<String> cbSelecionarDpto;
     private javax.swing.JCheckBox chAutorizacionResidente;
     private javax.swing.JCheckBox chSeleccionarEstacionamientoVisita;
     private javax.swing.JLabel jLabel1;

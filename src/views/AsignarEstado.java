@@ -1,29 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
+import dao.DepartamentoDao;
+import dao.ResidenteDao;
+import dao.RestriccionDao;
+import dao.TipoEstadoDao;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import models.Departamento;
+import models.Residente;
+import models.Restriccion;
+import models.TipoEstado;
 
-/**
- *
- * @author informatica_prac
- */
 public class AsignarEstado extends javax.swing.JInternalFrame {
+    
+    private DepartamentoDao departamentoDao;
+    private TipoEstadoDao tipoEstadoDao;
+    private ResidenteDao residenteDao;
+    private RestriccionDao restriccionDao;
 
-    /**
-     * Creates new form Reserva_Sala
-     */
     public AsignarEstado() {
         initComponents();
         // Bloquear redimension
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+        // Variables para cargar combobox desde List
+        String numeroDepartamento = "";
+        String nombreEstado = "";
+        String nombreResidente = "";
+        String nombreRestriccion = "";
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
@@ -34,6 +41,62 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         //fecha y hora sistema
        // JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
+        
+        //DEPARTAMENTOS
+        try {
+            departamentoDao = new DepartamentoDao();
+            cbSeleccionarDepto.addItem("Seleccione un departamento");
+            List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
+            for (int i = 0; i < departamentos.size(); i++) {
+                numeroDepartamento = departamentos.get(i).getNumero();
+                System.out.println("Número: " + numeroDepartamento);
+                cbSeleccionarDepto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        // ESTADOS
+        try {
+            tipoEstadoDao = new TipoEstadoDao();
+            cbSeleccionarEstadoDpto.addItem("Seleccione tipo estado");
+            List<TipoEstado> estados = tipoEstadoDao.listadoTipoEstados();
+            for (int i = 0; i < estados.size(); i++) {
+                nombreEstado = estados.get(i).getNombreEstado();
+                System.out.println("Nombre estado: " + nombreEstado);
+                cbSeleccionarEstadoDpto.addItem(nombreEstado);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        // RESIDENTE
+        try {   
+            residenteDao = new ResidenteDao();
+            cbSeleccionarResidente.addItem("Seleccione un residente");
+            List<Residente> residentes = residenteDao.listadoResidentes();
+            for (int i = 0; i < residentes.size(); i++) {
+                nombreResidente = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                System.out.println("Nombre: " + nombreResidente);
+                cbSeleccionarResidente.addItem(nombreResidente);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        // RESTRICCION
+        try {   
+            restriccionDao = new RestriccionDao();
+            cbSeleccionarTipoRestriccion.addItem("Seleccione tipo restricción");
+            List<Restriccion> restricciones = restriccionDao.listadoRestricciones();
+            for (int i = 0; i < restricciones.size(); i++) {
+                nombreRestriccion = restricciones.get(i).getMombreRestriccion();
+                System.out.println("Nombre restricción: " + nombreRestriccion);
+                cbSeleccionarTipoRestriccion.addItem(nombreRestriccion);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
     /**
@@ -49,7 +112,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         chRestriccionEstacionamientoVisita = new javax.swing.JCheckBox();
         chRestriccionSalaEvento = new javax.swing.JCheckBox();
-        cbSeleccionarNombreResidente = new javax.swing.JComboBox<>();
+        cbSeleccionarResidente = new javax.swing.JComboBox<>();
         btnCerrar = new javax.swing.JButton();
         LbFechaHora = new javax.swing.JLabel();
         cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
@@ -63,7 +126,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("ASIGNAR ESTADO DEPARTAMENTOS");
 
-        cbSeleccionarDepto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Departamento", "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
         cbSeleccionarDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarDeptoActionPerformed(evt);
@@ -81,10 +143,9 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
 
         chRestriccionSalaEvento.setText("RESTRICCIÓN USO SALA EVENTOS");
 
-        cbSeleccionarNombreResidente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Nombre Residente", "1", "2", "3", "4", "5" }));
-        cbSeleccionarNombreResidente.addActionListener(new java.awt.event.ActionListener() {
+        cbSeleccionarResidente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarNombreResidenteActionPerformed(evt);
+                cbSeleccionarResidenteActionPerformed(evt);
             }
         });
 
@@ -110,14 +171,12 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
             }
         });
 
-        cbSeleccionarEstadoDpto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estado", "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
         cbSeleccionarEstadoDpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarEstadoDptoActionPerformed(evt);
             }
         });
 
-        cbSeleccionarTipoRestriccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Tipo Restricción", "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
         cbSeleccionarTipoRestriccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarTipoRestriccionActionPerformed(evt);
@@ -154,7 +213,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
                         .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbSeleccionarNombreResidente, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbSeleccionarDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +242,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
                     .addComponent(cbSeleccionarEstadoDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSeleccionarNombreResidente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chRestriccionSalaEvento)
                     .addComponent(cbSeleccionarTipoRestriccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
@@ -209,9 +268,9 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarDeptoActionPerformed
 
-    private void cbSeleccionarNombreResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarNombreResidenteActionPerformed
+    private void cbSeleccionarResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarResidenteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSeleccionarNombreResidenteActionPerformed
+    }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
 
     private void chRestriccionEstacionamientoVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chRestriccionEstacionamientoVisitaActionPerformed
         // TODO add your handling code here:
@@ -256,7 +315,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cbSeleccionarDepto;
     private javax.swing.JComboBox<String> cbSeleccionarEstadoDpto;
-    private javax.swing.JComboBox<String> cbSeleccionarNombreResidente;
+    private javax.swing.JComboBox<String> cbSeleccionarResidente;
     private javax.swing.JComboBox<String> cbSeleccionarTipoRestriccion;
     private javax.swing.JCheckBox chRestriccionEstacionamientoVisita;
     private javax.swing.JCheckBox chRestriccionSalaEvento;

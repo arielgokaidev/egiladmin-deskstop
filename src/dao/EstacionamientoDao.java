@@ -34,7 +34,7 @@ public class EstacionamientoDao {
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                numero = rs.getInt("idTipoResidente");
+                numero = rs.getInt("numeroest");
                 numeroDepartamento = rs.getString("departamento_numerodpto");
                 mt2 = rs.getInt("totalmts2");
                 Estacionamiento estacionamiento = new Estacionamiento(numero, numeroDepartamento, mt2);

@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
+import dao.DepartamentoDao;
+import dao.ResidenteDao;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JInternalFrame;
+import models.Departamento;
+import models.Residente;
 
-/**
- *
- * @author informatica_prac
- */
 public class ReservaSala extends javax.swing.JInternalFrame {
+    
+    private DepartamentoDao departamentoDao;
+    private ResidenteDao residenteDao;
 
-    /**
-     * Creates new form Reserva_Sala
-     */
     public ReservaSala() {
         initComponents();
         // Bloquear redimension
@@ -27,6 +23,10 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+        
+        String numeroDepartamento = "";
+        String nombre = "";
+        
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
@@ -37,6 +37,34 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         //fecha y hora sistema
        // JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
+        
+        // DEPARTAMENTOS
+        try {
+            departamentoDao = new DepartamentoDao();
+            cbSeleccionarDpto.addItem("Seleccione un departamento");
+            List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
+            for (int i = 0; i < departamentos.size(); i++) {
+                numeroDepartamento = departamentos.get(i).getNumero();
+                System.out.println("Número: " + numeroDepartamento);
+                cbSeleccionarDpto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        // RESIDENTES
+        try {   
+            residenteDao = new ResidenteDao();
+            cbSeleccionarResidente.addItem("Seleccione un residente");
+            List<Residente> residentes = residenteDao.listadoResidentes();
+            for (int i = 0; i < residentes.size(); i++) {
+                nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                System.out.println("Nombre: " + nombre);
+                cbSeleccionarResidente.addItem(nombre);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
     }
 
     /**
@@ -49,8 +77,8 @@ public class ReservaSala extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jCalendar1 = new com.toedter.calendar.JCalendar();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbSeleccionarDpto = new javax.swing.JComboBox<>();
+        cbSeleccionarResidente = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
@@ -64,10 +92,6 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Reserva Sala");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Departamentos", "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Residente", "1", "2", "3", "4", "5", "6", " " }));
 
         jButton1.setText("RESERVAR SALA");
 
@@ -95,8 +119,8 @@ public class ReservaSala extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 238, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbSeleccionarDpto, 0, 238, Short.MAX_VALUE)
+                            .addComponent(cbSeleccionarResidente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(jCheckBox3)
                         .addComponent(jCheckBox2)
                         .addComponent(jCheckBox1))
@@ -120,9 +144,9 @@ public class ReservaSala extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbSeleccionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(117, 117, 117)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(jCheckBox3)
                         .addGap(18, 18, 18)
@@ -157,13 +181,13 @@ public class ReservaSala extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cbSeleccionarDpto;
+    private javax.swing.JComboBox<String> cbSeleccionarResidente;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
