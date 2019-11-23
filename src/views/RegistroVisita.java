@@ -1,8 +1,14 @@
+/*
+Se debe agregar validacion y carga de datos cuando un rut ya exista en la tabla de visitas
+
+*/
+
 package views;
 
 import dao.DepartamentoDao;
 import dao.EstacionamientoDao;
 import dao.ResidenteDao;
+import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -25,6 +31,11 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+      
+       
+      
+        
+        
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         String nombre = "";
@@ -48,11 +59,11 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
-<<<<<<< HEAD
-            cbSelecionarDpto.addItem("");
-=======
-            cbSeleccionarDpto.addItem("Seleccione un departamento");
->>>>>>> a473e62889686a4e53b879294110d57760badf00
+
+            //cbSelecionarDpto.addItem("");
+
+            cbSeleccionarDpto.addItem("Seleccionar Departamento");
+
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumero();
@@ -66,7 +77,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // ESTACIONAMIENTOS
         try {   
             estacionamientoDao = new EstacionamientoDao();
-            cbSeleccionarEstacionamiento.addItem("Seleccione un número");
+            cbSeleccionarEstacionamiento.addItem("Seleccionar Estacionamiento");
             List<Estacionamiento> estacionamientos = estacionamientoDao.listadoEstacionamientos();
             for (int i = 0; i < estacionamientos.size(); i++) {
                 numero = String.valueOf(estacionamientos.get(i).getNumero());
@@ -80,7 +91,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // RESIDENTES
         try {   
             residenteDao = new ResidenteDao();
-            cbSeleccionarResidente.addItem("Seleccione un residente");
+            cbSeleccionarResidente.addItem("Seleccionar Residente");
             List<Residente> residentes = residenteDao.listadoResidentes();
             for (int i = 0; i < residentes.size(); i++) {
                 nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
@@ -102,207 +113,175 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        txtApellido = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
-        cbSeleccionarResidente = new javax.swing.JComboBox<>();
-        btnGuardarVisita = new javax.swing.JButton();
         chSeleccionarEstacionamientoVisita = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         txtRut = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtApellido = new javax.swing.JTextField();
-        chAutorizacionResidente = new javax.swing.JCheckBox();
-        cbSeleccionarEstacionamiento = new javax.swing.JComboBox<>();
-        btnCerrar = new javax.swing.JButton();
-        LbFechaHora = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cbSeleccionarEstacionamiento = new javax.swing.JComboBox<>();
+        btnGuardarVisita = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        chAutorizacionResidente = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
+        cbSeleccionarResidente = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        LbFechaHora = new javax.swing.JLabel();
+        txtPatente = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("REGISTRAR VISITAS");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(null);
+        jPanel1.add(txtApellido);
+        txtApellido.setBounds(170, 240, 157, 20);
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("INGRESAR PATENTE:");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(570, 140, 102, 14);
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("SELECCIONAR NUMERO DEPARTAMENTO:");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(20, 70, 204, 14);
 
         cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarDptoActionPerformed(evt);
             }
         });
+        jPanel1.add(cbSeleccionarDpto);
+        cbSeleccionarDpto.setBounds(280, 70, 200, 20);
 
-        btnGuardarVisita.setText("GUARDAR INGRESO");
-        btnGuardarVisita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarVisitaActionPerformed(evt);
-            }
-        });
-
+        chSeleccionarEstacionamientoVisita.setBackground(new java.awt.Color(204, 204, 204));
+        chSeleccionarEstacionamientoVisita.setForeground(new java.awt.Color(255, 255, 255));
         chSeleccionarEstacionamientoVisita.setText("USO ESTACIONAMIENTO VISITA");
         chSeleccionarEstacionamientoVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chSeleccionarEstacionamientoVisitaActionPerformed(evt);
             }
         });
+        jPanel1.add(chSeleccionarEstacionamientoVisita);
+        chSeleccionarEstacionamientoVisita.setBounds(570, 80, 183, 23);
 
-        jLabel1.setText("INGRESE NOMBRE");
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("INGRESE NOMBRES:");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(20, 190, 120, 20);
 
         txtRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRutActionPerformed(evt);
             }
         });
+        jPanel1.add(txtRut);
+        txtRut.setBounds(170, 140, 157, 20);
 
-        jLabel2.setText("INGRESE RUT");
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("INGRESE RUT:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(20, 140, 101, 20);
+        jPanel1.add(txtNombre);
+        txtNombre.setBounds(170, 190, 157, 20);
 
-        jLabel3.setText("INGRESAR APELLIDO");
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("INGRESAR APELLIDOS:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(20, 240, 130, 20);
 
-        chAutorizacionResidente.setText("Residente Autoriza el Ingreso de la visita");
-        chAutorizacionResidente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chAutorizacionResidenteActionPerformed(evt);
-            }
-        });
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("SELECCIONAR ESTACIONMIENTO VISITA");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(570, 190, 199, 14);
 
         cbSeleccionarEstacionamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarEstacionamientoActionPerformed(evt);
             }
         });
+        jPanel1.add(cbSeleccionarEstacionamiento);
+        cbSeleccionarEstacionamiento.setBounds(570, 210, 197, 20);
 
+        btnGuardarVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnGuardarVisita.setText("GUARDAR INGRESO");
+        btnGuardarVisita.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardarVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarVisitaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardarVisita);
+        btnGuardarVisita.setBounds(550, 450, 158, 55);
+
+        btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCerrar.setText("CERRAR");
+        btnCerrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
             }
         });
+        jPanel1.add(btnCerrar);
+        btnCerrar.setBounds(250, 450, 158, 55);
 
-        LbFechaHora.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                LbFechaHoraAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        LbFechaHora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LbFechaHoraMouseClicked(evt);
+        chAutorizacionResidente.setForeground(new java.awt.Color(255, 255, 255));
+        chAutorizacionResidente.setText("INGRESO AUTORIZADO POR RESIDENTE:");
+        chAutorizacionResidente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chAutorizacionResidenteActionPerformed(evt);
             }
         });
+        jPanel1.add(chAutorizacionResidente);
+        chAutorizacionResidente.setBounds(20, 310, 227, 23);
 
-        jLabel4.setText("INGRESE RUT SIN PUNTOS NI GUION");
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("SELECCIONAR RESIDENTE:");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(20, 360, 132, 14);
 
-        jLabel5.setText("SELECCIONAR NUMERO DEPARTAMENTO");
+        jPanel1.add(cbSeleccionarResidente);
+        cbSeleccionarResidente.setBounds(200, 360, 238, 20);
 
-        jLabel6.setText("SELECCIONAR ESTACIONMIENTO VISITA");
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setText("SELECCIONAR RESIDENTE");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("INGRESO DE VISITAS");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbSeleccionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel7))
-                            .addGap(153, 153, 153)
-                            .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chSeleccionarEstacionamientoVisita)
-                            .addComponent(jLabel4))
-                        .addContainerGap(27, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(cbSeleccionarEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(34, 34, 34)
-                    .addComponent(chAutorizacionResidente)
-                    .addContainerGap(584, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSeleccionarDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(chSeleccionarEstacionamientoVisita))
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbSeleccionarEstacionamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(82, 82, 82))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(248, Short.MAX_VALUE)
-                    .addComponent(chAutorizacionResidente)
-                    .addGap(199, 199, 199)))
-        );
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("FECHA Y HORA:");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
+
+        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(0, 0, 890, 50);
+        jPanel1.add(txtPatente);
+        txtPatente.setBounds(730, 140, 100, 20);
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("INGRESE RUT SIN PUNTOS NI GUION");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(350, 140, 179, 14);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 890, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -326,15 +305,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_chSeleccionarEstacionamientoVisitaActionPerformed
-
-    private void LbFechaHoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LbFechaHoraMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LbFechaHoraMouseClicked
-
-    private void LbFechaHoraAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_LbFechaHoraAncestorAdded
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_LbFechaHoraAncestorAdded
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
@@ -413,14 +383,20 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     private javax.swing.JCheckBox chAutorizacionResidente;
     private javax.swing.JCheckBox chSeleccionarEstacionamientoVisita;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPatente;
     private javax.swing.JTextField txtRut;
     // End of variables declaration//GEN-END:variables
 }
