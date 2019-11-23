@@ -28,7 +28,7 @@ public class VisitaDao {
         db = new Db();
     }
     
-    public List<Visita> listadoRegistroVisitas() throws SQLException {
+    public List<Visita> listadoRegistroVisitas() {
         List<Visita> listadoRegistroVisitas = new ArrayList<Visita>();
         String sql = "SELECT * FROM registrovisita;";
         System.out.println(sql);

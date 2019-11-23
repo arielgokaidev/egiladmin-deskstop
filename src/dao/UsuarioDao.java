@@ -7,23 +7,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import models.Restriccion;
+import models.Usuario;
 
-public class RestriccionDao {
+public class UsuarioDao {
     
     private Db db;
     private Connection conexion;
     
-    private int id;
-    private String nombreRestriccion;
-
-    public RestriccionDao() {
+    private String user;
+    private String password;
+    
+    public UsuarioDao() {
         db = new Db();
     }
     
-    public List<Restriccion> listadoRestricciones() {
-        List<Restriccion> listadoRestricciones = new ArrayList<Restriccion>();
-        String sql = "SELECT * FROM restriccion;";
+    public List<Usuario> loginUsuario(String usuario) {
+        List<Usuario> credenciales = new ArrayList<Usuario>();
+        String sql = "SELECT nombreusuario, contrasena FROM conexion WHERE nombreusuario = '" + usuario + "';";
         System.out.println(sql);
         
         try {
@@ -33,17 +33,16 @@ public class RestriccionDao {
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                id = rs.getInt("idrestriccion");
-                nombreRestriccion = rs.getString("restriccion");
-                Restriccion restriccion = new Restriccion(id, nombreRestriccion);
-                listadoRestricciones.add(restriccion);
+                user = rs.getString("nombreusuario");
+                password = rs.getString("contrasena");
+                Usuario login = new Usuario(user, password);
+                credenciales.add(login);
             }
             db.desconectar();
-            
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 
-        return listadoRestricciones;
+        return credenciales;
     }
     
 }

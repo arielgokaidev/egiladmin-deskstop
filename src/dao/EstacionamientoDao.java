@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import models.Estacionamiento;
-import models.Residente;
 
 public class EstacionamientoDao {
     

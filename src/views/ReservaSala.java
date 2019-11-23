@@ -19,10 +19,6 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
-        // Bloquear redimension
-        this.setResizable(false);
-        // Boton cerrar y ocultar JInternalFrame
-        this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         
         String numeroDepartamento = "";
         String nombre = "";
