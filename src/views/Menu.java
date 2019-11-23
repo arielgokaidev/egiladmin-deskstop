@@ -19,6 +19,7 @@ public class Menu extends javax.swing.JFrame {
     ListarEstado listarEstado;
     ReservaSala reservaSala;
     ListarReserva listarReserva;
+    RegistroVisitaTESTING registroVisitaTest;
     
     public Menu() {
         //TITULO
@@ -39,7 +40,7 @@ public class Menu extends javax.swing.JFrame {
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
         listarReserva = new ListarReserva();
-                
+        registroVisitaTest = new RegistroVisitaTESTING();        
         // Agregar JInternalFrame a JDesktopPane
         escritorio.add(registroVisita);
         escritorio.add(registroSalida);
@@ -48,7 +49,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(listarEstado);
         escritorio.add(reservaSala);
         escritorio.add(listarReserva);
-        
+        escritorio.add(registroVisitaTest);
         Calendar cal=Calendar.getInstance();
         
         String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
@@ -88,6 +89,7 @@ public class Menu extends javax.swing.JFrame {
         MenuListarReservas = new javax.swing.JMenuItem();
         MenuSalir = new javax.swing.JMenu();
         MenuSalirAplicacion = new javax.swing.JMenuItem();
+        menutest = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -192,6 +194,14 @@ public class Menu extends javax.swing.JFrame {
         });
         MenuSalir.add(MenuSalirAplicacion);
 
+        menutest.setText("jMenuItem1");
+        menutest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menutestActionPerformed(evt);
+            }
+        });
+        MenuSalir.add(menutest);
+
         jMenuBar1.add(MenuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -219,9 +229,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void MenuIngresoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuIngresoVisitasActionPerformed
         // Maximizar JInternalFrame
-        escritorio.getDesktopManager().maximizeFrame(registroVisita);
+       // escritorio.getDesktopManager().maximizeFrame(registroVisita);
         // Mostrar JInternalFrame
         registroVisita.show();   
+       
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 
     private void MenuReservaSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservaSalaActionPerformed
@@ -252,6 +263,13 @@ public class Menu extends javax.swing.JFrame {
         escritorio.getDesktopManager().maximizeFrame(listarReserva);
         listarReserva.show();
     }//GEN-LAST:event_MenuListarReservasActionPerformed
+
+    private void menutestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutestActionPerformed
+        // TODO add your handling code here:
+         escritorio.getDesktopManager().maximizeFrame(registroVisitaTest);
+        registroVisitaTest.show();
+        
+    }//GEN-LAST:event_menutestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,5 +325,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem menutest;
     // End of variables declaration//GEN-END:variables
 }
