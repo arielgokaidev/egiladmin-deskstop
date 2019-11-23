@@ -37,7 +37,7 @@ public class ResidenteDao {
 
             while (rs.next()) {
                 rut = rs.getString("rut");
-                idTipoResidente = rs.getInt("idTipoResidente");
+                idTipoResidente = rs.getInt("tiporesidente_idtiporesidente");
                 nombres = rs.getString("nombres");
                 apellidos = rs.getString("apellidos");
                 correo = rs.getString("correo");

@@ -3,13 +3,13 @@ package models;
 public class Restriccion {
     
     private int id;
-    private String restriccion;
+    private String nombreRestriccion;
     
     public Restriccion() {}
 
-    public Restriccion(int id, String restriccion) {
+    public Restriccion(int id, String nombreRestriccion) {
         this.id = id;
-        this.restriccion = restriccion;
+        this.nombreRestriccion = nombreRestriccion;
     }
 
     public int getId() {
@@ -20,11 +20,11 @@ public class Restriccion {
         this.id = id;
     }
 
-    public String getRestriccion() {
-        return restriccion;
+    public String getMombreRestriccion() {
+        return nombreRestriccion;
     }
 
-    public void setRestriccion(String restriccion) {
-        this.restriccion = restriccion;
+    public void setNombreRestriccion(String nombreRestriccion) {
+        this.nombreRestriccion = nombreRestriccion;
     }
 }
