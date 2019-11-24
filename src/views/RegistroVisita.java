@@ -107,16 +107,8 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtApellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        cbSeleccionarDpto = new javax.swing.JComboBox<>();
         chSeleccionarEstacionamientoVisita = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        txtRut = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cbSeleccionarEstacionamiento = new javax.swing.JComboBox<>();
         btnGuardarVisita = new javax.swing.JButton();
@@ -129,7 +121,14 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         LbFechaHora = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        cbSeleccionarDpto = new javax.swing.JComboBox<>();
+        txtRut = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -139,29 +138,13 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
-        jPanel1.setLayout(null);
-        jPanel1.add(txtApellido);
-        txtApellido.setBounds(170, 240, 157, 20);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("INGRESAR PATENTE:");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(570, 140, 102, 14);
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 120, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("SELECCIONAR NUMERO DEPARTAMENTO:");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(20, 70, 204, 14);
-
-        cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarDptoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cbSeleccionarDpto);
-        cbSeleccionarDpto.setBounds(280, 70, 200, 20);
-
-        chSeleccionarEstacionamientoVisita.setBackground(new java.awt.Color(204, 204, 204));
+        chSeleccionarEstacionamientoVisita.setBackground(new java.awt.Color(0, 51, 102));
         chSeleccionarEstacionamientoVisita.setForeground(new java.awt.Color(255, 255, 255));
         chSeleccionarEstacionamientoVisita.setText("USO ESTACIONAMIENTO VISITA");
         chSeleccionarEstacionamientoVisita.addActionListener(new java.awt.event.ActionListener() {
@@ -169,46 +152,18 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 chSeleccionarEstacionamientoVisitaActionPerformed(evt);
             }
         });
-        jPanel1.add(chSeleccionarEstacionamientoVisita);
-        chSeleccionarEstacionamientoVisita.setBounds(570, 80, 183, 23);
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("INGRESE NOMBRES:");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 190, 120, 20);
-
-        txtRut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRutActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtRut);
-        txtRut.setBounds(170, 140, 157, 20);
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("INGRESE RUT:");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(20, 140, 101, 20);
-        jPanel1.add(txtNombre);
-        txtNombre.setBounds(170, 190, 157, 20);
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("INGRESAR APELLIDOS:");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 240, 130, 20);
+        jPanel1.add(chSeleccionarEstacionamientoVisita, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, -1, -1));
 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("SELECCIONAR ESTACIONMIENTO VISITA");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(570, 190, 199, 14);
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, -1, -1));
 
         cbSeleccionarEstacionamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarEstacionamientoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarEstacionamiento);
-        cbSeleccionarEstacionamiento.setBounds(570, 210, 197, 20);
+        jPanel1.add(cbSeleccionarEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, 197, -1));
 
         btnGuardarVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnGuardarVisita.setText("GUARDAR INGRESO");
@@ -218,8 +173,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 btnGuardarVisitaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardarVisita);
-        btnGuardarVisita.setBounds(550, 450, 158, 55);
+        jPanel1.add(btnGuardarVisita, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 350, 158, 55));
 
         btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCerrar.setText("CERRAR");
@@ -229,9 +183,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 btnCerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCerrar);
-        btnCerrar.setBounds(250, 450, 158, 55);
+        jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 158, 55));
 
+        chAutorizacionResidente.setBackground(new java.awt.Color(0, 51, 102));
         chAutorizacionResidente.setForeground(new java.awt.Color(255, 255, 255));
         chAutorizacionResidente.setText("INGRESO AUTORIZADO POR RESIDENTE:");
         chAutorizacionResidente.addActionListener(new java.awt.event.ActionListener() {
@@ -239,16 +193,13 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 chAutorizacionResidenteActionPerformed(evt);
             }
         });
-        jPanel1.add(chAutorizacionResidente);
-        chAutorizacionResidente.setBounds(20, 310, 227, 23);
+        jPanel1.add(chAutorizacionResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("SELECCIONAR RESIDENTE:");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(20, 360, 132, 14);
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
-        jPanel1.add(cbSeleccionarResidente);
-        cbSeleccionarResidente.setBounds(200, 360, 238, 20);
+        jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 238, -1));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -264,25 +215,55 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
 
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(0, 0, 890, 50);
-        jPanel1.add(txtPatente);
-        txtPatente.setBounds(730, 140, 100, 20);
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
 
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("INGRESE RUT SIN PUNTOS NI GUION");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(350, 140, 179, 14);
+        txtPatente.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(txtPatente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 120, 140, -1));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("SELECCIONAR NUMERO DEPARTAMENTO:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSeleccionarDptoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 250, -1));
+
+        txtRut.setBackground(new java.awt.Color(204, 204, 204));
+        txtRut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtRut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRutActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 157, -1));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("INGRESE RUT:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 101, 20));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("INGRESE NOMBRES:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 120, 20));
+
+        txtNombre.setBackground(new java.awt.Color(204, 204, 204));
+        txtNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 157, -1));
+
+        txtApellido.setBackground(new java.awt.Color(204, 204, 204));
+        txtApellido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 157, -1));
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("INGRESAR APELLIDOS:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 130, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 890, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
     private void cbSeleccionarEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstacionamientoActionPerformed
         // TODO add your handling code here:
@@ -303,10 +284,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnCerrarActionPerformed
-
-    private void txtRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRutActionPerformed
 
     private void btnGuardarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVisitaActionPerformed
         // TODO add your handling code here:
@@ -341,6 +318,15 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_chAutorizacionResidenteActionPerformed
+
+    private void txtRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRutActionPerformed
+
+    private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
     public static boolean validarRut(String rut) {
         boolean validacion = false;
         try {
@@ -384,7 +370,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtApellido;
