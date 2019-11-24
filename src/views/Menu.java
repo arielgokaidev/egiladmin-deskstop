@@ -244,7 +244,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void MenuAsignarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAsignarEstadoDptoActionPerformed
         // Abrir informe de Visitas
-        escritorio.getDesktopManager().maximizeFrame(asignarEstado);
+       // escritorio.getDesktopManager().maximizeFrame(asignarEstado);
         asignarEstado.show();
     }//GEN-LAST:event_MenuAsignarEstadoDptoActionPerformed
 
@@ -254,12 +254,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 
     private void MenuReservaSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservaSalaActionPerformed
-        escritorio.getDesktopManager().maximizeFrame(reservaSala);
+       // escritorio.getDesktopManager().maximizeFrame(reservaSala);
         reservaSala.show();    
     }//GEN-LAST:event_MenuReservaSalaActionPerformed
 
     private void MenuSalidaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSalidaVisitaActionPerformed
-        escritorio.getDesktopManager().maximizeFrame(registroSalida);
+      //  escritorio.getDesktopManager().maximizeFrame(registroSalida);
         registroSalida.show();
     }//GEN-LAST:event_MenuSalidaVisitaActionPerformed
 
@@ -273,18 +273,18 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuListarEstadoActionPerformed
 
     private void MenuListarVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarVisitasActionPerformed
-        escritorio.getDesktopManager().maximizeFrame(listarVisita);
+       // escritorio.getDesktopManager().maximizeFrame(listarVisita);
         listarVisita.show();
     }//GEN-LAST:event_MenuListarVisitasActionPerformed
 
     private void MenuListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarReservasActionPerformed
-        escritorio.getDesktopManager().maximizeFrame(listarReserva);
+      // escritorio.getDesktopManager().maximizeFrame(listarReserva);
         listarReserva.show();
     }//GEN-LAST:event_MenuListarReservasActionPerformed
 
     private void menutestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutestActionPerformed
         // TODO add your handling code here:
-         escritorio.getDesktopManager().maximizeFrame(registroVisitaTest);
+        // escritorio.getDesktopManager().maximizeFrame(registroVisitaTest);
         registroVisitaTest.show();
         
     }//GEN-LAST:event_menutestActionPerformed

@@ -51,6 +51,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSeleccionarResidente.setEnabled(false);
         //Check apagado uso estacionamiento
         cbSeleccionarEstacionamiento.setEnabled(false);
+        txtPatente.setEnabled(false);
         
         // DEPARTAMENTOS
         try {
@@ -206,7 +207,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("INGRESO DE VISITAS");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, -1));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("FECHA Y HORA:");
@@ -274,8 +275,10 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
          if(chSeleccionarEstacionamientoVisita.isSelected()){
             cbSeleccionarEstacionamiento.setEnabled(true);
+            txtPatente.setEnabled(true);
         }else{
             cbSeleccionarEstacionamiento.setEnabled(false);
+            txtPatente.setEnabled(false);
         }
         
     }//GEN-LAST:event_chSeleccionarEstacionamientoVisitaActionPerformed

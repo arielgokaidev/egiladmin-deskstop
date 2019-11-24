@@ -52,12 +52,16 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbSeleccionarRut = new javax.swing.JComboBox<>();
-        btnGuardarSalida = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         chSalidaRut = new javax.swing.JCheckBox();
+        cbSeleccionarRut = new javax.swing.JComboBox<>();
         chSalidaVehiculo = new javax.swing.JCheckBox();
         cbSeleccionarPatente = new javax.swing.JComboBox<>();
         btnCerrar = new javax.swing.JButton();
+        btnGuardarSalida = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         LbFechaHora = new javax.swing.JLabel();
 
         setClosable(true);
@@ -66,33 +70,36 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("REGISTRAR SALIDA");
 
+        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        chSalidaRut.setBackground(new java.awt.Color(0, 51, 102));
+        chSalidaRut.setForeground(new java.awt.Color(255, 255, 255));
+        chSalidaRut.setText("SALIDA POR RUT:");
+        chSalidaRut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chSalidaRutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(chSalidaRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
         cbSeleccionarRut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Rut", "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
         cbSeleccionarRut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarRutActionPerformed(evt);
             }
         });
+        jPanel2.add(cbSeleccionarRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 238, -1));
 
-        btnGuardarSalida.setText("GUARDAR SALIDA");
-        btnGuardarSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarSalidaActionPerformed(evt);
-            }
-        });
-
-        chSalidaRut.setText("Salida Rut");
-        chSalidaRut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chSalidaRutActionPerformed(evt);
-            }
-        });
-
-        chSalidaVehiculo.setText("Salida vehiculo");
+        chSalidaVehiculo.setBackground(new java.awt.Color(0, 51, 102));
+        chSalidaVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        chSalidaVehiculo.setText("SALIDA DE VEHICULO: ");
         chSalidaVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chSalidaVehiculoActionPerformed(evt);
             }
         });
+        jPanel2.add(chSalidaVehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         cbSeleccionarPatente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Patente", "1", "2", "3", "4", "5" }));
         cbSeleccionarPatente.addActionListener(new java.awt.event.ActionListener() {
@@ -100,71 +107,53 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
                 cbSeleccionarPatenteActionPerformed(evt);
             }
         });
+        jPanel2.add(cbSeleccionarPatente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 238, -1));
 
+        btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCerrar.setText("CERRAR");
+        btnCerrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
             }
         });
+        jPanel2.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 158, 55));
 
-        LbFechaHora.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                LbFechaHoraAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        LbFechaHora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LbFechaHoraMouseClicked(evt);
+        btnGuardarSalida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnGuardarSalida.setText("GUARDAR SALIDA");
+        btnGuardarSalida.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarSalidaActionPerformed(evt);
             }
         });
+        jPanel2.add(btnGuardarSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 158, 55));
+
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("SALIDA DE VISITAS Y VEHICULOS");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("FECHA Y HORA:");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, -1, -1));
+
+        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 240, 22));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(92, 92, 92)
-                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(btnGuardarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chSalidaRut)
-                            .addComponent(chSalidaVehiculo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbSeleccionarRut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbSeleccionarPatente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(249, 249, 249))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSeleccionarRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chSalidaRut))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSeleccionarPatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chSalidaVehiculo))
-                .addGap(125, 125, 125)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGuardarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
         );
 
         pack();
@@ -186,15 +175,6 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             cbSeleccionarRut.setEnabled(false);
         }
     }//GEN-LAST:event_chSalidaRutActionPerformed
-
-    private void LbFechaHoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LbFechaHoraMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LbFechaHoraMouseClicked
-
-    private void LbFechaHoraAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_LbFechaHoraAncestorAdded
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_LbFechaHoraAncestorAdded
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
@@ -237,5 +217,9 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbSeleccionarRut;
     private javax.swing.JCheckBox chSalidaRut;
     private javax.swing.JCheckBox chSalidaVehiculo;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
