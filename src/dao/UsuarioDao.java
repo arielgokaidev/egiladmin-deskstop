@@ -16,6 +16,10 @@ public class UsuarioDao {
     
     private String user;
     private String password;
+    private String nombres;
+    private String apellidos;
+    private int idTipoUsuario;
+    private String tipoUsuario;
     
     public UsuarioDao() {
         db = new Db();
@@ -23,7 +27,12 @@ public class UsuarioDao {
     
     public List<Usuario> loginUsuario(String usuario) {
         List<Usuario> credenciales = new ArrayList<Usuario>();
-        String sql = "SELECT nombreusuario, contrasena FROM conexion WHERE nombreusuario = '" + usuario + "';";
+        String sql = "SELECT nombreusuario as usuario, contrasena, nombres, apellidos, idtipousuario, tipo " +
+            "FROM conexion " +
+            "INNER JOIN usuariointerno ON usuariointerno.rut = conexion.usuariointerno_rut " +
+            "INNER JOIN tipousuario ON tipousuario.idtipousuario = usuariointerno.tipousuario_idtipousuario " +
+            "WHERE nombreusuario = '" + usuario + "';";
+        //String sql = "SELECT nombreusuario, contrasena FROM conexion WHERE nombreusuario = '" + usuario + "';";
         System.out.println(sql);
         
         try {
@@ -33,9 +42,13 @@ public class UsuarioDao {
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                user = rs.getString("nombreusuario");
+                user = rs.getString("usuario");
                 password = rs.getString("contrasena");
-                Usuario login = new Usuario(user, password);
+                nombres = rs.getString("nombres");
+                apellidos = rs.getString("apellidos");
+                idTipoUsuario = rs.getInt("idtipousuario");
+                tipoUsuario = rs.getString("tipo");
+                Usuario login = new Usuario(user, password, nombres, apellidos, idTipoUsuario, tipoUsuario);
                 credenciales.add(login);
             }
             db.desconectar();

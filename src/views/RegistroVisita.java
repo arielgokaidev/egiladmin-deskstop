@@ -8,7 +8,6 @@ package views;
 import dao.DepartamentoDao;
 import dao.EstacionamientoDao;
 import dao.ResidenteDao;
-import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -31,15 +30,12 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
-      
-       
-      
-        
-        
+ 
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         String nombre = "";
         String numero = "";
+        
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
@@ -59,11 +55,8 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
-
             //cbSelecionarDpto.addItem("");
-
             cbSeleccionarDpto.addItem("Seleccionar Departamento");
-
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumero();

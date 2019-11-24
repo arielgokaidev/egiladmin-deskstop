@@ -1,4 +1,5 @@
 package views;
+
 import java.util.Calendar;
 import javax.swing.JFrame;
 //import java.util.Calendar;
@@ -40,7 +41,8 @@ public class Menu extends javax.swing.JFrame {
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
         listarReserva = new ListarReserva();
-        registroVisitaTest = new RegistroVisitaTESTING();        
+        registroVisitaTest = new RegistroVisitaTESTING();
+        
         // Agregar JInternalFrame a JDesktopPane
         escritorio.add(registroVisita);
         escritorio.add(registroSalida);
@@ -50,6 +52,8 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(reservaSala);
         escritorio.add(listarReserva);
         escritorio.add(registroVisitaTest);
+        
+        
         Calendar cal=Calendar.getInstance();
         
         String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
@@ -58,9 +62,6 @@ public class Menu extends javax.swing.JFrame {
        
         //fecha y hora sistema
         //JOptionPane.showMessageDialog(null, fechahora);
-        
-        RegistroVisita rv = new RegistroVisita();
-        escritorio.add(rv);
    
     }
 
@@ -228,11 +229,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuAsignarEstadoDptoActionPerformed
 
     private void MenuIngresoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuIngresoVisitasActionPerformed
-        // Maximizar JInternalFrame
-       // escritorio.getDesktopManager().maximizeFrame(registroVisita);
         // Mostrar JInternalFrame
-        registroVisita.show();   
-       
+        registroVisita.show();      
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 
     private void MenuReservaSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservaSalaActionPerformed
@@ -282,7 +280,7 @@ public class Menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
