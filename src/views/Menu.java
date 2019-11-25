@@ -108,17 +108,7 @@ public class Menu extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(0, 0));
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 153));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
-        );
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         escritorio.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -135,10 +125,13 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
         jMenuBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
+        MenuListarVisita.setBackground(new java.awt.Color(255, 255, 204));
         MenuListarVisita.setText("REGISTRO VISITAS");
+        MenuListarVisita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        MenuIngresoVisitas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuIngresoVisitas.setText("INGRESO VISITA");
         MenuIngresoVisitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +140,7 @@ public class Menu extends javax.swing.JFrame {
         });
         MenuListarVisita.add(MenuIngresoVisitas);
 
+        MenuSalidaVisita.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuSalidaVisita.setText("SALIDA VISITA");
         MenuSalidaVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +149,7 @@ public class Menu extends javax.swing.JFrame {
         });
         MenuListarVisita.add(MenuSalidaVisita);
 
+        MenuListarVisitas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuListarVisitas.setText("LISTAR VISITAS");
         MenuListarVisitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +161,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(MenuListarVisita);
 
         jMenu4.setText("ESTADOS DEPARTAMENTOS");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        MenuAsignarEstadoDpto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuAsignarEstadoDpto.setText("ASIGNAR ESTADO DEPARTAMENTO");
         MenuAsignarEstadoDpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,6 +172,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu4.add(MenuAsignarEstadoDpto);
 
+        MenuListarEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuListarEstado.setText("LISTAR ESTADO DEPARTAMENTOS");
         MenuListarEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +184,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu6.setText("RESERVAS");
+        jMenu6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        MenuReservaSala.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuReservaSala.setText("RESERVA SALA DE EVENTOS");
         MenuReservaSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +195,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu6.add(MenuReservaSala);
 
+        MenuListarReservas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuListarReservas.setText("LISTAR RESERVAS");
         MenuListarReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +207,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu6);
 
         MenuSalir.setText("SALIR");
+        MenuSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        MenuSalirAplicacion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         MenuSalirAplicacion.setText("CERRAR APLICACION");
         MenuSalirAplicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

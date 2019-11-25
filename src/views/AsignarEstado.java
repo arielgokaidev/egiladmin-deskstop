@@ -42,6 +42,10 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
        // JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
         
+        //check de observacion desabilitado
+        
+         txtAreaObservacion.setEnabled(false);
+        
         //DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
@@ -108,17 +112,24 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         cbSeleccionarDepto = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        chRestriccionEstacionamientoVisita = new javax.swing.JCheckBox();
-        chRestriccionSalaEvento = new javax.swing.JCheckBox();
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
-        btnCerrar = new javax.swing.JButton();
-        LbFechaHora = new javax.swing.JLabel();
-        cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
         cbSeleccionarTipoRestriccion = new javax.swing.JComboBox<>();
-        LbFechaHora1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
+        chObservacion = new javax.swing.JCheckBox();
+        btnCerrar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        LbFechaHora = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaObservacion = new javax.swing.JTextArea();
 
         setClosable(true);
         setIconifiable(true);
@@ -126,139 +137,109 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("ASIGNAR ESTADO DEPARTAMENTOS");
 
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         cbSeleccionarDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarDeptoActionPerformed(evt);
             }
         });
-
-        jButton1.setText("GUARDAR ESTADO");
-
-        chRestriccionEstacionamientoVisita.setText("RESTRICCIÓN USO ESTACIONAMIENTO VISITA");
-        chRestriccionEstacionamientoVisita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chRestriccionEstacionamientoVisitaActionPerformed(evt);
-            }
-        });
-
-        chRestriccionSalaEvento.setText("RESTRICCIÓN USO SALA EVENTOS");
+        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 238, -1));
 
         cbSeleccionarResidente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarResidenteActionPerformed(evt);
             }
         });
-
-        btnCerrar.setText("CERRAR");
-        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarActionPerformed(evt);
-            }
-        });
-
-        LbFechaHora.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                LbFechaHoraAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-        LbFechaHora.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LbFechaHoraMouseClicked(evt);
-            }
-        });
-
-        cbSeleccionarEstadoDpto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarEstadoDptoActionPerformed(evt);
-            }
-        });
+        jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 238, -1));
 
         cbSeleccionarTipoRestriccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarTipoRestriccionActionPerformed(evt);
             }
         });
+        jPanel1.add(cbSeleccionarTipoRestriccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 238, -1));
 
-        LbFechaHora1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                LbFechaHora1AncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+        cbSeleccionarEstadoDpto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSeleccionarEstadoDptoActionPerformed(evt);
             }
         });
-        LbFechaHora1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                LbFechaHora1MouseClicked(evt);
+        jPanel1.add(cbSeleccionarEstadoDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 238, -1));
+
+        chObservacion.setBackground(new java.awt.Color(0, 51, 102));
+        chObservacion.setForeground(new java.awt.Color(255, 255, 255));
+        chObservacion.setText("AGREGAR OBSERVACIÓN");
+        chObservacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chObservacionActionPerformed(evt);
             }
         });
+        jPanel1.add(chObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, -1, -1));
 
-        jLabel1.setText("FECHA Y HORA:");
+        btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCerrar.setText("CERRAR");
+        btnCerrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 158, 55));
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButton1.setText("GUARDAR ESTADO");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 158, 55));
+
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("ASIGNACIÓN DE ESTADOS A DEPARTAMENTOS");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("FECHA Y HORA:");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
+
+        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("SELECCIONAR TIPO ESTADO:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("SELECCIONAR TIPO DE RESTRICCIÓN:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("SELECCIONAR DEPARTAMENTO:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("SELECCIONAR RESIDENTE:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        txtAreaObservacion.setColumns(20);
+        txtAreaObservacion.setRows(5);
+        jScrollPane1.setViewportView(txtAreaObservacion);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 310, 250));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbSeleccionarDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbSeleccionarEstadoDpto, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbSeleccionarTipoRestriccion, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chRestriccionSalaEvento)
-                            .addComponent(chRestriccionEstacionamientoVisita)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(LbFechaHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSeleccionarDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chRestriccionEstacionamientoVisita)
-                    .addComponent(cbSeleccionarEstadoDpto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSeleccionarResidente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chRestriccionSalaEvento)
-                    .addComponent(cbSeleccionarTipoRestriccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(LbFechaHora1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(LbFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(23, 23, 23))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -272,18 +253,17 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
 
-    private void chRestriccionEstacionamientoVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chRestriccionEstacionamientoVisitaActionPerformed
+    private void chObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chObservacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chRestriccionEstacionamientoVisitaActionPerformed
-
-    private void LbFechaHoraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LbFechaHoraMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LbFechaHoraMouseClicked
-
-    private void LbFechaHoraAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_LbFechaHoraAncestorAdded
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_LbFechaHoraAncestorAdded
+        
+         if(chObservacion.isSelected()){
+            txtAreaObservacion.setEnabled(true);
+            
+        }else{
+            txtAreaObservacion.setEnabled(false);
+           
+        }
+    }//GEN-LAST:event_chObservacionActionPerformed
 
     private void cbSeleccionarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstadoDptoActionPerformed
         // TODO add your handling code here:
@@ -292,15 +272,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     private void cbSeleccionarTipoRestriccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarTipoRestriccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarTipoRestriccionActionPerformed
-
-    private void LbFechaHora1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_LbFechaHora1AncestorAdded
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_LbFechaHora1AncestorAdded
-
-    private void LbFechaHora1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LbFechaHora1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LbFechaHora1MouseClicked
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
@@ -311,15 +282,22 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
-    private javax.swing.JLabel LbFechaHora1;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cbSeleccionarDepto;
     private javax.swing.JComboBox<String> cbSeleccionarEstadoDpto;
     private javax.swing.JComboBox<String> cbSeleccionarResidente;
     private javax.swing.JComboBox<String> cbSeleccionarTipoRestriccion;
-    private javax.swing.JCheckBox chRestriccionEstacionamientoVisita;
-    private javax.swing.JCheckBox chRestriccionSalaEvento;
+    private javax.swing.JCheckBox chObservacion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txtAreaObservacion;
     // End of variables declaration//GEN-END:variables
 }

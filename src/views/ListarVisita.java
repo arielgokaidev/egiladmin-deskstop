@@ -5,6 +5,7 @@
  */
 package views;
 
+import java.util.Calendar;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +37,17 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         //VARIABLE DE LA JTABLE
         tblVisita.setModel(md);
         
+         //import java.util.Calendar;
+        Calendar cal=Calendar.getInstance();
+        
+        String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+ ":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        String fechahora=fecha +" : "+hora;
+       
+        //fecha y hora sistema
+       // JOptionPane.showMessageDialog(null, fechahora);
+        this.LbFechaHora.setText(fechahora);
+        
         
     }
 
@@ -48,10 +60,18 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVolver = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVisita = new javax.swing.JTable();
-        btnListarVisita = new javax.swing.JButton();
+        btnBuscaVisita = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        LbFechaHora = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        cbSeleccionarDepto = new javax.swing.JComboBox<>();
+        btnListarVisita1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -59,43 +79,79 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Listar Visitas");
 
+        jPanel1.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setViewportView(tblVisita);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 72, 610, 300));
+
+        btnBuscaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnBuscaVisita.setText("BUSCAR POR DEPARTAMENTO");
+        btnBuscaVisita.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuscaVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscaVisitaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscaVisita, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 225, 52));
+
+        btnVolver.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnVolver.setText("VOLVER");
+        btnVolver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, 158, 55));
 
-        jScrollPane1.setViewportView(tblVisita);
+        jPanel3.setBackground(new java.awt.Color(204, 153, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnListarVisita.setText("AGREGAR DATOS A TABLA PRUEBA");
-        btnListarVisita.addActionListener(new java.awt.event.ActionListener() {
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel10.setText("LISTA DE VISITAS INGRESADAS");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setText("FECHA Y HORA:");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
+
+        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("SELECCIONAR DEPARTAMENTO:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        cbSeleccionarDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarVisitaActionPerformed(evt);
+                cbSeleccionarDeptoActionPerformed(evt);
             }
         });
+        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 238, -1));
+
+        btnListarVisita1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnListarVisita1.setText("AGREGAR DATOS A TABLA PRUEBA");
+        btnListarVisita1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnListarVisita1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarVisita1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnListarVisita1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 225, 52));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnListarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
-                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(105, 105, 105))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnListarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -106,7 +162,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void btnListarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarVisitaActionPerformed
+    private void btnBuscaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaVisitaActionPerformed
         // TODO add your handling code here:
     String rut="16";
     String nombre="pepito";
@@ -114,12 +170,28 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     //ENVIO DE PARAMETROS EN DURO
         String datos[]={rut,nombre,apellido};
         md.addRow(datos);
-    }//GEN-LAST:event_btnListarVisitaActionPerformed
+    }//GEN-LAST:event_btnBuscaVisitaActionPerformed
+
+    private void cbSeleccionarDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDeptoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSeleccionarDeptoActionPerformed
+
+    private void btnListarVisita1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarVisita1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarVisita1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnListarVisita;
+    private javax.swing.JLabel LbFechaHora;
+    private javax.swing.JButton btnBuscaVisita;
+    private javax.swing.JButton btnListarVisita1;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> cbSeleccionarDepto;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblVisita;
     // End of variables declaration//GEN-END:variables
