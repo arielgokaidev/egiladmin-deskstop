@@ -40,7 +40,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
             cbSeleccionarDpto.addItem("Seleccione un departamento");
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
-                numeroDepartamento = departamentos.get(i).getNumero();
+                //numeroDepartamento = departamentos.get(i).getNumero();
                 System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }

@@ -20,9 +20,13 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
 
    private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
    
+   // Instancias DAO
    private DepartamentoDao departamentoDao;
    private ResidenteDao residenteDao;
    private EstacionamientoVisitaDao estacionamientoDao;
+   
+   // Listados
+   List<Residente> residentes;
    
     public RegistroVisita() {
         initComponents();
@@ -33,8 +37,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
  
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
-        String nombre = "";
-        String numero = "";
+        String numeroEstacionamiento = "";
         
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
@@ -73,29 +76,14 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             cbSeleccionarEstacionamiento.addItem("-");
             List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
             for (int i = 0; i < estacionamientos.size(); i++) {
-                numero = String.valueOf(estacionamientos.get(i).getNumero());
-                System.out.println("Número: " + numero);
-                cbSeleccionarEstacionamiento.addItem(numero);
+                numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
+                System.out.println("Número: " + numeroEstacionamiento);
+                cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
 
-        // RESIDENTES
-        /*
-        try {   
-            residenteDao = new ResidenteDao();
-            cbSeleccionarResidente.addItem("Seleccionar Residente");
-            List<Residente> residentes = residenteDao.listadoResidentes();
-            for (int i = 0; i < residentes.size(); i++) {
-                nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                System.out.println("Nombre: " + nombre);
-                cbSeleccionarResidente.addItem(nombre);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }*/
-        
     }
  
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -153,11 +141,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jLabel6.setText("SELECCIONAR ESTACIONMIENTO VISITA");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 160, -1, -1));
 
-        cbSeleccionarEstacionamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarEstacionamientoActionPerformed(evt);
-            }
-        });
         jPanel1.add(cbSeleccionarEstacionamiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, 197, -1));
 
         btnGuardarVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -194,6 +177,11 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jLabel7.setText("SELECCIONAR RESIDENTE:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
+        cbSeleccionarResidente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSeleccionarResidenteActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 238, -1));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
@@ -228,11 +216,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
 
         txtRut.setBackground(new java.awt.Color(204, 204, 204));
         txtRut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        txtRut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRutActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 157, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -260,25 +243,17 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbSeleccionarEstacionamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstacionamientoActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_cbSeleccionarEstacionamientoActionPerformed
-
     private void chSeleccionarEstacionamientoVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chSeleccionarEstacionamientoVisitaActionPerformed
-        // TODO add your handling code here:
-         if(chSeleccionarEstacionamientoVisita.isSelected()){
+        if (chSeleccionarEstacionamientoVisita.isSelected()){
             cbSeleccionarEstacionamiento.setEnabled(true);
             txtPatente.setEnabled(true);
-        }else{
+        } else {
             cbSeleccionarEstacionamiento.setEnabled(false);
             txtPatente.setEnabled(false);
-        }
-        
+        }        
     }//GEN-LAST:event_chSeleccionarEstacionamientoVisitaActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnCerrarActionPerformed
 
@@ -300,14 +275,17 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             if (!valida){
                     JOptionPane.showMessageDialog(this, "Rut invalido");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Visita Ingresada Correctamente al Sistema");
-                    System.out.println("lista deptos " + selectdpto);
+                    //JOptionPane.showMessageDialog(this, "Visita Ingresada Correctamente al Sistema");
+                    //System.out.println("lista deptos " + selectdpto);
             } 
         }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
     private void chAutorizacionResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chAutorizacionResidenteActionPerformed
         String departamento = "";
+        txtRut.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
         if (chAutorizacionResidente.isSelected()) {
             txtRut.setEnabled(false);
             txtNombre.setEnabled(false);
@@ -323,34 +301,39 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_chAutorizacionResidenteActionPerformed
 
-    private void txtRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRutActionPerformed
-
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
-        System.out.println(evt.getActionCommand());
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
-        System.out.println(chAutorizacionResidente.isSelected());
         if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-") && chAutorizacionResidente.isSelected()) {
             cargarResidentes(departamento);
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
+
+    private void cbSeleccionarResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarResidenteActionPerformed
+        
+    }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
     
     public void cargarResidentes(String departamento) {
         cbSeleccionarResidente.removeAllItems();
         if (!departamento.equals("-")) {
             try {   
                 residenteDao = new ResidenteDao(); 
-                List<Residente> residentes = residenteDao.listadoResidentesDepartamento(departamento);
+                residentes = residenteDao.listadoResidentesDepartamento(departamento);
                 if (residentes.size() > 0) {
                     for (int i = 0; i < residentes.size(); i++) {
                         nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
                         System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
+                    /*
+                    txtRut.setText(residentes.get(0).getRut());
+                    txtNombre.setText(residentes.get(0).getNombres());
+                    txtApellido.setText(residentes.get(0).getApellidos());*/
                 } else {
                     cbSeleccionarResidente.addItem("Sin residentes");
+                    txtRut.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e);

@@ -55,7 +55,7 @@ public class RegistroVisitaTESTING extends javax.swing.JInternalFrame {
 
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
-                numeroDepartamento = departamentos.get(i).getNumero();
+                //numeroDepartamento = departamentos.get(i).getNumero();
                 System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }

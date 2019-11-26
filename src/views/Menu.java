@@ -36,23 +36,21 @@ public class Menu extends javax.swing.JFrame {
         
         // Cargar instancias JInternalFrame
         registroVisita = new RegistroVisita();
-        /*
         registroSalida = new RegistroSalida();
         listarVisita = new ListarVisita();
         asignarEstado = new AsignarEstado();
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
-        listarReserva = new ListarReserva();*/
+        listarReserva = new ListarReserva();
         
         // Agregar JInternalFrame a JDesktopPane
-        escritorio.add(registroVisita);
-        /*
+        escritorio.add(registroVisita);    
         escritorio.add(registroSalida);
         escritorio.add(listarVisita);
         escritorio.add(asignarEstado);
         escritorio.add(listarEstado);
         escritorio.add(reservaSala);
-        escritorio.add(listarReserva);*/
+        escritorio.add(listarReserva);
             
         Calendar cal=Calendar.getInstance();
         

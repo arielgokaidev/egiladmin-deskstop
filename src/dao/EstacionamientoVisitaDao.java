@@ -25,7 +25,7 @@ public class EstacionamientoVisitaDao {
     
     public List<EstacionamientoVisita> listadoEstacionamientos() {
         List<EstacionamientoVisita> listadoEstacionamientos = new ArrayList<EstacionamientoVisita>();
-        String sql = "SELECT * FROM estacionamientovisita;";
+        String sql = "SELECT * FROM estacionamientovisita WHERE estado = 'Disponible';";
         System.out.println(sql);
         try {
             db.conectar();
