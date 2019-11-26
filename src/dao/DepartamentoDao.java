@@ -14,9 +14,11 @@ public class DepartamentoDao {
     private Db db;
     private Connection conexion;
     
-    private String numero;
+    private String numeroDepartamento;
     private String torre;
     private int mt2;
+    private int numeroEstacionamiento;
+    private int numeroBodega;
     
     public DepartamentoDao() {
 	db = new Db();
@@ -25,23 +27,22 @@ public class DepartamentoDao {
     public List<Departamento> listadoDepartamentos() {
         List<Departamento> listadoDepartamentos = new ArrayList<Departamento>();
         String sql = "SELECT * FROM departamento;";
-        System.out.println(sql);
-        
+        System.out.println(sql);        
         try {
             db.conectar();
             conexion = db.getConexion();
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-
             while (rs.next()) {
-                numero = rs.getString("numerodpto");
+                numeroDepartamento = rs.getString("numerodpto");
                 torre = rs.getString("torre");
                 mt2 = rs.getInt("totalmts2");
-                Departamento departamento = new Departamento(numero, torre, mt2);
+                numeroEstacionamiento = rs.getInt("estacionamiento_numeroest");
+                numeroBodega = rs.getInt("bodega_numerobodega");
+                Departamento departamento = new Departamento(numeroDepartamento, torre, mt2, numeroBodega, numeroEstacionamiento);
                 listadoDepartamentos.add(departamento);
             }
             db.desconectar();
-            
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 

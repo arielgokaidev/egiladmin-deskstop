@@ -29,24 +29,22 @@ public class ResidenteDao {
         List<Residente> listadoResidentes = new ArrayList<Residente>();
         String sql = "SELECT * FROM residente;";
         System.out.println(sql);
-        
         try {
             db.conectar();
             conexion = db.getConexion();
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-
             while (rs.next()) {
                 rut = rs.getString("rut");
                 idTipoResidente = rs.getInt("tiporesidente_idtiporesidente");
                 nombres = rs.getString("nombres");
                 apellidos = rs.getString("apellidos");
                 correo = rs.getString("correo");
-                Residente residente = new Residente(rut, idTipoResidente, nombres, apellidos, correo);
+                numeroDepartamento = rs.getString("departamento_numerodpto");
+                Residente residente = new Residente(rut, idTipoResidente, nombres, apellidos, correo, numeroDepartamento);
                 listadoResidentes.add(residente);
             }
             db.desconectar();
-            
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 
@@ -55,11 +53,12 @@ public class ResidenteDao {
     
     public List<Residente> listadoResidentesDepartamento(String departamento) {
         List<Residente> listadoResidentes = new ArrayList<Residente>();
-        String sql = "SELECT numerodpto, rut, nombres, apellidos " +
+        /*String sql = "SELECT numerodpto, rut, nombres, apellidos " +
             "FROM departamento " +
             "INNER JOIN estado ON estado.departamento_numerodpto = departamento.numerodpto " +
             "INNER JOIN residente ON residente.rut = estado.residente_rut " +
-            "WHERE numerodpto = '" + departamento + "';";
+            "WHERE numerodpto = '" + departamento + "';";*/
+        String sql = "SELECT * FROM residente WHERE departamento_numerodpto = '" + departamento + "';";
         System.out.println(sql);
         try {
             db.conectar();
@@ -72,7 +71,8 @@ public class ResidenteDao {
                 nombres = rs.getString("nombres");
                 apellidos = rs.getString("apellidos");
                 correo = rs.getString("correo");
-                Residente residente = new Residente(rut, idTipoResidente, nombres, apellidos, correo);
+                numeroDepartamento = rs.getString("departamento_numerodpto");
+                Residente residente = new Residente(rut, idTipoResidente, nombres, apellidos, correo, numeroDepartamento);
                 listadoResidentes.add(residente);
             }
             db.desconectar();      

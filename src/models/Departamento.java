@@ -2,24 +2,28 @@ package models;
 
 public class Departamento {
     
-    private String numero;
+    private String numeroDepartamento;
     private String torre;
     private int mt2;
+    private int numeroEstacionamiento;
+    private int numeroBodega;
     
     public Departamento() {}
 
-    public Departamento(String numero, String torre, int mt2) {
-        this.numero = numero;
+    public Departamento(String numeroDepartamento, String torre, int mt2, int numeroEstacionamiento, int numeroBodega) {
+        this.numeroDepartamento = numeroDepartamento;
         this.torre = torre;
         this.mt2 = mt2;
+        this.numeroEstacionamiento = numeroEstacionamiento;
+        this.numeroBodega = numeroBodega;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNumeroDepartamento() {
+        return numeroDepartamento;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumeroDepartamento(String numeroDepartamento) {
+        this.numeroDepartamento = numeroDepartamento;
     }
 
     public String getTorre() {
@@ -36,6 +40,22 @@ public class Departamento {
 
     public void setMt2(int mt2) {
         this.mt2 = mt2;
+    }
+    
+        public int getNumeroEstacionamiento() {
+        return numeroEstacionamiento;
+    }
+
+    public void setNumeroEstacionamiento(int numeroEstacionamiento) {
+        this.numeroEstacionamiento = numeroEstacionamiento;
+    }
+
+    public int getNumeroBodega() {
+        return numeroBodega;
+    }
+
+    public void setNumeroBodega(int numeroBodega) {
+        this.numeroBodega = numeroBodega;
     }
     
 }

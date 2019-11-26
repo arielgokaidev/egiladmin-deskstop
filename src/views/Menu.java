@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Dimension;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +23,6 @@ public class Menu extends javax.swing.JFrame {
     ReservaSala reservaSala;
     ListarReserva listarReserva;
     
-    
     public Menu() {
         //TITULO
         super ("Egiladmin Conserjería: Menú");
@@ -36,25 +36,24 @@ public class Menu extends javax.swing.JFrame {
         
         // Cargar instancias JInternalFrame
         registroVisita = new RegistroVisita();
+        /*
         registroSalida = new RegistroSalida();
         listarVisita = new ListarVisita();
         asignarEstado = new AsignarEstado();
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
-        listarReserva = new ListarReserva();
-        
+        listarReserva = new ListarReserva();*/
         
         // Agregar JInternalFrame a JDesktopPane
         escritorio.add(registroVisita);
+        /*
         escritorio.add(registroSalida);
         escritorio.add(listarVisita);
         escritorio.add(asignarEstado);
         escritorio.add(listarEstado);
         escritorio.add(reservaSala);
-        escritorio.add(listarReserva);
-      
-        
-        
+        escritorio.add(listarReserva);*/
+            
         Calendar cal=Calendar.getInstance();
         
         String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
@@ -245,6 +244,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void MenuIngresoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuIngresoVisitasActionPerformed
         // Mostrar JInternalFrame
+        // Centrar JinternalFrame
+        Dimension desktopSize = escritorio.getSize();
+        Dimension frameSize = registroVisita.getSize();
+        registroVisita.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
         registroVisita.show();      
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 
@@ -259,16 +262,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuSalidaVisitaActionPerformed
 
     private void MenuSalirAplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSalirAplicacionActionPerformed
-         //0 si
+        //0 si
         //1 no
-       // Validación para cerrar la aplicacion
-       int salir = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO DESEA SALIR? RECUERDE GUARDAR LOS CAMBIOS AL SALIR", "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
-       if(salir ==0){
-        System.exit(0);
-    }else{
-           
-       }
-       
+        // Validación para cerrar la aplicacion
+        String mensaje = "¿ESTA SEGURO DESEA SALIR? RECUERDE GUARDAR LOS CAMBIOS AL SALIR";
+        int salir = JOptionPane.showConfirmDialog(null, mensaje, "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
+        if (salir == 0){
+            System.exit(0);
+        }
     }//GEN-LAST:event_MenuSalirAplicacionActionPerformed
 
     private void MenuListarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarEstadoActionPerformed

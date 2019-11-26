@@ -1,14 +1,14 @@
 package views;
 
 import dao.DepartamentoDao;
-import dao.EstacionamientoDao;
+import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import models.Departamento;
-import models.Estacionamiento;
+import models.EstacionamientoVisita;
 import models.Residente;
 
 public class RegistroVisitaTESTING extends javax.swing.JInternalFrame {
@@ -17,7 +17,7 @@ public class RegistroVisitaTESTING extends javax.swing.JInternalFrame {
    
    private DepartamentoDao departamentoDao;
    private ResidenteDao residenteDao;
-   private EstacionamientoDao estacionamientoDao;
+   private EstacionamientoVisitaDao estacionamientoDao;
    
     public RegistroVisitaTESTING() {
         initComponents();
@@ -65,9 +65,9 @@ public class RegistroVisitaTESTING extends javax.swing.JInternalFrame {
         
         // ESTACIONAMIENTOS
         try {   
-            estacionamientoDao = new EstacionamientoDao();
+            estacionamientoDao = new EstacionamientoVisitaDao();
             cbSeleccionarEstacionamiento.addItem("Seleccione un número");
-            List<Estacionamiento> estacionamientos = estacionamientoDao.listadoEstacionamientos();
+            List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
             for (int i = 0; i < estacionamientos.size(); i++) {
                 numero = String.valueOf(estacionamientos.get(i).getNumero());
                 System.out.println("Número: " + numero);

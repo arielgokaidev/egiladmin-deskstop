@@ -6,15 +6,14 @@ Se debe agregar validacion y carga de datos cuando un rut ya exista en la tabla 
 package views;
 
 import dao.DepartamentoDao;
-import dao.EstacionamientoDao;
+import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import models.Departamento;
-import models.Estacionamiento;
+import models.EstacionamientoVisita;
 import models.Residente;
 
 public class RegistroVisita extends javax.swing.JInternalFrame {
@@ -23,7 +22,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
    
    private DepartamentoDao departamentoDao;
    private ResidenteDao residenteDao;
-   private EstacionamientoDao estacionamientoDao;
+   private EstacionamientoVisitaDao estacionamientoDao;
    
     public RegistroVisita() {
         initComponents();
@@ -60,7 +59,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             cbSeleccionarDpto.addItem("-");
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
-                numeroDepartamento = departamentos.get(i).getNumero();
+                numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
                 System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
@@ -70,9 +69,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         
         // ESTACIONAMIENTOS
         try {   
-            estacionamientoDao = new EstacionamientoDao();
-            cbSeleccionarEstacionamiento.addItem("Seleccionar Estacionamiento");
-            List<Estacionamiento> estacionamientos = estacionamientoDao.listadoEstacionamientos();
+            estacionamientoDao = new EstacionamientoVisitaDao();
+            cbSeleccionarEstacionamiento.addItem("-");
+            List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
             for (int i = 0; i < estacionamientos.size(); i++) {
                 numero = String.valueOf(estacionamientos.get(i).getNumero());
                 System.out.println("Número: " + numero);
@@ -98,8 +97,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         }*/
         
     }
-    
-    
+ 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -315,22 +313,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             txtNombre.setEnabled(false);
             txtApellido.setEnabled(false);
             departamento = cbSeleccionarDpto.getSelectedItem().toString();
-            try {   
-                residenteDao = new ResidenteDao();
-                List<Residente> residentes = residenteDao.listadoResidentesDepartamento(departamento);
-                if (residentes.size() > 0) {
-                    cbSeleccionarResidente.addItem("-");
-                    for (int i = 0; i < residentes.size(); i++) {
-                        nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                        System.out.println("Nombre: " + nombre);
-                        cbSeleccionarResidente.addItem(nombre);
-                    }
-                } else {
-                    cbSeleccionarResidente.addItem("No hay residentes");
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
+            cargarResidentes(departamento);
             cbSeleccionarResidente.setEnabled(true);
         } else {
             cbSeleccionarResidente.setEnabled(false);
@@ -346,7 +329,35 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
         System.out.println(evt.getActionCommand());
+        String actionCommand = evt.getActionCommand();
+        String departamento = cbSeleccionarDpto.getSelectedItem().toString();
+        System.out.println(chAutorizacionResidente.isSelected());
+        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-") && chAutorizacionResidente.isSelected()) {
+            cargarResidentes(departamento);
+        }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
+    
+    public void cargarResidentes(String departamento) {
+        cbSeleccionarResidente.removeAllItems();
+        if (!departamento.equals("-")) {
+            try {   
+                residenteDao = new ResidenteDao(); 
+                List<Residente> residentes = residenteDao.listadoResidentesDepartamento(departamento);
+                if (residentes.size() > 0) {
+                    for (int i = 0; i < residentes.size(); i++) {
+                        nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                        System.out.println("Nombre: " + nombre);
+                        cbSeleccionarResidente.addItem(nombre);
+                    }
+                } else {
+                    cbSeleccionarResidente.addItem("Sin residentes");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        }
+    }
+    
     public static boolean validarRut(String rut) {
         boolean validacion = false;
         try {

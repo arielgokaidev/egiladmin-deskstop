@@ -11,18 +11,12 @@ public class Residente {
     
     public Residente() {}
 
-    public Residente(String rut, int idTipoResidente, String nombres, String apellidos, String correo) {
+    public Residente(String rut, int idTipoResidente, String nombres, String apellidos, String correo, String numeroDepartamento) {
         this.rut = rut;
         this.idTipoResidente = idTipoResidente;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.correo = correo;
-    }
-    
-    public Residente(String rut, String nombres, String apellidos, String numeroDepartamento) {
-        this.rut = rut;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
         this.numeroDepartamento = numeroDepartamento;
     }
 
