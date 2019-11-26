@@ -2,6 +2,7 @@ package views;
 
 import java.util.Calendar;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 //import java.util.Calendar;
 /*
 Nomenclatura de variables en general
@@ -20,7 +21,7 @@ public class Menu extends javax.swing.JFrame {
     ListarEstado listarEstado;
     ReservaSala reservaSala;
     ListarReserva listarReserva;
-    RegistroVisitaTESTING registroVisitaTest;
+    
     
     public Menu() {
         //TITULO
@@ -41,7 +42,7 @@ public class Menu extends javax.swing.JFrame {
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
         listarReserva = new ListarReserva();
-        registroVisitaTest = new RegistroVisitaTESTING();
+        
         
         // Agregar JInternalFrame a JDesktopPane
         escritorio.add(registroVisita);
@@ -51,7 +52,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(listarEstado);
         escritorio.add(reservaSala);
         escritorio.add(listarReserva);
-        escritorio.add(registroVisitaTest);
+      
         
         
         Calendar cal=Calendar.getInstance();
@@ -91,7 +92,6 @@ public class Menu extends javax.swing.JFrame {
         MenuListarReservas = new javax.swing.JMenuItem();
         MenuSalir = new javax.swing.JMenu();
         MenuSalirAplicacion = new javax.swing.JMenuItem();
-        menutest = new javax.swing.JMenuItem();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -218,14 +218,6 @@ public class Menu extends javax.swing.JFrame {
         });
         MenuSalir.add(MenuSalirAplicacion);
 
-        menutest.setText("jMenuItem1");
-        menutest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menutestActionPerformed(evt);
-            }
-        });
-        MenuSalir.add(menutest);
-
         jMenuBar1.add(MenuSalir);
 
         setJMenuBar(jMenuBar1);
@@ -267,7 +259,16 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuSalidaVisitaActionPerformed
 
     private void MenuSalirAplicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSalirAplicacionActionPerformed
+         //0 si
+        //1 no
+       // Validación para cerrar la aplicacion
+       int salir = JOptionPane.showConfirmDialog(null, "¿ESTA SEGURO DESEA SALIR? RECUERDE GUARDAR LOS CAMBIOS AL SALIR", "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
+       if(salir ==0){
         System.exit(0);
+    }else{
+           
+       }
+       
     }//GEN-LAST:event_MenuSalirAplicacionActionPerformed
 
     private void MenuListarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarEstadoActionPerformed
@@ -282,15 +283,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void MenuListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarReservasActionPerformed
       // escritorio.getDesktopManager().maximizeFrame(listarReserva);
-        listarReserva.show();
-    }//GEN-LAST:event_MenuListarReservasActionPerformed
-
-    private void menutestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menutestActionPerformed
-        // TODO add your handling code here:
-        // escritorio.getDesktopManager().maximizeFrame(registroVisitaTest);
-        registroVisitaTest.show();
         
-    }//GEN-LAST:event_menutestActionPerformed
+        listarReserva.show();
+        
+    }//GEN-LAST:event_MenuListarReservasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,6 +343,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JMenuItem menutest;
     // End of variables declaration//GEN-END:variables
 }

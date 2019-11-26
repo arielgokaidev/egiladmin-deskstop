@@ -67,7 +67,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
-        cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
+        cbSeleccionarIdEstado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListaEstado = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
@@ -77,6 +77,8 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         LbFechaHora = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cbSeleccionarEstado = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -88,7 +90,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 51, 102));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Seleccionar por definir");
+        jLabel2.setText("Seleccionar por Numero Estado");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 238, -1));
 
         cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
@@ -98,13 +100,13 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         });
         jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 238, -1));
 
-        cbSeleccionarEstadoDpto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Numero del estado" }));
-        cbSeleccionarEstadoDpto.addActionListener(new java.awt.event.ActionListener() {
+        cbSeleccionarIdEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Numero del Estado" }));
+        cbSeleccionarIdEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarEstadoDptoActionPerformed(evt);
+                cbSeleccionarIdEstadoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarEstadoDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 238, -1));
+        jPanel1.add(cbSeleccionarIdEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 238, -1));
 
         tblListaEstado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,7 +134,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, 158, 55));
 
         btnActualizaEstado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnActualizaEstado.setText("ELIMINAR ESTADO");
+        btnActualizaEstado.setText("ACTUALIZA ESTADO");
         btnActualizaEstado.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnActualizaEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +164,19 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jLabel3.setText("Seleccionar Departamento");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 238, -1));
 
+        jLabel4.setBackground(new java.awt.Color(0, 51, 102));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Seleccionar por Estado");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 238, -1));
+
+        cbSeleccionarEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Estado" }));
+        cbSeleccionarEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSeleccionarEstadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbSeleccionarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 238, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,9 +191,9 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbSeleccionarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstadoDptoActionPerformed
+    private void cbSeleccionarIdEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarIdEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSeleccionarEstadoDptoActionPerformed
+    }//GEN-LAST:event_cbSeleccionarIdEstadoActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
@@ -189,7 +204,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
       
      String dpto="101";
-    String estado="Desocupado";
+     String estado="Desocupado";
  
     //ENVIO DE PARAMETROS EN DURO
         String datos[]={dpto,estado,};
@@ -202,16 +217,22 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
+    private void cbSeleccionarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSeleccionarEstadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnActualizaEstado;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
-    private javax.swing.JComboBox<String> cbSeleccionarEstadoDpto;
+    private javax.swing.JComboBox<String> cbSeleccionarEstado;
+    private javax.swing.JComboBox<String> cbSeleccionarIdEstado;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

@@ -4,6 +4,7 @@ import dao.DepartamentoDao;
 import dao.ResidenteDao;
 import dao.RestriccionDao;
 import dao.TipoEstadoDao;
+import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -43,8 +44,9 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         this.LbFechaHora.setText(fechahora);
         
         //check de observacion desabilitado
-        
+        txtAreaObservacion.setBackground(Color.darkGray);
          txtAreaObservacion.setEnabled(false);
+         
         
         //DEPARTAMENTOS
         try {
@@ -91,12 +93,12 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         // RESTRICCION
         try {   
             restriccionDao = new RestriccionDao();
-            cbSeleccionarTipoRestriccion.addItem("Seleccione tipo restricción");
+            //cbSeleccionarTipoRestriccion.addItem("Seleccione tipo restricción");
             List<Restriccion> restricciones = restriccionDao.listadoRestricciones();
             for (int i = 0; i < restricciones.size(); i++) {
                 nombreRestriccion = restricciones.get(i).getMombreRestriccion();
                 System.out.println("Nombre restricción: " + nombreRestriccion);
-                cbSeleccionarTipoRestriccion.addItem(nombreRestriccion);
+               // cbSeleccionarTipoRestriccion.addItem(nombreRestriccion);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -115,9 +117,8 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         cbSeleccionarDepto = new javax.swing.JComboBox<>();
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
-        cbSeleccionarTipoRestriccion = new javax.swing.JComboBox<>();
         cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
-        chObservacion = new javax.swing.JCheckBox();
+        chRestriccion = new javax.swing.JCheckBox();
         btnCerrar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -125,11 +126,11 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         LbFechaHora = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaObservacion = new javax.swing.JTextArea();
+        chObservacion1 = new javax.swing.JCheckBox();
 
         setClosable(true);
         setIconifiable(true);
@@ -154,13 +155,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         });
         jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 238, -1));
 
-        cbSeleccionarTipoRestriccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarTipoRestriccionActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cbSeleccionarTipoRestriccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 238, -1));
-
         cbSeleccionarEstadoDpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarEstadoDptoActionPerformed(evt);
@@ -168,15 +162,15 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         });
         jPanel1.add(cbSeleccionarEstadoDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 238, -1));
 
-        chObservacion.setBackground(new java.awt.Color(0, 51, 102));
-        chObservacion.setForeground(new java.awt.Color(255, 255, 255));
-        chObservacion.setText("AGREGAR OBSERVACIÓN");
-        chObservacion.addActionListener(new java.awt.event.ActionListener() {
+        chRestriccion.setBackground(new java.awt.Color(0, 51, 102));
+        chRestriccion.setForeground(new java.awt.Color(255, 255, 255));
+        chRestriccion.setText("RESTRICCION ESPACIOS COMUNES");
+        chRestriccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chObservacionActionPerformed(evt);
+                chRestriccionActionPerformed(evt);
             }
         });
-        jPanel1.add(chObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, -1, -1));
+        jPanel1.add(chRestriccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
 
         btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCerrar.setText("CERRAR");
@@ -213,10 +207,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         jLabel5.setText("SELECCIONAR TIPO ESTADO:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("SELECCIONAR TIPO DE RESTRICCIÓN:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, -1, -1));
-
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("SELECCIONAR DEPARTAMENTO:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
@@ -225,11 +215,23 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         jLabel9.setText("SELECCIONAR RESIDENTE:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
+        txtAreaObservacion.setBackground(new java.awt.Color(102, 102, 102));
         txtAreaObservacion.setColumns(20);
         txtAreaObservacion.setRows(5);
+        txtAreaObservacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
         jScrollPane1.setViewportView(txtAreaObservacion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 310, 250));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 310, 190));
+
+        chObservacion1.setBackground(new java.awt.Color(0, 51, 102));
+        chObservacion1.setForeground(new java.awt.Color(255, 255, 255));
+        chObservacion1.setText("AGREGAR OBSERVACIÓN");
+        chObservacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chObservacion1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(chObservacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,31 +255,33 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
 
-    private void chObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chObservacionActionPerformed
+    private void chRestriccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chRestriccionActionPerformed
         // TODO add your handling code here:
         
-         if(chObservacion.isSelected()){
+         if(chRestriccion.isSelected()){
             txtAreaObservacion.setEnabled(true);
+            txtAreaObservacion.setBackground(Color.WHITE);
             
         }else{
             txtAreaObservacion.setEnabled(false);
-           
+           txtAreaObservacion.setBackground(Color.darkGray);
+           txtAreaObservacion.setText("");
         }
-    }//GEN-LAST:event_chObservacionActionPerformed
+    }//GEN-LAST:event_chRestriccionActionPerformed
 
     private void cbSeleccionarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstadoDptoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarEstadoDptoActionPerformed
-
-    private void cbSeleccionarTipoRestriccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarTipoRestriccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSeleccionarTipoRestriccionActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void chObservacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chObservacion1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chObservacion1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -286,12 +290,11 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbSeleccionarDepto;
     private javax.swing.JComboBox<String> cbSeleccionarEstadoDpto;
     private javax.swing.JComboBox<String> cbSeleccionarResidente;
-    private javax.swing.JComboBox<String> cbSeleccionarTipoRestriccion;
-    private javax.swing.JCheckBox chObservacion;
+    private javax.swing.JCheckBox chObservacion1;
+    private javax.swing.JCheckBox chRestriccion;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

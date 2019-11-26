@@ -1,14 +1,20 @@
 package views;
 
 import dao.UsuarioDao;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import models.Usuario;
 
 public class Login extends javax.swing.JFrame {
-    
+
+private Timer tiempo;
+int cont;
+public static int TWO_SECOND=3;
     UsuarioDao usuarioDao;
 
     public Login() {
@@ -30,7 +36,7 @@ public class Login extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
     }
-
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +59,7 @@ public class Login extends javax.swing.JFrame {
         LbFechaHora = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        cargaLogin = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
@@ -155,7 +162,8 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("AVISO: Recuerde cerrar sesión cada vez que salga del sistema");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, 50));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, 50));
+        jPanel2.add(cargaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, 240, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,11 +180,35 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public class TimerListener implements ActionListener{
 
+      
+        public void actionPerformed(ActionEvent e) {
+           cont++;
+           cargaLogin.setValue(cont);
+           if(cont==100){
+               tiempo.stop();
+               Menu menu = new Menu();
+                    menu.setVisible(true);  
+                    this.dispose();
+           }
+        }
+
+        private void dispose() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+
+}
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         //this.disable();
         String user = txtUser.getText();
         String pass = txtPassword.getText();
+        cont=-1;
+                   cargaLogin.setValue(0);
+                   cargaLogin.setStringPainted(true);
+                   tiempo = new Timer (TWO_SECOND, new TimerListener());
+                   tiempo.start();
         if (user.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡Ingrese usuario y contraseña!");
         } else {
@@ -187,14 +219,20 @@ public class Login extends javax.swing.JFrame {
                     
                     //ESTE JPTION DEBEMOS CAMBIARLO POR UNA BARRA QUE INDIQUE EL PROCESO DE CARGA
                   //  JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    Menu menu = new Menu();
-                    menu.setVisible(true);  
-                    this.dispose();
+                  //descomentar
+                    //Menu menu = new Menu();
+                    //menu.setVisible(true);  
+                    //this.dispose();
+                   //progresbar
+                   
+                   
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "¡¡Usuario y/o contraseña incorrecta!!","Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El usuario " + user + " no existe.");
+        
             }  
         }
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -237,6 +275,7 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JProgressBar cargaLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

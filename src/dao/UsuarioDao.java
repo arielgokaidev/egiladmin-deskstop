@@ -20,7 +20,7 @@ public class UsuarioDao {
     private String apellidos;
     private int idTipoUsuario;
     private String tipoUsuario;
-    
+   
     public UsuarioDao() {
         db = new Db();
     }
