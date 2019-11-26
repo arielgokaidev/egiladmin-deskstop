@@ -12,10 +12,14 @@ import models.Usuario;
 
 public class Login extends javax.swing.JFrame {
 
-private Timer tiempo;
-int cont;
-public static int TWO_SECOND=3;
+    
     UsuarioDao usuarioDao;
+    /*
+    private Timer tiempo;
+    int cont;
+    public static int TWO_SECOND=3;
+    
+    */
 
     public Login() {
         super ("Egiladmin Conserjería - Login");
@@ -180,18 +184,19 @@ public static int TWO_SECOND=3;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-public class TimerListener implements ActionListener{
-
-      
+    
+    /*
+    public class TimerListener implements ActionListener{
+        
         public void actionPerformed(ActionEvent e) {
-           cont++;
-           cargaLogin.setValue(cont);
-           if(cont==100){
-               tiempo.stop();
-               Menu menu = new Menu();
-                    menu.setVisible(true);  
-                    this.dispose();
-           }
+            cont++;
+            cargaLogin.setValue(cont);
+            if (cont == 100){
+                tiempo.stop();
+                Menu menu = new Menu();
+                menu.setVisible(true);
+                this.dispose();
+            }
         }
 
         private void dispose() {
@@ -199,16 +204,15 @@ public class TimerListener implements ActionListener{
         }
 
 
-}
+    }*/
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        //this.disable();
+   
+        boolean loginError = true;
         String user = txtUser.getText();
         String pass = txtPassword.getText();
-        cont=-1;
-                   cargaLogin.setValue(0);
-                   cargaLogin.setStringPainted(true);
-                   tiempo = new Timer (TWO_SECOND, new TimerListener());
-                   tiempo.start();
+        //cont = -1;
+        
         if (user.isEmpty() || pass.isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡Ingrese usuario y contraseña!");
         } else {
@@ -216,24 +220,23 @@ public class TimerListener implements ActionListener{
             List<Usuario> usuario = usuarioDao.loginUsuario(user);
             if (usuario.size() == 1) {
                 if (usuario.get(0).getUser().equals(user) && usuario.get(0).getPassword().equals(pass)) {
-                    
+                    loginError = false;
                     //ESTE JPTION DEBEMOS CAMBIARLO POR UNA BARRA QUE INDIQUE EL PROCESO DE CARGA
-                  //  JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                  //descomentar
-                    //Menu menu = new Menu();
-                    //menu.setVisible(true);  
-                    //this.dispose();
+                    //JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
+                    Menu menu = new Menu();
+                    menu.setVisible(true);  
+                    this.dispose();   
                    //progresbar
-                   
-                   
-                    
-                } else {
-                    JOptionPane.showMessageDialog(null, "¡¡Usuario y/o contraseña incorrecta!!","Error", JOptionPane.ERROR_MESSAGE);
+                    /*
+                    cargaLogin.setValue(0);
+                    cargaLogin.setStringPainted(true);
+                    tiempo = new Timer (TWO_SECOND, new TimerListener());
+                    tiempo.start(); */
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "El usuario " + user + " no existe.");
-        
-            }  
+            }
+            if (loginError) {
+                JOptionPane.showMessageDialog(null, "¡¡Usuario y/o contraseña incorrecto!!","Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

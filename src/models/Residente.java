@@ -7,6 +7,7 @@ public class Residente {
     private String nombres;
     private String apellidos;
     private String correo;
+    private String numeroDepartamento;
     
     public Residente() {}
 
@@ -16,6 +17,13 @@ public class Residente {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.correo = correo;
+    }
+    
+    public Residente(String rut, String nombres, String apellidos, String numeroDepartamento) {
+        this.rut = rut;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.numeroDepartamento = numeroDepartamento;
     }
 
     public String getRut() {
@@ -57,6 +65,13 @@ public class Residente {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
+
+    public String getNumeroDepartamento() {
+        return numeroDepartamento;
+    }
+
+    public void setNumeroDepartamento(String numeroDepartamento) {
+        this.numeroDepartamento = numeroDepartamento;
+    }
     
 }
