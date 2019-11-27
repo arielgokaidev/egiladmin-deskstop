@@ -73,11 +73,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         cbSeleccionarDepto = new javax.swing.JComboBox<>();
         btnListarVisita1 = new javax.swing.JButton();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Listar Visitas");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

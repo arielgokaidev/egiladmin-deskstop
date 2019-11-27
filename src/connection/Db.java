@@ -12,7 +12,7 @@ public class Db {
     private String pass;
     
     public Db() {
-        //url = "jdbc:mysql://labocris.eastus.cloudapp.azure.com:4000/egiladmin";
+        url = "jdbc:mysql://labocris.eastus.cloudapp.azure.com:4000/egiladmin";
         user = "egiladmin";
         pass = "%epSm[6Pnp";
     }
