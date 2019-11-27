@@ -4,6 +4,7 @@ import dao.DepartamentoDao;
 import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
 import dao.VisitaDao;
+import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -195,7 +196,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 250, -1));
 
         txtRut.setBackground(new java.awt.Color(204, 204, 204));
-        txtRut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtRut.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 157, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -337,6 +338,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             if (!departamento.equals("-")) {
                 int indexResidente = cbSeleccionarResidente.getSelectedIndex();
                 if (indexResidente > -1) {
+                    txtRut.setBackground(Color.white);
+                    txtNombre.setBackground(Color.white);
+                    txtApellido.setBackground(Color.white);
                     if (residentes.size() > 0) {
                         txtRut.setText(residentes.get(indexResidente).getRut());
                         txtNombre.setText(residentes.get(indexResidente).getNombres());
