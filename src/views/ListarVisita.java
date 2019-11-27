@@ -134,7 +134,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 130, 55));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 60, 130, 55));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -161,7 +161,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
                 cbSeleccionarDeptoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 160, -1));
+        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,7 +171,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
