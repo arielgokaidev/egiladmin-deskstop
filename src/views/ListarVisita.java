@@ -1,22 +1,22 @@
 package views;
 
 import dao.DepartamentoDao;
+import dao.VisitaDao;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 import models.Departamento;
+import models.Visita;
 
 public class ListarVisita extends javax.swing.JInternalFrame {
 
     private DepartamentoDao departamentoDao;
+    private VisitaDao visitaDao;
     
     //CREA LA TABLA
-    DefaultTableModel md;
-    String data[][]={};
-    //CREA COLUMNAS
-    String cabeza[]={"Rut","Nombre","Apellido"};
-
+    DefaultTableModel modeloTabla;
+    
     public ListarVisita() {
         initComponents();
         // Bloquear redimension
@@ -26,10 +26,24 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         
         String numeroDepartamento = "";
         
+        String data[][] = {};
+        //CREA COLUMNAS
+        String titulos[] = {
+            "N° Depto",
+            "Fecha ingreso",
+            "Fecha salida",
+            "Rut",
+            "Nombre",
+            "Apellido",
+            "Autorización",
+            "Estacionamiento",
+            "Patente"
+        };
+        
         //INSTANCIA DE LA TABLA
-        md=new DefaultTableModel(data, cabeza);
+        modeloTabla = new DefaultTableModel(data, titulos);
         //VARIABLE DE LA JTABLE
-        tblVisita.setModel(md);
+        tblVisita.setModel(modeloTabla);
         
          //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
@@ -55,8 +69,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        
-        
+
     }
 
     /**
@@ -164,22 +177,51 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnBuscaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaVisitaActionPerformed
         // TODO add your handling code here:
+        /*
     String rut="16";
     String nombre="pepito";
     String apellido="pepon";
     //ENVIO DE PARAMETROS EN DURO
         String datos[]={rut,nombre,apellido};
-        md.addRow(datos);
+        modeloTabla.addRow(datos);*/
     }//GEN-LAST:event_btnBuscaVisitaActionPerformed
 
     private void cbSeleccionarDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDeptoActionPerformed
-        // TODO add your handling code here:
+        int idEstacionamiento;
+        String numeroDepartamento;
+        String autorizaResidente;
+        String fechaIngreso;
+        String fechaSalida;
+        String rut;
+        String nombres;
+        String apellidos;
+        String patente;
+        String actionCommand = evt.getActionCommand();
+        String departamento = cbSeleccionarDepto.getSelectedItem().toString();
+        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
+            cbSeleccionarDepto.removeAllItems();
+            if (!departamento.equals("-")) {
+                try {   
+                    visitaDao = new VisitaDao();
+                    List<Visita> visitas = visitaDao.listadoRegistroVisitas(departamento);
+                    if (visitas.size() > 0) {
+                        for (int i = 0; i < visitas.size(); i++) {
+                            
+                        }
+                    } else {
+                        // Sin visitas
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }
+            } 
+        }        
+        
     }//GEN-LAST:event_cbSeleccionarDeptoActionPerformed
 
     private void btnListarVisita1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarVisita1ActionPerformed

@@ -15,15 +15,16 @@ public class VisitaDao {
     private Connection conexion;
     
     private int id;
-    private int valorEstacionamiento;
-    private int idVisitaVehiculo;
-    private String visitaRut;
+    private int idEstacionamiento;
     private String numeroDepartamento;
     private String autorizaResidente;
-    private String observacion;
     private String fechaIngreso;
     private String fechaSalida;
-    
+    private String rut;
+    private String nombres;
+    private String apellidos;
+    private String patente;
+     
     public VisitaDao() {
         db = new Db();
     }
@@ -130,32 +131,30 @@ public class VisitaDao {
         return id;
     }
     
-    public List<Visita> listadoRegistroVisitas() {
+    public List<Visita> listadoRegistroVisitas(String departamento) {
         List<Visita> listadoRegistroVisitas = new ArrayList<Visita>();
-        String sql = "SELECT * FROM registrovisita;";
+        String sql = "SELECT * FROM registrovisita WHERE departamento_numerodpto = '" + departamento + "';";
         System.out.println(sql);
-        
         try {
             db.conectar();
             conexion = db.getConexion();
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-
             while (rs.next()) {
                 id = rs.getInt("idregistrovisita");
-                valorEstacionamiento = rs.getInt("valorestacionamiento_idvalorestacionamiento");
-                idVisitaVehiculo = rs.getInt("visitavehiculo_idvisitavehiculo");
-                visitaRut = rs.getString("visita_rut");
+                idEstacionamiento = rs.getInt("estacionamientovisita_idestacionamientovisita");
                 numeroDepartamento = rs.getString("departamento_numerodpto");
                 autorizaResidente = rs.getString("autorizaresidente");
-                observacion = rs.getString("observacion");
                 fechaIngreso = rs.getString("fechaingreso");
                 fechaSalida = rs.getString("fechasalida");
-                Visita visita = new Visita(id, valorEstacionamiento, idVisitaVehiculo, visitaRut, numeroDepartamento, autorizaResidente, observacion, fechaIngreso, fechaSalida);
+                rut = rs.getString("rut");
+                nombres = rs.getString("nombres");
+                apellidos = rs.getString("apellidos");
+                patente = rs.getString("patente");
+                Visita visita = new Visita(id, idEstacionamiento, numeroDepartamento, autorizaResidente, fechaIngreso, fechaSalida, rut, nombres, apellidos, patente);
                 listadoRegistroVisitas.add(visita);
             }
             db.desconectar();
-            
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 

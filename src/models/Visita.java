@@ -3,27 +3,29 @@ package models;
 public class Visita {
     
     private int id;
-    private int valorEstacionamiento;
-    private int idVisitaVehiculo;
-    private String visitaRut;
+    private int idEstacionamiento;
     private String numeroDepartamento;
     private String autorizaResidente;
-    private String observacion;
     private String fechaIngreso;
     private String fechaSalida;
+    private String rut;
+    private String nombres;
+    private String apellidos;
+    private String patente;
     
     public Visita() {}
 
-    public Visita(int id, int valorEstacionamiento, int idVisitaVehiculo, String visitaRut, String numeroDepartamento, String autorizaResidente, String observacion, String fechaIngreso, String fechaSalida) {
+    public Visita(int id, int idEstacionamiento, String numeroDepartamento, String autorizaResidente, String fechaIngreso, String fechaSalida, String rut, String nombres, String apellidos, String patente) {
         this.id = id;
-        this.valorEstacionamiento = valorEstacionamiento;
-        this.idVisitaVehiculo = idVisitaVehiculo;
-        this.visitaRut = visitaRut;
+        this.idEstacionamiento = idEstacionamiento;
         this.numeroDepartamento = numeroDepartamento;
         this.autorizaResidente = autorizaResidente;
-        this.observacion = observacion;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
+        this.rut = rut;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.patente = patente;
     }
 
     public int getId() {
@@ -34,28 +36,12 @@ public class Visita {
         this.id = id;
     }
 
-    public int getValorEstacionamiento() {
-        return valorEstacionamiento;
+    public int getIdEstacionamiento() {
+        return idEstacionamiento;
     }
 
-    public void setValorEstacionamiento(int valorEstacionamiento) {
-        this.valorEstacionamiento = valorEstacionamiento;
-    }
-
-    public int getIdVisitaVehiculo() {
-        return idVisitaVehiculo;
-    }
-
-    public void setIdVisitaVehiculo(int idVisitaVehiculo) {
-        this.idVisitaVehiculo = idVisitaVehiculo;
-    }
-
-    public String getVisitaRut() {
-        return visitaRut;
-    }
-
-    public void setVisitaRut(String visitaRut) {
-        this.visitaRut = visitaRut;
+    public void setIdEstacionamiento(int idEstacionamiento) {
+        this.idEstacionamiento = idEstacionamiento;
     }
 
     public String getNumeroDepartamento() {
@@ -74,14 +60,6 @@ public class Visita {
         this.autorizaResidente = autorizaResidente;
     }
 
-    public String getObservacion() {
-        return observacion;
-    }
-
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
-
     public String getFechaIngreso() {
         return fechaIngreso;
     }
@@ -96,6 +74,40 @@ public class Visita {
 
     public void setFechaSalida(String fechaSalida) {
         this.fechaSalida = fechaSalida;
-    }  
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
+
+    
       
 }
