@@ -1,13 +1,9 @@
-/*
-Se debe agregar validacion y carga de datos cuando un rut ya exista en la tabla de visitas
-
-*/
-
 package views;
 
 import dao.DepartamentoDao;
 import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
+import dao.VisitaDao;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -18,15 +14,14 @@ import models.Residente;
 
 public class RegistroVisita extends javax.swing.JInternalFrame {
 
-   private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
-   
-   // Instancias DAO
-   private DepartamentoDao departamentoDao;
-   private ResidenteDao residenteDao;
-   private EstacionamientoVisitaDao estacionamientoDao;
-   
-   // Listados
-   List<Residente> residentes;
+    // Instancias DAO
+    private DepartamentoDao departamentoDao;
+    private ResidenteDao residenteDao;
+    private EstacionamientoVisitaDao estacionamientoDao;
+    private VisitaDao visitaDao;
+
+    // Listados
+    List<Residente> residentes;
    
     public RegistroVisita() {
         initComponents();
@@ -37,7 +32,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
  
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
-        String numeroEstacionamiento = "";
         
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
@@ -71,18 +65,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         }
         
         // ESTACIONAMIENTOS
-        try {   
-            estacionamientoDao = new EstacionamientoVisitaDao();
-            cbSeleccionarEstacionamiento.addItem("-");
-            List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
-            for (int i = 0; i < estacionamientos.size(); i++) {
-                numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
-                System.out.println("Número: " + numeroEstacionamiento);
-                cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
+        cargarEstacionamientos();
 
     }
  
@@ -258,26 +241,64 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnGuardarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVisitaActionPerformed
-        // TODO add your handling code here:
-        //rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
+        boolean ingreso = false;
+        String departamento, rut, nombres, apellidos, autorizaresidente, estacionamiento, patente, fecha;
+        departamento = (String) cbSeleccionarDpto.getSelectedItem();
         rut = txtRut.getText();
-        nombre = txtNombre.getText();
-        apellido = txtApellido.getText();
-        String selectdpto = (String)cbSeleccionarDpto.getSelectedItem();
-        String selectest = (String)cbSeleccionarEstacionamiento.getSelectedItem();
-        // Valida vacios
-       // if(rut.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || selectdpto.isEmpty()|| selectest.isEmpty()){
-        if (rut.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || selectdpto.isEmpty()){  
-            JOptionPane.showMessageDialog(this, "Debe completar todos los campos");
+        nombres = txtNombre.getText();
+        apellidos = txtApellido.getText();
+        estacionamiento = (String) cbSeleccionarEstacionamiento.getSelectedItem();
+        patente = txtPatente.getText();
+        Calendar calendar = Calendar.getInstance();
+        int dia = calendar.get(Calendar.DAY_OF_MONTH);
+        int mes = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int horas = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutos = calendar.get(Calendar.MINUTE);
+        int segundos = calendar.get(Calendar.SECOND);
+        String hora;
+        if (minutos < 10) {
+            hora = String.valueOf(horas) + ":0" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
         } else {
-            //Metodo validador de rut 
+            hora = String.valueOf(horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
+        }
+        fecha = String.valueOf(year) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia) + " " + hora;
+        if (chAutorizacionResidente.isSelected()) {
+            autorizaresidente = "Autorizado";
+        } else {
+            autorizaresidente = "";
+        }
+        // Valida vacios
+        if (departamento.isEmpty() || departamento.equals("-") || rut.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || 
+                (chSeleccionarEstacionamientoVisita.isSelected() && (patente.isEmpty() || estacionamiento.equals("-")))) {
+            JOptionPane.showMessageDialog(this, "¡Debe completar todos los campos!");
+        } else {
+            // Metodo validador de rut 
             boolean valida = validarRut(rut);
             if (!valida){
-                    JOptionPane.showMessageDialog(this, "Rut invalido");
+                JOptionPane.showMessageDialog(this, "¡Rut inválido!");
+            } else {
+                System.out.println("Rut valido ");
+                visitaDao = new VisitaDao();
+                if (chSeleccionarEstacionamientoVisita.isSelected()) {
+                    ingreso = visitaDao.ingresarVisitaEstacionamiento(departamento, autorizaresidente, fecha, rut, nombres, apellidos, estacionamiento, patente);
                 } else {
-                    //JOptionPane.showMessageDialog(this, "Visita Ingresada Correctamente al Sistema");
-                    //System.out.println("lista deptos " + selectdpto);
+                    ingreso = visitaDao.ingresarVisita(departamento, autorizaresidente, fecha, rut, nombres, apellidos);        
+                }
             } 
+        }
+        if (ingreso) {
+            JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
+            cbSeleccionarDpto.setSelectedItem("-");
+            txtRut.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            chAutorizacionResidente.setSelected(false);
+            chSeleccionarEstacionamientoVisita.setSelected(false);
+            txtPatente.setText("");
+            cbSeleccionarEstacionamiento.setEnabled(false);
+            cbSeleccionarEstacionamiento.removeAllItems();
+            cargarEstacionamientos();
         }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
@@ -306,18 +327,43 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
         if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-") && chAutorizacionResidente.isSelected()) {
             cargarResidentes(departamento);
+        } else {
+            cbSeleccionarResidente.removeAllItems();
+            cbSeleccionarResidente.addItem("-");
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
     private void cbSeleccionarResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarResidenteActionPerformed
-        
+        String actionCommand = evt.getActionCommand();
+        String departamento = cbSeleccionarDpto.getSelectedItem().toString();
+        if (actionCommand.equals("comboBoxChanged") && chAutorizacionResidente.isSelected()) {
+            if (!departamento.equals("-")) {
+                int indexResidente = cbSeleccionarResidente.getSelectedIndex();
+                if (indexResidente > -1) {
+                    if (residentes.size() > 0) {
+                        txtRut.setText(residentes.get(indexResidente).getRut());
+                        txtNombre.setText(residentes.get(indexResidente).getNombres());
+                        txtApellido.setText(residentes.get(indexResidente).getApellidos());
+                    } else {
+                        txtRut.setText("");
+                        txtNombre.setText("");
+                        txtApellido.setText("");
+                    }
+                }
+            } else {
+                txtRut.setText("");
+                txtNombre.setText("");
+                txtApellido.setText("");
+            }
+        }
     }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
     
     public void cargarResidentes(String departamento) {
+        String nombre;
         cbSeleccionarResidente.removeAllItems();
         if (!departamento.equals("-")) {
             try {   
-                residenteDao = new ResidenteDao(); 
+                residenteDao = new ResidenteDao();
                 residentes = residenteDao.listadoResidentesDepartamento(departamento);
                 if (residentes.size() > 0) {
                     for (int i = 0; i < residentes.size(); i++) {
@@ -325,10 +371,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                         System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
-                    /*
-                    txtRut.setText(residentes.get(0).getRut());
-                    txtNombre.setText(residentes.get(0).getNombres());
-                    txtApellido.setText(residentes.get(0).getApellidos());*/
                 } else {
                     cbSeleccionarResidente.addItem("Sin residentes");
                     txtRut.setText("");
@@ -338,6 +380,24 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
+        } else {
+            cbSeleccionarResidente.addItem("-");
+        }
+    }
+    
+    public void cargarEstacionamientos() {
+        String numeroEstacionamiento;
+        try {   
+            estacionamientoDao = new EstacionamientoVisitaDao();
+            cbSeleccionarEstacionamiento.addItem("-");
+            List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
+            for (int i = 0; i < estacionamientos.size(); i++) {
+                numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
+                System.out.println("Número: " + numeroEstacionamiento);
+                cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
     
