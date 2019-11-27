@@ -1,6 +1,7 @@
 package views;
 
 import dao.DepartamentoDao;
+import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
 import dao.RestriccionDao;
 import dao.TipoEstadoDao;
@@ -15,12 +16,21 @@ import models.Restriccion;
 import models.TipoEstado;
 
 public class AsignarEstado extends javax.swing.JInternalFrame {
-    
+    // Instancias DAO
+  
     private DepartamentoDao departamentoDao;
     private TipoEstadoDao tipoEstadoDao;
     private ResidenteDao residenteDao;
     private RestriccionDao restriccionDao;
 
+    private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
+   
+    //Variables restriccion y espacios comunes
+    private String restriccion,observacin;
+   
+   // Listados
+   List<Residente> residentes;
+    
     public AsignarEstado() {
         initComponents();
         // Bloquear redimension
@@ -45,18 +55,32 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         
         //check de observacion desabilitado
         txtAreaObservacion.setBackground(Color.darkGray);
-         txtAreaObservacion.setEnabled(false);
+        txtAreaObservacion.setEnabled(false);
          
         
-        //DEPARTAMENTOS
+        // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
-            cbSeleccionarDepto.addItem("Seleccione un departamento");
+            cbSeleccionarDpto.addItem("-");
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
-                //numeroDepartamento = departamentos.get(i).getNumero();
+                numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
                 System.out.println("Número: " + numeroDepartamento);
-                cbSeleccionarDepto.addItem(numeroDepartamento);
+                cbSeleccionarDpto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
+        // RESIDENTES
+        try {   
+            residenteDao = new ResidenteDao();
+            cbSeleccionarResidente.addItem("Seleccione un residente");
+            List<Residente> residentes = residenteDao.listadoResidentes();
+            for (int i = 0; i < residentes.size(); i++) {
+                nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                System.out.println("Nombre: " + nombre);
+                cbSeleccionarResidente.addItem(nombre);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -76,19 +100,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
             System.out.println("Error: " + e);
         }
         
-        // RESIDENTE
-        try {   
-            residenteDao = new ResidenteDao();
-            cbSeleccionarResidente.addItem("Seleccione un residente");
-            List<Residente> residentes = residenteDao.listadoResidentes();
-            for (int i = 0; i < residentes.size(); i++) {
-                nombreResidente = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                System.out.println("Nombre: " + nombreResidente);
-                cbSeleccionarResidente.addItem(nombreResidente);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
         
         // RESTRICCION
         try {   
@@ -115,7 +126,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        cbSeleccionarDepto = new javax.swing.JComboBox<>();
+        cbSeleccionarDpto = new javax.swing.JComboBox<>();
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
         cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
         chRestriccion = new javax.swing.JCheckBox();
@@ -130,23 +141,20 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaObservacion = new javax.swing.JTextArea();
-        chObservacion1 = new javax.swing.JCheckBox();
+        chObservacion = new javax.swing.JCheckBox();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("ASIGNAR ESTADO DEPARTAMENTOS");
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbSeleccionarDepto.addActionListener(new java.awt.event.ActionListener() {
+        cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarDeptoActionPerformed(evt);
+                cbSeleccionarDptoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 238, -1));
+        jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 238, -1));
 
         cbSeleccionarResidente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,15 +231,15 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 310, 190));
 
-        chObservacion1.setBackground(new java.awt.Color(0, 51, 102));
-        chObservacion1.setForeground(new java.awt.Color(255, 255, 255));
-        chObservacion1.setText("AGREGAR OBSERVACIÓN");
-        chObservacion1.addActionListener(new java.awt.event.ActionListener() {
+        chObservacion.setBackground(new java.awt.Color(0, 51, 102));
+        chObservacion.setForeground(new java.awt.Color(255, 255, 255));
+        chObservacion.setText("AGREGAR OBSERVACIÓN");
+        chObservacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chObservacion1ActionPerformed(evt);
+                chObservacionActionPerformed(evt);
             }
         });
-        jPanel1.add(chObservacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, -1, -1));
+        jPanel1.add(chObservacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -247,9 +255,14 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbSeleccionarDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDeptoActionPerformed
+    private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSeleccionarDeptoActionPerformed
+        String actionCommand = evt.getActionCommand();
+        String departamento = cbSeleccionarDpto.getSelectedItem().toString();
+        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
+           cargarResidentes(departamento);
+        }
+    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
     private void cbSeleccionarResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarResidenteActionPerformed
         // TODO add your handling code here:
@@ -257,16 +270,9 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
 
     private void chRestriccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chRestriccionActionPerformed
         // TODO add your handling code here:
+        chRestriccion.setText("Restriccion uso espacios comunes");
+              
         
-         if(chRestriccion.isSelected()){
-            txtAreaObservacion.setEnabled(true);
-            txtAreaObservacion.setBackground(Color.WHITE);
-            
-        }else{
-            txtAreaObservacion.setEnabled(false);
-           txtAreaObservacion.setBackground(Color.darkGray);
-           txtAreaObservacion.setText("");
-        }
     }//GEN-LAST:event_chRestriccionActionPerformed
 
     private void cbSeleccionarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstadoDptoActionPerformed
@@ -279,18 +285,53 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void chObservacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chObservacion1ActionPerformed
+    private void chObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chObservacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chObservacion1ActionPerformed
-
+         if(chObservacion.isSelected()){
+            txtAreaObservacion.setEnabled(true);
+            txtAreaObservacion.setBackground(Color.WHITE);
+            
+        }else{
+            txtAreaObservacion.setEnabled(false);
+           txtAreaObservacion.setBackground(Color.darkGray);
+           txtAreaObservacion.setText("");
+        }
+    }//GEN-LAST:event_chObservacionActionPerformed
+     public void cargarResidentes(String departamento) {
+        cbSeleccionarResidente.removeAllItems();
+        if (!departamento.equals("-")) {
+            try {   
+                residenteDao = new ResidenteDao(); 
+                residentes = residenteDao.listadoResidentesDepartamento(departamento);
+                if (residentes.size() > 0) {
+                    for (int i = 0; i < residentes.size(); i++) {
+                        nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                        System.out.println("Nombre: " + nombre);
+                        cbSeleccionarResidente.addItem(nombre);
+                    }
+                    /*
+                    txtRut.setText(residentes.get(0).getRut());
+                    txtNombre.setText(residentes.get(0).getNombres());
+                    txtApellido.setText(residentes.get(0).getApellidos());*/
+                } else {
+                    cbSeleccionarResidente.addItem("Sin residentes");
+                   // txtRut.setText("");
+                  //  txtNombre.setText("");
+                  //  txtApellido.setText("");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JComboBox<String> cbSeleccionarDepto;
+    private javax.swing.JComboBox<String> cbSeleccionarDpto;
     private javax.swing.JComboBox<String> cbSeleccionarEstadoDpto;
     private javax.swing.JComboBox<String> cbSeleccionarResidente;
-    private javax.swing.JCheckBox chObservacion1;
+    private javax.swing.JCheckBox chObservacion;
     private javax.swing.JCheckBox chRestriccion;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;

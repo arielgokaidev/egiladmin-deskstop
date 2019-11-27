@@ -8,16 +8,26 @@ public class Reserva {
     private String numeroDepartamento;
     private String usuarioRut;
     private String fecha;
+    private String turno;
     
     private Reserva() {}
 
-    public Reserva(int id, int idValorTurno, String residenteRut, String numeroDepartamento, String usuarioRut, String fecha) {
+    public Reserva(int id, int idValorTurno, String residenteRut, String numeroDepartamento, String usuarioRut, String fecha, String turno) {
         this.id = id;
         this.idValorTurno = idValorTurno;
         this.residenteRut = residenteRut;
         this.numeroDepartamento = numeroDepartamento;
         this.usuarioRut = usuarioRut;
         this.fecha = fecha;
+        this.turno = turno;
+    }
+
+    public Reserva(int idreservasala, String residenterut, String departamentonumerodpto, String usuariointernorut, String fechareserva, int valorturno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Reserva(int idreservasala, String residenterut, String departamentonumerodpto, String usuariointernorut, String fechareserva, int valorturno, String turno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getId() {
@@ -67,5 +77,11 @@ public class Reserva {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-    
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
 }

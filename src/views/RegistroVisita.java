@@ -113,9 +113,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         txtApellido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("REGISTRAR VISITAS");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

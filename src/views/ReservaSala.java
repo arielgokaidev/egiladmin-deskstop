@@ -1,6 +1,7 @@
 package views;
 
 import dao.DepartamentoDao;
+
 import dao.ResidenteDao;
 import java.util.Calendar;
 import java.util.List;
@@ -10,9 +11,19 @@ import models.Residente;
 
 public class ReservaSala extends javax.swing.JInternalFrame {
     
-    private DepartamentoDao departamentoDao;
-    private ResidenteDao residenteDao;
+    // Instancias DAO
+   private DepartamentoDao departamentoDao;
+   private ResidenteDao residenteDao;
 
+    // Listados
+   List<Residente> residentes;
+   
+   
+    private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
+    
+    // VARIABLES PARA CHECKBOX DE TURNO
+    private String turno10,turno14,turno18;
+    
     public ReservaSala() {
         initComponents();
         // Bloquear redimension
@@ -34,13 +45,14 @@ public class ReservaSala extends javax.swing.JInternalFrame {
        // JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
         
+        
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
-            cbSeleccionarDpto.addItem("Seleccione un departamento");
+            cbSeleccionarDpto.addItem("-");
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
-                //numeroDepartamento = departamentos.get(i).getNumero();
+                numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
                 System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
@@ -75,9 +87,9 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chTurno10 = new javax.swing.JCheckBox();
+        chTurno14 = new javax.swing.JCheckBox();
+        chTurno18 = new javax.swing.JCheckBox();
         calendarioReserva = new com.toedter.calendar.JDateChooser();
         btnVolver = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -90,9 +102,6 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Reserva Sala");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -109,36 +118,41 @@ public class ReservaSala extends javax.swing.JInternalFrame {
 
         jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 238, -1));
 
-        jCheckBox3.setBackground(new java.awt.Color(0, 51, 102));
-        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setText("Turno de 10:00 a 14:00 hrs.");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        chTurno10.setBackground(new java.awt.Color(0, 51, 102));
+        chTurno10.setForeground(new java.awt.Color(255, 255, 255));
+        chTurno10.setText("Turno de 10:00 a 14:00 hrs.");
+        chTurno10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                chTurno10ActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+        jPanel1.add(chTurno10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
-        jCheckBox2.setBackground(new java.awt.Color(0, 51, 102));
-        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Turno de 14:00 a 18:00 hrs.");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        chTurno14.setBackground(new java.awt.Color(0, 51, 102));
+        chTurno14.setForeground(new java.awt.Color(255, 255, 255));
+        chTurno14.setText("Turno de 14:00 a 18:00 hrs.");
+        chTurno14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                chTurno14ActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        jPanel1.add(chTurno14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
-        jCheckBox1.setBackground(new java.awt.Color(0, 51, 102));
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Turno de 18:00 a 22:00 hrs.");
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        chTurno18.setBackground(new java.awt.Color(0, 51, 102));
+        chTurno18.setForeground(new java.awt.Color(255, 255, 255));
+        chTurno18.setText("Turno de 18:00 a 22:00 hrs.");
+        chTurno18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chTurno18ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(chTurno18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         calendarioReserva.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.add(calendarioReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 184, -1));
 
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnVolver.setText("VOLVER");
+        btnVolver.setText("CERRAR");
         btnVolver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,7 +202,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         jLabel4.setText("SELECCIONAR TURNO:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 880, 480));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 740, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -200,16 +214,59 @@ public class ReservaSala extends javax.swing.JInternalFrame {
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
         // TODO add your handling code here:
+        
+        String actionCommand = evt.getActionCommand();
+        String departamento = cbSeleccionarDpto.getSelectedItem().toString();
+        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
+           cargarResidentes(departamento);
+        }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void chTurno10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chTurno10ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+        chTurno10.setText("Turno de 10:00 a 14:00 hrs.");
+        System.out.println("Turno de 10"+chTurno10);
+        
+    }//GEN-LAST:event_chTurno10ActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void chTurno14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chTurno14ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+        chTurno14.setText("Turno de 14:00 a 18:00 hrs.");
+        System.out.println("Turno de 14"+chTurno14);
+    }//GEN-LAST:event_chTurno14ActionPerformed
 
+    private void chTurno18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chTurno18ActionPerformed
+        // TODO add your handling code here:
+         chTurno18.setText("Turno de 18:00 a 22:00 hrs.");
+         System.out.println("Turno de 18"+chTurno18);
+    }//GEN-LAST:event_chTurno18ActionPerformed
+public void cargarResidentes(String departamento) {
+        cbSeleccionarResidente.removeAllItems();
+        if (!departamento.equals("-")) {
+            try {   
+                residenteDao = new ResidenteDao(); 
+                List<Residente> residentes = residenteDao.listadoResidentesDepartamento(departamento);
+                if (residentes.size() > 0) {
+                    for (int i = 0; i < residentes.size(); i++) {
+                        nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
+                        System.out.println("Nombre: " + nombre);
+                        cbSeleccionarResidente.addItem(nombre);
+                    }
+                    /*
+                    txtRut.setText(residentes.get(0).getRut());
+                    txtNombre.setText(residentes.get(0).getNombres());
+                    txtApellido.setText(residentes.get(0).getApellidos());*/
+                } else {
+                    cbSeleccionarResidente.addItem("Sin residentes");
+                   // txtRut.setText("");
+                   // txtNombre.setText("");
+                    ///txtApellido.setText("");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
@@ -217,10 +274,10 @@ public class ReservaSala extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser calendarioReserva;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
     private javax.swing.JComboBox<String> cbSeleccionarResidente;
+    private javax.swing.JCheckBox chTurno10;
+    private javax.swing.JCheckBox chTurno14;
+    private javax.swing.JCheckBox chTurno18;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

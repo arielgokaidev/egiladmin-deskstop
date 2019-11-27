@@ -5,9 +5,13 @@
  */
 package views;
 
+import dao.ReservaDao;
+
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
+import models.Reserva;
 
 /**
  *
@@ -15,6 +19,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListarReserva extends javax.swing.JInternalFrame {
 
+    
+    
+     private ReservaDao reservaDao;
+
+    // Listados
+   List<Reserva> reserva;
     /**
      * Creates new form Reserva_Sala
      */
@@ -46,6 +56,21 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         md=new DefaultTableModel(data, cabeza);
         //VARIABLE DE LA JTABLE
         tblListarReserva.setModel(md);
+        
+        // reservas
+        try {
+            reservaDao = new ReservaDao();
+            cbSeleccionarDpto.addItem("-a");
+            List<Reserva> reserva = reservaDao.listadoRegistroReservas();
+            for (int i = 0; i < reserva.size(); i++) {
+                String numeroDepartamento = reserva.get(i).getNumeroDepartamento();
+                System.out.println("Número: " + numeroDepartamento);
+                cbSeleccionarDpto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        
     }
 
     /**
@@ -71,9 +96,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         cbSeleccionarDpto1 = new javax.swing.JComboBox<>();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(true);
         setTitle("Listar Reserva Sala");
 
@@ -95,7 +118,11 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 600, 330));
 
-        cbSeleccionarDpto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Departamentos", "101", "102", "103", "104", "201", "202", "203", "204", "301", "302", "303", "304" }));
+        cbSeleccionarDpto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSeleccionarDptoActionPerformed(evt);
+            }
+        });
         jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 238, -1));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -155,7 +182,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
         );
 
         pack();
@@ -175,7 +202,17 @@ public class ListarReserva extends javax.swing.JInternalFrame {
 
     private void btnCerrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrar1ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_btnCerrar1ActionPerformed
+
+    private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
+        // TODO add your handling code here:
+        String actionCommand = evt.getActionCommand();
+        String departamento = cbSeleccionarDpto.getSelectedItem().toString();
+        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
+           //cargarResidentes(departamento);
+        }
+    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

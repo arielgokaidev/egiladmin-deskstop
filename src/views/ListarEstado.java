@@ -80,9 +80,6 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cbSeleccionarEstado = new javax.swing.JComboBox<>();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setTitle("LISTAR Y ELIMINAR ESTADOS");
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
@@ -131,7 +128,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
                 btnCerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, 158, 55));
+        jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 158, 55));
 
         btnActualizaEstado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnActualizaEstado.setText("ACTUALIZA ESTADO");
@@ -141,7 +138,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
                 btnActualizaEstadoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizaEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 390, 158, 55));
+        jPanel1.add(btnActualizaEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 158, 55));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -185,7 +182,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
         );
 
         pack();

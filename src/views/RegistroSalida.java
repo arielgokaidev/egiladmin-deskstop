@@ -64,9 +64,6 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         LbFechaHora = new javax.swing.JLabel();
 
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("REGISTRAR SALIDA");
 
