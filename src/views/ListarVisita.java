@@ -25,7 +25,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         
         String numeroDepartamento = "";
-        
+        /*
         String data[][] = {};
         //CREA COLUMNAS
         String titulos[] = {
@@ -38,12 +38,12 @@ public class ListarVisita extends javax.swing.JInternalFrame {
             "Autorización",
             "Estacionamiento",
             "Patente"
-        };
+        };*/
         
         //INSTANCIA DE LA TABLA
-        modeloTabla = new DefaultTableModel(data, titulos);
+     //   modeloTabla = new DefaultTableModel(data, titulos);
         //VARIABLE DE LA JTABLE
-        tblVisita.setModel(modeloTabla);
+        //tblVisita.setModel(modeloTabla);
         
          //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
@@ -84,7 +84,6 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVisita = new javax.swing.JTable();
-        btnBuscaVisita = new javax.swing.JButton();
         btnVolver = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -92,7 +91,6 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         LbFechaHora = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cbSeleccionarDepto = new javax.swing.JComboBox<>();
-        btnListarVisita1 = new javax.swing.JButton();
 
         setResizable(true);
         setTitle("Listar Visitas");
@@ -101,29 +99,42 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane1.setViewportView(tblVisita);
+        tblVisita.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 72, 610, 300));
+            },
+            new String [] {
+                "N° Depto", "Fecha ingreso", "Fecha salida", "Rut", "Nombre", "Apellido", "Autorización", "Estacionamiento", "Patente"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true, false
+            };
 
-        btnBuscaVisita.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnBuscaVisita.setText("BUSCAR POR DEPARTAMENTO");
-        btnBuscaVisita.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnBuscaVisita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscaVisitaActionPerformed(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel1.add(btnBuscaVisita, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 225, 52));
+        jScrollPane1.setViewportView(tblVisita);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 920, 330));
 
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnVolver.setText("VOLVER");
+        btnVolver.setText("CERRAR");
         btnVolver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, 158, 55));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 130, 55));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -139,28 +150,18 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 50));
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("SELECCIONAR DEPARTAMENTO:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         cbSeleccionarDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSeleccionarDeptoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 238, -1));
-
-        btnListarVisita1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnListarVisita1.setText("AGREGAR DATOS A TABLA PRUEBA");
-        btnListarVisita1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnListarVisita1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarVisita1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnListarVisita1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 225, 52));
+        jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,17 +180,6 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void btnBuscaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaVisitaActionPerformed
-        // TODO add your handling code here:
-        /*
-    String rut="16";
-    String nombre="pepito";
-    String apellido="pepon";
-    //ENVIO DE PARAMETROS EN DURO
-        String datos[]={rut,nombre,apellido};
-        modeloTabla.addRow(datos);*/
-    }//GEN-LAST:event_btnBuscaVisitaActionPerformed
 
     private void cbSeleccionarDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDeptoActionPerformed
         int idEstacionamiento;
@@ -224,15 +214,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_cbSeleccionarDeptoActionPerformed
 
-    private void btnListarVisita1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarVisita1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnListarVisita1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
-    private javax.swing.JButton btnBuscaVisita;
-    private javax.swing.JButton btnListarVisita1;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbSeleccionarDepto;
     private javax.swing.JLabel jLabel10;
