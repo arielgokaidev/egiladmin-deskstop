@@ -16,7 +16,7 @@ btn = button
 public class Menu extends javax.swing.JFrame {
     
     RegistroVisita registroVisita;
-    RegistroSalida registroSalida;
+    RegistroSalida_respaldo registroSalida;
     ListarVisita listarVisita;
     AsignarEstado asignarEstado;
     ListarEstado listarEstado;
@@ -36,7 +36,7 @@ public class Menu extends javax.swing.JFrame {
         
         // Cargar instancias JInternalFrame
         registroVisita = new RegistroVisita();
-        registroSalida = new RegistroSalida();
+        registroSalida = new RegistroSalida_respaldo();
         listarVisita = new ListarVisita();
         asignarEstado = new AsignarEstado();
         listarEstado = new ListarEstado();
