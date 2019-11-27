@@ -1,37 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
+import dao.DepartamentoDao;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
+import models.Departamento;
 
-/**
- *
- * @author informatica_prac
- */
 public class ListarVisita extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Reserva_Sala
-     */
+    private DepartamentoDao departamentoDao;
+    
     //CREA LA TABLA
     DefaultTableModel md;
     String data[][]={};
     //CREA COLUMNAS
     String cabeza[]={"Rut","Nombre","Apellido"};
-    
-    
-    
+
     public ListarVisita() {
         initComponents();
         // Bloquear redimension
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+        
+        String numeroDepartamento = "";
+        
         //INSTANCIA DE LA TABLA
         md=new DefaultTableModel(data, cabeza);
         //VARIABLE DE LA JTABLE
@@ -47,6 +41,20 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         //fecha y hora sistema
        // JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
+        
+        // DEPARTAMENTOS
+        try {
+            departamentoDao = new DepartamentoDao();
+            cbSeleccionarDepto.addItem("-");
+            List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
+            for (int i = 0; i < departamentos.size(); i++) {
+                numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
+                System.out.println("Número: " + numeroDepartamento);
+                cbSeleccionarDepto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
         
         
     }

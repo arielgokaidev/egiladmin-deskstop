@@ -42,7 +42,7 @@ public class Departamento {
         this.mt2 = mt2;
     }
     
-        public int getNumeroEstacionamiento() {
+    public int getNumeroEstacionamiento() {
         return numeroEstacionamiento;
     }
 
@@ -56,10 +56,6 @@ public class Departamento {
 
     public void setNumeroBodega(int numeroBodega) {
         this.numeroBodega = numeroBodega;
-    }
-
-    public String getNumero() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

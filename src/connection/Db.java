@@ -12,9 +12,12 @@ public class Db {
     private String pass;
     
     public Db() {
-        url = "jdbc:mysql://labocris.eastus.cloudapp.azure.com:4000/egiladmin";
-        user = "egiladmin";
-        pass = "%epSm[6Pnp";
+        //url = "jdbc:mysql://labocris.eastus.cloudapp.azure.com:4000/egiladmin";
+        //user = "egiladmin";
+        //pass = "%epSm[6Pnp";
+        url = "jdbc:mysql://localhost/egiladmin";
+        user = "root";
+        pass = "";
     }
     
     public void conectar() throws SQLException {

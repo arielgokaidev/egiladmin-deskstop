@@ -17,9 +17,6 @@ public class ReservaSala extends javax.swing.JInternalFrame {
 
     // Listados
    List<Residente> residentes;
-   
-   
-    private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
     
     // VARIABLES PARA CHECKBOX DE TURNO
     private String turno10,turno14,turno18;
@@ -32,7 +29,6 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         
         String numeroDepartamento = "";
-        String nombre = "";
         
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
@@ -60,19 +56,6 @@ public class ReservaSala extends javax.swing.JInternalFrame {
             System.out.println("Error: " + e);
         }
         
-        // RESIDENTES
-        try {   
-            residenteDao = new ResidenteDao();
-            cbSeleccionarResidente.addItem("Seleccione un residente");
-            List<Residente> residentes = residenteDao.listadoResidentes();
-            for (int i = 0; i < residentes.size(); i++) {
-                nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                System.out.println("Nombre: " + nombre);
-                cbSeleccionarResidente.addItem(nombre);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
     }
 
     /**
@@ -213,12 +196,13 @@ public class ReservaSala extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
-        // TODO add your handling code here:
-        
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
         if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
-           cargarResidentes(departamento);
+            cargarResidentes(departamento);
+        } else {
+            cbSeleccionarResidente.removeAllItems();
+            cbSeleccionarResidente.addItem("-");
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
@@ -240,7 +224,9 @@ public class ReservaSala extends javax.swing.JInternalFrame {
          chTurno18.setText("Turno de 18:00 a 22:00 hrs.");
          System.out.println("Turno de 18"+chTurno18);
     }//GEN-LAST:event_chTurno18ActionPerformed
-public void cargarResidentes(String departamento) {
+
+    public void cargarResidentes(String departamento) {
+        String nombre;
         cbSeleccionarResidente.removeAllItems();
         if (!departamento.equals("-")) {
             try {   
@@ -252,19 +238,14 @@ public void cargarResidentes(String departamento) {
                         System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
-                    /*
-                    txtRut.setText(residentes.get(0).getRut());
-                    txtNombre.setText(residentes.get(0).getNombres());
-                    txtApellido.setText(residentes.get(0).getApellidos());*/
                 } else {
                     cbSeleccionarResidente.addItem("Sin residentes");
-                   // txtRut.setText("");
-                   // txtNombre.setText("");
-                    ///txtApellido.setText("");
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
+        } else {
+            cbSeleccionarResidente.addItem("-");
         }
     }
 

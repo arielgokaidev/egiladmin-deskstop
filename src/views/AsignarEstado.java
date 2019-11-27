@@ -16,14 +16,12 @@ import models.Restriccion;
 import models.TipoEstado;
 
 public class AsignarEstado extends javax.swing.JInternalFrame {
+    
     // Instancias DAO
-  
     private DepartamentoDao departamentoDao;
     private TipoEstadoDao tipoEstadoDao;
     private ResidenteDao residenteDao;
     private RestriccionDao restriccionDao;
-
-    private String rut,nombre,apellido,seleccionardpto,seleccionarestacionamiento,seleccionarresidente,usoestacionamientovisita,autorizaresidente;
    
     //Variables restriccion y espacios comunes
     private String restriccion,observacin;
@@ -57,7 +55,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         txtAreaObservacion.setBackground(Color.darkGray);
         txtAreaObservacion.setEnabled(false);
          
-        
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
@@ -67,20 +64,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
                 System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
-        
-        // RESIDENTES
-        try {   
-            residenteDao = new ResidenteDao();
-            cbSeleccionarResidente.addItem("Seleccione un residente");
-            List<Residente> residentes = residenteDao.listadoResidentes();
-            for (int i = 0; i < residentes.size(); i++) {
-                nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                System.out.println("Nombre: " + nombre);
-                cbSeleccionarResidente.addItem(nombre);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -99,7 +82,6 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        
         
         // RESTRICCION
         try {   
@@ -131,7 +113,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         cbSeleccionarEstadoDpto = new javax.swing.JComboBox<>();
         chRestriccion = new javax.swing.JCheckBox();
         btnCerrar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -172,12 +154,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
 
         chRestriccion.setBackground(new java.awt.Color(0, 51, 102));
         chRestriccion.setForeground(new java.awt.Color(255, 255, 255));
-        chRestriccion.setText("RESTRICCION ESPACIOS COMUNES");
-        chRestriccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chRestriccionActionPerformed(evt);
-            }
-        });
+        chRestriccion.setText("RESTRICCION USO ESPACIOS COMUNES");
         jPanel1.add(chRestriccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
 
         btnCerrar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -190,10 +167,15 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         });
         jPanel1.add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 158, 55));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("GUARDAR ESTADO");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 158, 55));
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnGuardar.setText("GUARDAR ESTADO");
+        btnGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 158, 55));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -256,11 +238,13 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
-        // TODO add your handling code here:
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
         if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
-           cargarResidentes(departamento);
+            cargarResidentes(departamento);
+        } else {
+            cbSeleccionarResidente.removeAllItems();
+            cbSeleccionarResidente.addItem("-");
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
@@ -268,36 +252,31 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
 
-    private void chRestriccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chRestriccionActionPerformed
-        // TODO add your handling code here:
-        chRestriccion.setText("Restriccion uso espacios comunes");
-              
-        
-    }//GEN-LAST:event_chRestriccionActionPerformed
-
     private void cbSeleccionarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarEstadoDptoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSeleccionarEstadoDptoActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        
+        this.setVisible(false);        
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void chObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chObservacionActionPerformed
-        // TODO add your handling code here:
-         if(chObservacion.isSelected()){
+        if (chObservacion.isSelected()) {
             txtAreaObservacion.setEnabled(true);
             txtAreaObservacion.setBackground(Color.WHITE);
-            
-        }else{
+        } else {
             txtAreaObservacion.setEnabled(false);
            txtAreaObservacion.setBackground(Color.darkGray);
            txtAreaObservacion.setText("");
         }
     }//GEN-LAST:event_chObservacionActionPerformed
-     public void cargarResidentes(String departamento) {
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        String restriccion = "Restriccion uso espacios comunes";
+    }//GEN-LAST:event_btnGuardarActionPerformed
+    
+    public void cargarResidentes(String departamento) {
+        String nombre;
         cbSeleccionarResidente.removeAllItems();
         if (!departamento.equals("-")) {
             try {   
@@ -309,31 +288,26 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
                         System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
-                    /*
-                    txtRut.setText(residentes.get(0).getRut());
-                    txtNombre.setText(residentes.get(0).getNombres());
-                    txtApellido.setText(residentes.get(0).getApellidos());*/
                 } else {
                     cbSeleccionarResidente.addItem("Sin residentes");
-                   // txtRut.setText("");
-                  //  txtNombre.setText("");
-                  //  txtApellido.setText("");
                 }
             } catch (Exception e) {
                 System.out.println("Error: " + e);
             }
+        } else {
+            cbSeleccionarResidente.addItem("-");
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
     private javax.swing.JComboBox<String> cbSeleccionarEstadoDpto;
     private javax.swing.JComboBox<String> cbSeleccionarResidente;
     private javax.swing.JCheckBox chObservacion;
     private javax.swing.JCheckBox chRestriccion;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;

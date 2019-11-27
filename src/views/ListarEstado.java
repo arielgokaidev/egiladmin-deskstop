@@ -1,23 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package views;
 
+import dao.DepartamentoDao;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
+import models.Departamento;
 
-/**
- *
- * @author informatica_prac
- */
 public class ListarEstado extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Reserva_Sala
-     */
+    private DepartamentoDao departamentoDao;
     
     //CREA LA TABLA
     DefaultTableModel md;
@@ -30,6 +22,8 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         this.setResizable(false);
         // Boton cerrar y ocultar JInternalFrame
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
+        
+        String numeroDepartamento = "";
         //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
@@ -40,18 +34,25 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         //fecha y hora sistema
        // JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
-        
-        
-        cbSeleccionarDpto.addItem("");
-        cbSeleccionarDpto.addItem("101");
-        cbSeleccionarDpto.addItem("201");
-        cbSeleccionarDpto.addItem("301");
-        cbSeleccionarDpto.addItem("401");
-        
+
         //INSTANCIA DE LA TABLA
         md=new DefaultTableModel(data, cabeza);
         //VARIABLE DE LA JTABLE
         tblListaEstado.setModel(md);
+        
+        // DEPARTAMENTOS
+        try {
+            departamentoDao = new DepartamentoDao();
+            cbSeleccionarDpto.addItem("-");
+            List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
+            for (int i = 0; i < departamentos.size(); i++) {
+                numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
+                System.out.println("Número: " + numeroDepartamento);
+                cbSeleccionarDpto.addItem(numeroDepartamento);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
         
     }
 
