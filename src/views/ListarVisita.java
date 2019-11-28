@@ -4,6 +4,7 @@ import dao.DepartamentoDao;
 import dao.VisitaDao;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
 import models.Departamento;
@@ -25,6 +26,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         
         String numeroDepartamento = "";
+        
+        // Obtener modelo tabla
+        modeloTabla = (DefaultTableModel) tblVisita.getModel();
         /*
         String data[][] = {};
         //CREA COLUMNAS
@@ -69,6 +73,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        
+        // Ocultar mensaje
+        jlMensaje.setVisible(false);
 
     }
 
@@ -89,8 +96,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         LbFechaHora = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jlMensaje = new javax.swing.JLabel();
         cbSeleccionarDepto = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
 
         setResizable(true);
         setTitle("Listar Visitas");
@@ -108,10 +116,10 @@ public class ListarVisita extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -152,9 +160,9 @@ public class ListarVisita extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 50));
 
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("SELECCIONAR DEPARTAMENTO:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jlMensaje.setForeground(new java.awt.Color(255, 255, 255));
+        jlMensaje.setText("SIN VISITAS REGISTRADAS");
+        jPanel1.add(jlMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, -1, 20));
 
         cbSeleccionarDepto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +170,10 @@ public class ListarVisita extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(cbSeleccionarDepto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 160, -1));
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("SELECCIONAR DEPARTAMENTO:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -184,7 +196,6 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void cbSeleccionarDeptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDeptoActionPerformed
-        int idEstacionamiento;
         String numeroDepartamento;
         String autorizaResidente;
         String fechaIngreso;
@@ -192,26 +203,50 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         String rut;
         String nombres;
         String apellidos;
+        int estacionamiento;
         String patente;
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDepto.getSelectedItem().toString();
         if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
-            cbSeleccionarDepto.removeAllItems();
-            if (!departamento.equals("-")) {
-                try {   
-                    visitaDao = new VisitaDao();
-                    List<Visita> visitas = visitaDao.listadoRegistroVisitas(departamento);
-                    if (visitas.size() > 0) {
-                        for (int i = 0; i < visitas.size(); i++) {
-                            
+            jlMensaje.setVisible(false);
+            try {   
+                visitaDao = new VisitaDao();
+                List<Visita> visitas = visitaDao.listadoRegistroVisitas(departamento);
+                modeloTabla.setRowCount(0);
+                if (visitas.size() > 0) {
+                    for (int i = 0; i < visitas.size(); i++) {
+                        Vector fila = new Vector();
+                        estacionamiento = visitas.get(i).getIdEstacionamiento();
+                        numeroDepartamento = visitas.get(i).getNumeroDepartamento();
+                        autorizaResidente = visitas.get(i).getAutorizaResidente();
+                        fechaIngreso = visitas.get(i).getFechaIngreso();
+                        fechaSalida = visitas.get(i).getFechaSalida();
+                        rut = visitas.get(i).getRut();
+                        nombres = visitas.get(i).getNombres();
+                        apellidos = visitas.get(i).getApellidos();
+                        if (visitas.get(i).getPatente() == null) {
+                            patente = "-";
+                        } else {
+                            patente = visitas.get(i).getPatente().toUpperCase();
                         }
-                    } else {
-                        // Sin visitas
+                        fila.add(numeroDepartamento);
+                        fila.add(fechaIngreso);
+                        fila.add(fechaSalida);
+                        fila.add(rut);
+                        fila.add(nombres);
+                        fila.add(apellidos);
+                        fila.add(autorizaResidente);
+                        fila.add(estacionamiento);
+                        fila.add(patente);
+                        modeloTabla.addRow(fila);
                     }
-                } catch (Exception e) {
-                    System.out.println("Error: " + e);
+                } else {
+                    // Sin visitas
+                    jlMensaje.setVisible(true);
                 }
-            } 
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }
         }        
         
     }//GEN-LAST:event_cbSeleccionarDeptoActionPerformed
@@ -222,11 +257,12 @@ public class ListarVisita extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbSeleccionarDepto;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlMensaje;
     private javax.swing.JTable tblVisita;
     // End of variables declaration//GEN-END:variables
 }

@@ -67,14 +67,14 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="9" rowCount="0">
                     <Column editable="false" title="N&#xb0; Depto" type="java.lang.String"/>
-                    <Column editable="false" title="Fecha ingreso" type="java.lang.Object"/>
-                    <Column editable="false" title="Fecha salida" type="java.lang.Object"/>
-                    <Column editable="false" title="Rut" type="java.lang.Object"/>
-                    <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="false" title="Apellido" type="java.lang.Object"/>
-                    <Column editable="false" title="Autorizaci&#xf3;n" type="java.lang.Object"/>
-                    <Column editable="true" title="Estacionamiento" type="java.lang.Object"/>
-                    <Column editable="false" title="Patente" type="java.lang.Object"/>
+                    <Column editable="false" title="Fecha ingreso" type="java.lang.String"/>
+                    <Column editable="false" title="Fecha salida" type="java.lang.String"/>
+                    <Column editable="false" title="Rut" type="java.lang.String"/>
+                    <Column editable="false" title="Nombre" type="java.lang.String"/>
+                    <Column editable="false" title="Apellido" type="java.lang.String"/>
+                    <Column editable="false" title="Autorizaci&#xf3;n" type="java.lang.String"/>
+                    <Column editable="false" title="Estacionamiento" type="java.lang.Integer"/>
+                    <Column editable="false" title="Patente" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -210,16 +210,16 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="jlMensaje">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SELECCIONAR DEPARTAMENTO:"/>
+            <Property name="text" type="java.lang.String" value="SIN VISITAS REGISTRADAS"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="80" width="-1" height="-1"/>
+              <AbsoluteConstraints x="390" y="80" width="-1" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -238,6 +238,19 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="210" y="80" width="160" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="SELECCIONAR DEPARTAMENTO:"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="10" y="80" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

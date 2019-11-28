@@ -133,7 +133,7 @@ public class VisitaDao {
     
     public List<Visita> listadoRegistroVisitas(String departamento) {
         List<Visita> listadoRegistroVisitas = new ArrayList<Visita>();
-        String sql = "SELECT * FROM registrovisita WHERE departamento_numerodpto = '" + departamento + "';";
+        String sql = "SELECT * FROM registrovisita WHERE departamento_numerodpto = '" + departamento + "' ORDER BY fechaingreso DESC;";
         System.out.println(sql);
         try {
             db.conectar();
@@ -145,8 +145,8 @@ public class VisitaDao {
                 idEstacionamiento = rs.getInt("estacionamientovisita_idestacionamientovisita");
                 numeroDepartamento = rs.getString("departamento_numerodpto");
                 autorizaResidente = rs.getString("autorizaresidente");
-                fechaIngreso = rs.getString("fechaingreso");
-                fechaSalida = rs.getString("fechasalida");
+                fechaIngreso = limpiarFecha(rs.getString("fechaingreso"));
+                fechaSalida = limpiarFecha(rs.getString("fechasalida"));
                 rut = rs.getString("rut");
                 nombres = rs.getString("nombres");
                 apellidos = rs.getString("apellidos");
@@ -159,6 +159,16 @@ public class VisitaDao {
             System.out.println("Error: " + e);
         } 
         return listadoRegistroVisitas;
+    }
+    
+    public String limpiarFecha(String fecha) {
+        if (fecha != null) {
+            String[] partes = fecha.split("\\.");
+            return partes[0];
+        } else {
+            fecha = "-";
+            return fecha;
+        }
     }
     
 }

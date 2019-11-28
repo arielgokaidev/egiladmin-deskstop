@@ -223,7 +223,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Checkbox para seleccionar estacionamiento
     private void chSeleccionarEstacionamientoVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chSeleccionarEstacionamientoVisitaActionPerformed
         if (chSeleccionarEstacionamientoVisita.isSelected()){
             cbSeleccionarEstacionamiento.setEnabled(true);
@@ -233,23 +233,25 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             txtPatente.setEnabled(false);
         }        
     }//GEN-LAST:event_chSeleccionarEstacionamientoVisitaActionPerformed
-
+    // Botón cerrar
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnCerrarActionPerformed
-
+    // Botón guardar
     private void btnGuardarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVisitaActionPerformed
         boolean ingreso = false;
         String departamento, rut, nombres, apellidos, autorizaresidente, estacionamiento, patente, fecha;
+        // Obtener datos del formulario
         departamento = (String) cbSeleccionarDpto.getSelectedItem();
         rut = txtRut.getText();
         nombres = txtNombre.getText();
         apellidos = txtApellido.getText();
         estacionamiento = (String) cbSeleccionarEstacionamiento.getSelectedItem();
         patente = txtPatente.getText();
+        // Fecha
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_MONTH);
-        int mes = calendar.get(Calendar.MONTH);
+        int mes = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
         int horas = calendar.get(Calendar.HOUR_OF_DAY);
         int minutos = calendar.get(Calendar.MINUTE);
@@ -261,8 +263,10 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             hora = String.valueOf(horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
         }
         fecha = String.valueOf(year) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia) + " " + hora;
+        System.out.println(fecha);
+        // Autorización
         if (chAutorizacionResidente.isSelected()) {
-            autorizaresidente = "Autorizado";
+            autorizaresidente = "Residente";
         } else {
             autorizaresidente = "";
         }
@@ -276,8 +280,10 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             if (!valida){
                 JOptionPane.showMessageDialog(this, "¡Rut inválido!");
             } else {
-                System.out.println("Rut valido ");
+                System.out.println("Rut valido");
+                // Instancia visitaDao
                 visitaDao = new VisitaDao();
+                // Método para ingresar, condicional estacionamiento
                 if (chSeleccionarEstacionamientoVisita.isSelected()) {
                     ingreso = visitaDao.ingresarVisitaEstacionamiento(departamento, autorizaresidente, fecha, rut, nombres, apellidos, estacionamiento, patente);
                 } else {
@@ -285,6 +291,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 }
             } 
         }
+        // Acciones después de ingresar
         if (ingreso) {
             JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
             cbSeleccionarDpto.setSelectedItem("-");
