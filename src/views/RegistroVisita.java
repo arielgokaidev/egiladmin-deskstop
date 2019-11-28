@@ -64,9 +64,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        
-        // ESTACIONAMIENTOS
-        cargarEstacionamientos();
 
     }
  
@@ -247,7 +244,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         nombres = txtNombre.getText();
         apellidos = txtApellido.getText();
         estacionamiento = (String) cbSeleccionarEstacionamiento.getSelectedItem();
-        patente = txtPatente.getText();
+        patente = txtPatente.getText().toUpperCase();
         // Fecha
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_MONTH);
@@ -336,6 +333,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             cbSeleccionarResidente.removeAllItems();
             cbSeleccionarResidente.addItem("-");
         }
+        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
+            cargarEstacionamientos();
+        }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
     private void cbSeleccionarResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarResidenteActionPerformed
@@ -395,14 +395,18 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     
     public void cargarEstacionamientos() {
         String numeroEstacionamiento;
+        cbSeleccionarEstacionamiento.removeAllItems();
         try {   
             estacionamientoDao = new EstacionamientoVisitaDao();
-            cbSeleccionarEstacionamiento.addItem("-");
             List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
-            for (int i = 0; i < estacionamientos.size(); i++) {
-                numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
-                System.out.println("Número: " + numeroEstacionamiento);
-                cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
+            if (estacionamientos.size() > 0) {
+                for (int i = 0; i < estacionamientos.size(); i++) {
+                    numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
+                    System.out.println("Número: " + numeroEstacionamiento);
+                    cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
+                }
+            } else {
+                cbSeleccionarEstacionamiento.addItem("-");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -413,7 +417,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         boolean validacion = false;
         try {
             rut =  rut.toUpperCase();
-            //rut = rut.replace(".", "");
             rut = rut.replace("-", "");
             int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
 

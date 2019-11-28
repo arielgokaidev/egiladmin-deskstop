@@ -1,28 +1,22 @@
 package views;
 
 import dao.DepartamentoDao;
-import dao.EstacionamientoVisitaDao;
-import dao.ResidenteDao;
 import dao.VisitaDao;
-import java.awt.Color;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import models.Departamento;
-import models.EstacionamientoVisita;
-import models.Residente;
+import models.Visita;
 
 public class RegistroSalida extends javax.swing.JInternalFrame {
 
     // Instancias DAO
     private DepartamentoDao departamentoDao;
-    private ResidenteDao residenteDao;
-    private EstacionamientoVisitaDao estacionamientoDao;
     private VisitaDao visitaDao;
 
     // Listados
-    List<Residente> residentes;
+    List<Visita> visitas;
    
     public RegistroSalida() {
         initComponents();
@@ -45,10 +39,9 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         //JOptionPane.showMessageDialog(null, fechahora);
         this.LbFechaHora.setText(fechahora);
         
-        //Check apagado residente
-        cbSeleccionarResidente.setEnabled(false);
+        //Check apagado visita
+        cbSeleccionarVisita.setEnabled(false);
         //Check apagado uso estacionamiento
-      //  cbSeleccionarEstacionamiento.setEnabled(false);
         txtPatente.setEnabled(false);
         
         // DEPARTAMENTOS
@@ -65,8 +58,8 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             System.out.println("Error: " + e);
         }
         
-        // ESTACIONAMIENTOS
-        cargarEstacionamientos();
+        // VISITAS
+        cbSeleccionarVisita.addItem("-");
 
     }
  
@@ -78,7 +71,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         btnGuardarVisita = new javax.swing.JButton();
         btnCerrar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        cbSeleccionarResidente = new javax.swing.JComboBox<>();
+        cbSeleccionarVisita = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -122,12 +115,12 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         jLabel7.setText("SELECCIONAR NOMBRE VISITA:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
-        cbSeleccionarResidente.addActionListener(new java.awt.event.ActionListener() {
+        cbSeleccionarVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSeleccionarResidenteActionPerformed(evt);
+                cbSeleccionarVisitaActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 250, -1));
+        jPanel1.add(cbSeleccionarVisita, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 360, -1));
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -157,7 +150,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
                 cbSeleccionarDptoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 250, -1));
+        jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 360, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 340));
 
@@ -169,7 +162,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnGuardarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVisitaActionPerformed
-        boolean ingreso = false;
+        boolean guardar = false;
         /*
         String departamento, rut, nombres, apellidos, autorizaresidente, estacionamiento, patente, fecha;
         departamento = (String) cbSeleccionarDpto.getSelectedItem();
@@ -234,119 +227,64 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
-        /*
-        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-") && chAutorizacionResidente.isSelected()) {
-            cargarResidentes(departamento);
-        } else {
-            cbSeleccionarResidente.removeAllItems();
-            cbSeleccionarResidente.addItem("-");
-        }
-*/
-    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
-
-    private void cbSeleccionarResidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarResidenteActionPerformed
-        String actionCommand = evt.getActionCommand();
-        String departamento = cbSeleccionarDpto.getSelectedItem().toString();
-        
+        String nombre, fecha;
         if (actionCommand.equals("comboBoxChanged")) {
             if (!departamento.equals("-")) {
-                int indexResidente = cbSeleccionarResidente.getSelectedIndex();
-                if (indexResidente > -1) {
-                //     txtRut.setBackground(Color.white);
-                //     txtNombre.setBackground(Color.white);
-                 //    txtApellido.setBackground(Color.white);
-                    if (residentes.size() > 0) {
-                //         txtRut.setText(residentes.get(indexResidente).getRut());
-                //         txtNombre.setText(residentes.get(indexResidente).getNombres());
-                //         txtApellido.setText(residentes.get(indexResidente).getApellidos());
+                cbSeleccionarVisita.setEnabled(false);
+                cbSeleccionarVisita.removeAllItems();
+                try {   
+                    visitaDao = new VisitaDao();
+                    visitas = visitaDao.listadoRegistroVisitasSalida(departamento);
+                    if (visitas.size() > 0) {
+                        for (int i = 0; i < visitas.size(); i++) {
+                            nombre = visitas.get(i).getNombres() + " " + visitas.get(i).getApellidos();
+                            fecha = visitas.get(i).getFechaIngreso();                      
+                            System.out.println("Nombre: " + nombre);
+                            cbSeleccionarVisita.addItem(fecha + " - " + nombre);
+                        }
+                        cbSeleccionarVisita.setEnabled(true);
                     } else {
-               //          txtRut.setText("");
-               //          txtNombre.setText("");
-               //          txtApellido.setText("");
+                        cbSeleccionarVisita.addItem("Sin visitas");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
+                }  
+            } else {
+                cbSeleccionarVisita.setEnabled(false);
+                cbSeleccionarVisita.removeAllItems();
+                cbSeleccionarVisita.addItem("-");
+            }
+        }
+    }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
+
+    private void cbSeleccionarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarVisitaActionPerformed
+        String actionCommand = evt.getActionCommand();
+        String patente;
+        if (actionCommand.equals("comboBoxChanged")) {
+            int indexVisita = cbSeleccionarVisita.getSelectedIndex();
+            if (indexVisita > -1) {
+                String visita = cbSeleccionarVisita.getSelectedItem().toString();
+                if (!visita.equals("-") && visitas.size() > 0) {
+                    patente = visitas.get(indexVisita).getPatente();
+                    if (patente != null) {
+                        txtPatente.setText(patente);
+                    } else {
+                        txtPatente.setText("SIN PATENTE");
                     }
                 }
             } else {
-              //   txtRut.setText("");
-              //   txtNombre.setText("");
-              //  txtApellido.setText("");
+                txtPatente.setText("");
             }
         }
-    }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
-    
-    public void cargarResidentes(String departamento) {
-        String nombre;
-        cbSeleccionarResidente.removeAllItems();
-        if (!departamento.equals("-")) {
-            try {   
-                residenteDao = new ResidenteDao();
-                residentes = residenteDao.listadoResidentesDepartamento(departamento);
-                if (residentes.size() > 0) {
-                    for (int i = 0; i < residentes.size(); i++) {
-                        nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                        System.out.println("Nombre: " + nombre);
-                        cbSeleccionarResidente.addItem(nombre);
-                    }
-                } else {
-                    cbSeleccionarResidente.addItem("Sin residentes");
-                //     txtRut.setText("");
-                 //    txtNombre.setText("");
-                //   txtApellido.setText("");
-                }
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
-            }
-        } else {
-            cbSeleccionarResidente.addItem("-");
-        }
-    }
-    
-    public void cargarEstacionamientos() {
-        String numeroEstacionamiento;
-        try {   
-            estacionamientoDao = new EstacionamientoVisitaDao();
-          //   cbSeleccionarEstacionamiento.addItem("-");
-            List<EstacionamientoVisita> estacionamientos = estacionamientoDao.listadoEstacionamientos();
-            for (int i = 0; i < estacionamientos.size(); i++) {
-                numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
-                System.out.println("Número: " + numeroEstacionamiento);
-           //      cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
-    }
-    
-    public static boolean validarRut(String rut) {
-        boolean validacion = false;
-        try {
-            rut =  rut.toUpperCase();
-            //rut = rut.replace(".", "");
-            rut = rut.replace("-", "");
-            int rutAux = Integer.parseInt(rut.substring(0, rut.length() - 1));
+    }//GEN-LAST:event_cbSeleccionarVisitaActionPerformed
 
-            char dv = rut.charAt(rut.length() - 1);
-
-            int m = 0, s = 1;
-            for (; rutAux != 0; rutAux /= 10) {
-                s = (s + rutAux % 10 * (9 - m++ % 6)) % 11;
-            }
-            if (dv == (char) (s != 0 ? s + 47 : 75)) {
-                validacion = true;
-            }
-        } catch (java.lang.NumberFormatException e) {
-            
-        } catch (Exception e) {
-            
-        }
-        return validacion;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnGuardarVisita;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
-    private javax.swing.JComboBox<String> cbSeleccionarResidente;
+    private javax.swing.JComboBox<String> cbSeleccionarVisita;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -28,6 +28,15 @@ public class Visita {
         this.patente = patente;
     }
 
+    public Visita(int idEstacionamiento, String numeroDepartamento, String fechaIngreso, String nombres, String apellidos, String patente) {
+        this.idEstacionamiento = idEstacionamiento;
+        this.numeroDepartamento = numeroDepartamento;
+        this.fechaIngreso = fechaIngreso;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.patente = patente;
+    }  
+
     public int getId() {
         return id;
     }
