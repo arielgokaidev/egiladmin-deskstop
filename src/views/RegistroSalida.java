@@ -58,8 +58,8 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             System.out.println("Error: " + e);
         }
         
-        // VISITAS
-        cbSeleccionarVisita.addItem("-");
+        // Instancia VisitaDao()
+        visitaDao = new VisitaDao();
 
     }
  
@@ -162,18 +162,15 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnGuardarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVisitaActionPerformed
-        boolean guardar = false;
-        /*
-        String departamento, rut, nombres, apellidos, autorizaresidente, estacionamiento, patente, fecha;
+        boolean ingreso = false;
+        String departamento, visita, rut, patente, fecha;
+        int estacionamiento;
         departamento = (String) cbSeleccionarDpto.getSelectedItem();
-        rut = txtRut.getText();
-        nombres = txtNombre.getText();
-        apellidos = txtApellido.getText();
-        estacionamiento = (String) cbSeleccionarEstacionamiento.getSelectedItem();
+        visita = (String) cbSeleccionarVisita.getSelectedItem();
         patente = txtPatente.getText();
         Calendar calendar = Calendar.getInstance();
         int dia = calendar.get(Calendar.DAY_OF_MONTH);
-        int mes = calendar.get(Calendar.MONTH);
+        int mes = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
         int horas = calendar.get(Calendar.HOUR_OF_DAY);
         int minutos = calendar.get(Calendar.MINUTE);
@@ -185,43 +182,28 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             hora = String.valueOf(horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
         }
         fecha = String.valueOf(year) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia) + " " + hora;
-        if (chAutorizacionResidente.isSelected()) {
-            autorizaresidente = "Autorizado";
+        if (departamento.equals("-")) {
+            JOptionPane.showMessageDialog(this, "¡Debe seleccionar un departamento!");
+        } else if (visita.equals("Sin visitas")) {
+            JOptionPane.showMessageDialog(this, "¡No hay visitas registradas en este departamento!");
         } else {
-            autorizaresidente = "";
-        }
-        // Valida vacios
-        if (departamento.isEmpty() || departamento.equals("-") || rut.isEmpty() || nombres.isEmpty() || apellidos.isEmpty() || 
-                (chSeleccionarEstacionamientoVisita.isSelected() && (patente.isEmpty() || estacionamiento.equals("-")))) {
-            JOptionPane.showMessageDialog(this, "¡Debe completar todos los campos!");
-        } else {
-            // Metodo validador de rut 
-            boolean valida = validarRut(rut);
-            if (!valida){
-                JOptionPane.showMessageDialog(this, "¡Rut inválido!");
+            int indexVisita = cbSeleccionarVisita.getSelectedIndex();
+            System.out.println("indexVisita: " + indexVisita);
+            rut = visitas.get(indexVisita).getRut();
+            System.out.println("Rut: " + rut);
+            if (patente.equals("SIN PATENTE")) {
+                ingreso = visitaDao.ingresarSalida(departamento, rut, fecha);
             } else {
-                System.out.println("Rut valido ");
-                visitaDao = new VisitaDao();
-                if (chSeleccionarEstacionamientoVisita.isSelected()) {
-                    ingreso = visitaDao.ingresarVisitaEstacionamiento(departamento, autorizaresidente, fecha, rut, nombres, apellidos, estacionamiento, patente);
-                } else {
-                    ingreso = visitaDao.ingresarVisita(departamento, autorizaresidente, fecha, rut, nombres, apellidos);        
-                }
-            } 
+                estacionamiento = visitas.get(indexVisita).getIdEstacionamiento();
+                System.out.println("N° estacionamiento: " + estacionamiento);
+                ingreso = visitaDao.ingresarSalidaEstacionamiento(departamento, rut, fecha, estacionamiento);
+            }          
         }
         if (ingreso) {
-            JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
+            JOptionPane.showMessageDialog(this, "¡Salida de visita registrada correctamente!");
             cbSeleccionarDpto.setSelectedItem("-");
-        //     txtRut.setText("");
-        //     txtNombre.setText("");
-        //     txtApellido.setText("");
-         //    chAutorizacionResidente.setSelected(false);
-         //    chSeleccionarEstacionamientoVisita.setSelected(false);
-         //    txtPatente.setText("");
-          //   cbSeleccionarEstacionamiento.setEnabled(false);
-          //   cbSeleccionarEstacionamiento.removeAllItems();
-            cargarEstacionamientos();
-        }*/
+            txtPatente.setText("");
+        }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
@@ -229,17 +211,19 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
         String nombre, fecha;
         if (actionCommand.equals("comboBoxChanged")) {
+            // Cambiar a funcion cargarVisitas(departamento)
             if (!departamento.equals("-")) {
                 cbSeleccionarVisita.setEnabled(false);
                 cbSeleccionarVisita.removeAllItems();
-                try {   
-                    visitaDao = new VisitaDao();
+                try {
                     visitas = visitaDao.listadoRegistroVisitasSalida(departamento);
                     if (visitas.size() > 0) {
                         for (int i = 0; i < visitas.size(); i++) {
                             nombre = visitas.get(i).getNombres() + " " + visitas.get(i).getApellidos();
                             fecha = visitas.get(i).getFechaIngreso();                      
+                            System.out.println("Position: " + i);
                             System.out.println("Nombre: " + nombre);
+                            System.out.println("Rut: " +  visitas.get(i).getRut());
                             cbSeleccionarVisita.addItem(fecha + " - " + nombre);
                         }
                         cbSeleccionarVisita.setEnabled(true);
@@ -252,7 +236,6 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             } else {
                 cbSeleccionarVisita.setEnabled(false);
                 cbSeleccionarVisita.removeAllItems();
-                cbSeleccionarVisita.addItem("-");
             }
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
@@ -263,8 +246,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         if (actionCommand.equals("comboBoxChanged")) {
             int indexVisita = cbSeleccionarVisita.getSelectedIndex();
             if (indexVisita > -1) {
-                String visita = cbSeleccionarVisita.getSelectedItem().toString();
-                if (!visita.equals("-") && visitas.size() > 0) {
+                if (visitas.size() > 0) {
                     patente = visitas.get(indexVisita).getPatente();
                     if (patente != null) {
                         txtPatente.setText(patente);

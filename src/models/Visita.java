@@ -28,10 +28,11 @@ public class Visita {
         this.patente = patente;
     }
 
-    public Visita(int idEstacionamiento, String numeroDepartamento, String fechaIngreso, String nombres, String apellidos, String patente) {
+    public Visita(int idEstacionamiento, String numeroDepartamento, String fechaIngreso, String rut, String nombres, String apellidos, String patente) {
         this.idEstacionamiento = idEstacionamiento;
         this.numeroDepartamento = numeroDepartamento;
         this.fechaIngreso = fechaIngreso;
+        this.rut = rut;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.patente = patente;

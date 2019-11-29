@@ -235,9 +235,6 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MenuAsignarEstadoDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuAsignarEstadoDptoActionPerformed
-        // Abrir informe de Visitas
-       // escritorio.getDesktopManager().maximizeFrame(asignarEstado);
-        //asignarEstado.show();
         Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = asignarEstado.getSize();
         asignarEstado.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
@@ -245,8 +242,6 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuAsignarEstadoDptoActionPerformed
 
     private void MenuIngresoVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuIngresoVisitasActionPerformed
-        // Mostrar JInternalFrame
-        // Centrar JinternalFrame
         Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = registroVisita.getSize();
         registroVisita.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
@@ -254,20 +249,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuIngresoVisitasActionPerformed
 
     private void MenuReservaSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuReservaSalaActionPerformed
-       // escritorio.getDesktopManager().maximizeFrame(reservaSala);
-       
         Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = reservaSala.getSize();
         reservaSala.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
-        reservaSala.show();
-       
-        
+        reservaSala.show();       
     }//GEN-LAST:event_MenuReservaSalaActionPerformed
 
     private void MenuSalidaVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuSalidaVisitaActionPerformed
-      //  escritorio.getDesktopManager().maximizeFrame(registroSalida);
-  
-        
         Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = registroSalida.getSize();
         registroSalida.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
@@ -286,30 +274,21 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuSalirAplicacionActionPerformed
 
     private void MenuListarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarEstadoActionPerformed
-        //escritorio.getDesktopManager().maximizeFrame(listarEstado);
-        //listarEstado.show();
         Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = listarEstado.getSize();
         listarEstado.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
-        listarEstado.show();
-        
+        listarEstado.show();     
     }//GEN-LAST:event_MenuListarEstadoActionPerformed
 
     private void MenuListarVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarVisitasActionPerformed
-       // escritorio.getDesktopManager().maximizeFrame(listarVisita);
-        //listarVisita.show();
-        
-         Dimension desktopSize = escritorio.getSize();
+        Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = listarVisita.getSize();
         listarVisita.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
         listarVisita.show();
     }//GEN-LAST:event_MenuListarVisitasActionPerformed
 
     private void MenuListarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListarReservasActionPerformed
-      // escritorio.getDesktopManager().maximizeFrame(listarReserva);
-        
-        //listarReserva.show();
-         Dimension desktopSize = escritorio.getSize();
+        Dimension desktopSize = escritorio.getSize();
         Dimension frameSize = listarReserva.getSize();
         listarReserva.setLocation((desktopSize.width - frameSize.width)/2, (desktopSize.height- frameSize.height)/2);
         listarReserva.show();

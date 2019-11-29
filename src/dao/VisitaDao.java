@@ -59,38 +59,38 @@ public class VisitaDao {
     
     public boolean ingresarVisitaEstacionamiento(String departamento, String autorizaresidente, String fecha, String rut, String nombres, String apellidos, String estacionamiento, String patente) {
         boolean insert = false;
-        boolean updateEstacionamientoVisita = false;
+        boolean ingresoEstacionamiento = false;
         int result = 0;
         int numeroEstacionamiento = Integer.parseInt(estacionamiento);
         int id = maxRegistroVisita() + 1;
         System.out.println("id: " + id);
-        updateEstacionamientoVisita = actualizarEstacionamiento(numeroEstacionamiento);
         String sql = "INSERT INTO registrovisita "
                 + "(idregistrovisita, estacionamientovisita_idestacionamientovisita, departamento_numerodpto, "
                 + "autorizaresidente, fechaingreso, rut, nombres, apellidos, patente) "
                 + "VALUES ("+id+", "+numeroEstacionamiento+", '"+departamento+"', '"+autorizaresidente+"', "
                 + "'"+fecha+"', '"+rut+"', '"+nombres+"', '"+apellidos+"', '"+patente+"');";
         System.out.println(sql);
-        if (updateEstacionamientoVisita) {
-            try {
-                db.conectar();
-                conexion = db.getConexion();
-                Statement statement = conexion.createStatement();
-                result = statement.executeUpdate(sql);
-                statement.close();
-                db.desconectar();
-            } catch (SQLException e) {
-                System.out.println("Error: " + e);
-            }
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            result = statement.executeUpdate(sql);
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
         }
         if (result == 1) {
             System.out.println("Insert OK");
-            insert = true;
+            ingresoEstacionamiento = ingresoEstacionamiento(numeroEstacionamiento);
+            if (ingresoEstacionamiento) {
+                insert = true;
+            }
         }
         return insert;
     }
     
-    public boolean actualizarEstacionamiento(int numeroEstacionamiento) {
+    public boolean ingresoEstacionamiento(int numeroEstacionamiento) {
         boolean update = false;
         int result = 0;
         String sql = "UPDATE estacionamientovisita SET estado = 'Ocupado' WHERE numero = " + numeroEstacionamiento + ";";
@@ -175,10 +175,11 @@ public class VisitaDao {
                 idEstacionamiento = rs.getInt("estacionamientovisita_idestacionamientovisita");
                 numeroDepartamento = rs.getString("departamento_numerodpto");
                 fechaIngreso = limpiarFecha(rs.getString("fechaingreso"));
+                rut = rs.getString("rut");
                 nombres = rs.getString("nombres");
                 apellidos = rs.getString("apellidos");
                 patente = rs.getString("patente");
-                Visita visita = new Visita(idEstacionamiento, numeroDepartamento, fechaIngreso, nombres, apellidos, patente);
+                Visita visita = new Visita(idEstacionamiento, numeroDepartamento, fechaIngreso, rut, nombres, apellidos, patente);
                 listadoRegistroVisitas.add(visita);
             }
             db.desconectar();
@@ -186,6 +187,81 @@ public class VisitaDao {
             System.out.println("Error: " + e);
         } 
         return listadoRegistroVisitas;
+    }
+    
+    public boolean ingresarSalida(String departamento, String rut, String fecha) {
+        boolean update = false;
+        int result = 0;
+        String sql = "UPDATE registrovisita SET fechasalida = '"+fecha+"' "
+                + "WHERE departamento_numerodpto = '"+departamento+"' AND rut = '"+rut+"' "
+                + "AND fechasalida IS NULL;";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            result = statement.executeUpdate(sql);
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        }
+        if (result == 1) {
+            System.out.println("Update OK");
+            update = true;
+        }
+        return update;
+    }
+    
+    public boolean ingresarSalidaEstacionamiento(String departamento, String rut, String fecha, int numeroEstacionamiento) {
+        boolean update = false;
+        boolean salidaEstacionamiento = false;
+        int result = 0;
+        String sql = "UPDATE registrovisita SET fechasalida = '"+fecha+"' "
+                + "WHERE departamento_numerodpto = '"+departamento+"' AND rut = '"+rut+"' "
+                + "AND fechasalida IS NULL;";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            result = statement.executeUpdate(sql);
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        }
+        if (result == 1) {
+            System.out.println("Update OK");
+            salidaEstacionamiento = salidaEstacionamiento(numeroEstacionamiento);
+            if (salidaEstacionamiento) {
+                update = true;
+            }
+            update = true;
+        }
+        return update;
+    }
+    
+    public boolean salidaEstacionamiento(int numeroEstacionamiento) {
+        boolean update = false;
+        int result = 0;
+        String sql = "UPDATE estacionamientovisita SET estado = 'Disponible' WHERE numero = " + numeroEstacionamiento + ";";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            result = statement.executeUpdate(sql);
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        }
+        if (result == 1) {
+            System.out.println("Update OK");
+            update = true;
+        }
+        return update;
     }
     
     public String limpiarFecha(String fecha) {
