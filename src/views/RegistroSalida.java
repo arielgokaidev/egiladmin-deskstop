@@ -195,48 +195,25 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
                 ingreso = visitaDao.ingresarSalida(departamento, rut, fecha);
             } else {
                 estacionamiento = visitas.get(indexVisita).getIdEstacionamiento();
-                System.out.println("N° estacionamiento: " + estacionamiento);
-                ingreso = visitaDao.ingresarSalidaEstacionamiento(departamento, rut, fecha, estacionamiento);
+                String mensaje = "Se desocupará el estacionamiento n° " + estacionamiento + "\n¿Desea continuar?";
+                int opcion = JOptionPane.showConfirmDialog(null, mensaje, "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
+                if (opcion == 0){
+                    System.out.println("N° estacionamiento: " + estacionamiento);
+                    ingreso = visitaDao.ingresarSalidaEstacionamiento(departamento, rut, fecha, estacionamiento);
+                }
             }          
         }
         if (ingreso) {
             JOptionPane.showMessageDialog(this, "¡Salida de visita registrada correctamente!");
-            cbSeleccionarDpto.setSelectedItem("-");
-            txtPatente.setText("");
+            cargarVisitas(departamento);
         }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
-        String nombre, fecha;
         if (actionCommand.equals("comboBoxChanged")) {
-            // Cambiar a funcion cargarVisitas(departamento)
-            if (!departamento.equals("-")) {
-                cbSeleccionarVisita.setEnabled(false);
-                cbSeleccionarVisita.removeAllItems();
-                try {
-                    visitas = visitaDao.listadoRegistroVisitasSalida(departamento);
-                    if (visitas.size() > 0) {
-                        for (int i = 0; i < visitas.size(); i++) {
-                            nombre = visitas.get(i).getNombres() + " " + visitas.get(i).getApellidos();
-                            fecha = visitas.get(i).getFechaIngreso();                      
-                            System.out.println("Position: " + i);
-                            System.out.println("Nombre: " + nombre);
-                            System.out.println("Rut: " +  visitas.get(i).getRut());
-                            cbSeleccionarVisita.addItem(fecha + " - " + nombre);
-                        }
-                        cbSeleccionarVisita.setEnabled(true);
-                    } else {
-                        cbSeleccionarVisita.addItem("Sin visitas");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error: " + e);
-                }  
-            } else {
-                cbSeleccionarVisita.setEnabled(false);
-                cbSeleccionarVisita.removeAllItems();
-            }
+            cargarVisitas(departamento);
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
@@ -260,6 +237,35 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cbSeleccionarVisitaActionPerformed
 
+    public void cargarVisitas(String departamento) {
+        String nombre, fecha;
+        departamento = cbSeleccionarDpto.getSelectedItem().toString();
+        if (!departamento.equals("-")) {
+            cbSeleccionarVisita.setEnabled(false);
+            cbSeleccionarVisita.removeAllItems();
+            try {
+                visitas = visitaDao.listadoRegistroVisitasSalida(departamento);
+                if (visitas.size() > 0) {
+                    for (int i = 0; i < visitas.size(); i++) {
+                        nombre = visitas.get(i).getNombres() + " " + visitas.get(i).getApellidos();
+                        fecha = visitas.get(i).getFechaIngreso();                      
+                        System.out.println("Position: " + i);
+                        System.out.println("Nombre: " + nombre);
+                        System.out.println("Rut: " +  visitas.get(i).getRut());
+                        cbSeleccionarVisita.addItem(fecha + " - " + nombre);
+                    }
+                    cbSeleccionarVisita.setEnabled(true);
+                } else {
+                    cbSeleccionarVisita.addItem("Sin visitas");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            }  
+        } else {
+            cbSeleccionarVisita.setEnabled(false);
+            cbSeleccionarVisita.removeAllItems();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbFechaHora;

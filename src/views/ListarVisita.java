@@ -29,26 +29,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         
         // Obtener modelo tabla
         modeloTabla = (DefaultTableModel) tblVisita.getModel();
-        /*
-        String data[][] = {};
-        //CREA COLUMNAS
-        String titulos[] = {
-            "N° Depto",
-            "Fecha ingreso",
-            "Fecha salida",
-            "Rut",
-            "Nombre",
-            "Apellido",
-            "Autorización",
-            "Estacionamiento",
-            "Patente"
-        };*/
-        
-        //INSTANCIA DE LA TABLA
-     //   modeloTabla = new DefaultTableModel(data, titulos);
-        //VARIABLE DE LA JTABLE
-        //tblVisita.setModel(modeloTabla);
-        
+
          //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
         
@@ -218,7 +199,11 @@ public class ListarVisita extends javax.swing.JInternalFrame {
                         Vector fila = new Vector();
                         estacionamiento = visitas.get(i).getIdEstacionamiento();
                         numeroDepartamento = visitas.get(i).getNumeroDepartamento();
-                        autorizaResidente = visitas.get(i).getAutorizaResidente();
+                        if (visitas.get(i).getAutorizaResidente() == null) {
+                            autorizaResidente = "-";
+                        } else {
+                            autorizaResidente = visitas.get(i).getAutorizaResidente();
+                        }
                         fechaIngreso = visitas.get(i).getFechaIngreso();
                         fechaSalida = visitas.get(i).getFechaSalida();
                         rut = visitas.get(i).getRut();

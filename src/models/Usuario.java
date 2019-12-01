@@ -2,6 +2,7 @@ package models;
 
 public class Usuario {
     
+    private String rut;
     private String user;
     private String password;
     private String nombres;
@@ -9,13 +10,22 @@ public class Usuario {
     private int idTipoUsuario;
     private String tipoUsuario;
 
-    public Usuario(String user, String password, String nombres, String apellidos, int idTipoUsuario, String tipoUsuario) {
+    public Usuario(String rut, String user, String password, String nombres, String apellidos, int idTipoUsuario, String tipoUsuario) {
+        this.rut = rut;
         this.user = user;
         this.password = password;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.idTipoUsuario = idTipoUsuario;
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getRut() {
+        return rut;
+    }
+
+    public void setRut(String rut) {
+        this.rut = rut;
     }
 
     public String getUser() {

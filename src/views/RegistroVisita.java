@@ -5,6 +5,7 @@ import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
 import dao.VisitaDao;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -179,6 +180,11 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
 
         txtPatente.setBackground(new java.awt.Color(204, 204, 204));
+        txtPatente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPatenteKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPatente, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 120, 140, -1));
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -286,21 +292,23 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 } else {
                     ingreso = visitaDao.ingresarVisita(departamento, autorizaresidente, fecha, rut, nombres, apellidos);        
                 }
+                // Acciones después de ingresar
+                if (ingreso) {
+                    JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
+                    cbSeleccionarDpto.setSelectedItem("-");
+                    txtRut.setText("");
+                    txtNombre.setText("");
+                    txtApellido.setText("");
+                    chAutorizacionResidente.setSelected(false);
+                    chSeleccionarEstacionamientoVisita.setSelected(false);
+                    txtPatente.setText("");
+                    cbSeleccionarEstacionamiento.setEnabled(false);
+                    cbSeleccionarEstacionamiento.removeAllItems();
+                    cargarEstacionamientos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
+                }
             } 
-        }
-        // Acciones después de ingresar
-        if (ingreso) {
-            JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
-            cbSeleccionarDpto.setSelectedItem("-");
-            txtRut.setText("");
-            txtNombre.setText("");
-            txtApellido.setText("");
-            chAutorizacionResidente.setSelected(false);
-            chSeleccionarEstacionamientoVisita.setSelected(false);
-            txtPatente.setText("");
-            cbSeleccionarEstacionamiento.setEnabled(false);
-            cbSeleccionarEstacionamiento.removeAllItems();
-            cargarEstacionamientos();
         }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
@@ -365,6 +373,12 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_cbSeleccionarResidenteActionPerformed
+
+    private void txtPatenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPatenteKeyTyped
+        if (txtPatente.getText().length() >= 6) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPatenteKeyTyped
     
     public void cargarResidentes(String departamento) {
         String nombre;

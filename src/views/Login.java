@@ -12,8 +12,9 @@ import models.Usuario;
 
 public class Login extends javax.swing.JFrame {
 
+    private String rutUsuario;
+    private UsuarioDao usuarioDao;
     
-    UsuarioDao usuarioDao;
     /*
     private Timer tiempo;
     int cont;
@@ -202,8 +203,6 @@ public class Login extends javax.swing.JFrame {
         private void dispose() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
-
-
     }*/
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -223,7 +222,8 @@ public class Login extends javax.swing.JFrame {
                     loginError = false;
                     //ESTE JPTION DEBEMOS CAMBIARLO POR UNA BARRA QUE INDIQUE EL PROCESO DE CARGA
                     //JOptionPane.showMessageDialog(null, "¡Registrado correctamente!");
-                    Menu menu = new Menu();
+                    rutUsuario = usuario.get(0).getRut();
+                    Menu menu = new Menu(rutUsuario);
                     menu.setVisible(true);  
                     this.dispose();   
                    //progresbar

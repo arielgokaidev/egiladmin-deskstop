@@ -3,23 +3,23 @@ package models;
 public class Estado {
     
     private int id;
-    private String residenteRut;
+    private String usuarioRut;
     private String numeroDepartamento;
-    private int tipoEstado;
+    private int idTipoEstado;
+    private String fecha;
+    private String observacion;
     private int restriccion;
-    private String fechaIngreso;
-    private String fechaSalida;
     
     public Estado() {}
 
-    public Estado(int id, String residenteRut, String numeroDepartamento, int tipoEstado, int restriccion, String fechaIngreso, String fechaSalida) {
+    public Estado(int id, String usuarioRut, String numeroDepartamento, int idTipoEstado, String fecha, String observacion, int restriccion) {
         this.id = id;
-        this.residenteRut = residenteRut;
+        this.usuarioRut = usuarioRut;
         this.numeroDepartamento = numeroDepartamento;
-        this.tipoEstado = tipoEstado;
+        this.idTipoEstado = idTipoEstado;
+        this.fecha = fecha;
+        this.observacion = observacion;
         this.restriccion = restriccion;
-        this.fechaIngreso = fechaIngreso;
-        this.fechaSalida = fechaSalida;
     }
 
     public int getId() {
@@ -30,12 +30,12 @@ public class Estado {
         this.id = id;
     }
 
-    public String getResidenteRut() {
-        return residenteRut;
+    public String getUsuarioRut() {
+        return usuarioRut;
     }
 
-    public void setResidenteRut(String residenteRut) {
-        this.residenteRut = residenteRut;
+    public void setUsuarioRut(String usuarioRut) {
+        this.usuarioRut = usuarioRut;
     }
 
     public String getNumeroDepartamento() {
@@ -46,13 +46,31 @@ public class Estado {
         this.numeroDepartamento = numeroDepartamento;
     }
 
-    public int getTipoEstado() {
-        return tipoEstado;
+    public int getIdTipoEstado() {
+        return idTipoEstado;
     }
 
-    public void setTipoEstado(int tipoEstado) {
-        this.tipoEstado = tipoEstado;
+    public void setIdTipoEstado(int idTipoEstado) {
+        this.idTipoEstado = idTipoEstado;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
+    }
+    
+    
 
     public int getRestriccion() {
         return restriccion;
@@ -60,22 +78,6 @@ public class Estado {
 
     public void setRestriccion(int restriccion) {
         this.restriccion = restriccion;
-    }
-
-    public String getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(String fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public String getFechaSalida() {
-        return fechaSalida;
-    }
-
-    public void setFechaSalida(String fechaSalida) {
-        this.fechaSalida = fechaSalida;
     }
    
 }

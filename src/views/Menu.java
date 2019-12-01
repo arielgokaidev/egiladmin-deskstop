@@ -15,18 +15,21 @@ btn = button
 
 public class Menu extends javax.swing.JFrame {
     
-    RegistroVisita registroVisita;
-    RegistroSalida registroSalida;
-    ListarVisita listarVisita;
-    AsignarEstado asignarEstado;
-    ListarEstado listarEstado;
-    ReservaSala reservaSala;
-    ListarReserva listarReserva;
+    private RegistroVisita registroVisita;
+    private RegistroSalida registroSalida;
+    private ListarVisita listarVisita;
+    private AsignarEstado asignarEstado;
+    private ListarEstado listarEstado;
+    private ReservaSala reservaSala;
+    private ListarReserva listarReserva;
     
-    public Menu() {
+    private static String rutUsuario;
+    
+    public Menu(String rutUsuario) {
         //TITULO
-        super ("Egiladmin Conserjería: Menú");
+        super("Egiladmin Conserjería: Menú");
         initComponents();
+        this.rutUsuario = rutUsuario;
         //MAXIMIZA LA VENTANA
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         //CENTRA VENTANA
@@ -38,7 +41,7 @@ public class Menu extends javax.swing.JFrame {
         registroVisita = new RegistroVisita();
         registroSalida = new RegistroSalida();
         listarVisita = new ListarVisita();
-        asignarEstado = new AsignarEstado();
+        asignarEstado = new AsignarEstado(rutUsuario);
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
         listarReserva = new ListarReserva();
@@ -325,8 +328,7 @@ public class Menu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
           
             public void run() {
-                new Menu().setVisible(true);
-               
+                new Menu(rutUsuario).setVisible(true);
             }
         });
     }
