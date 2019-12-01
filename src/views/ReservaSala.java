@@ -97,9 +97,9 @@ public class ReservaSala extends javax.swing.JInternalFrame {
                 cbSeleccionarDptoActionPerformed(evt);
             }
         });
-        jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 238, -1));
+        jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 238, -1));
 
-        jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 238, -1));
+        jPanel1.add(cbSeleccionarResidente, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 238, -1));
 
         chTurno10.setBackground(new java.awt.Color(0, 51, 102));
         chTurno10.setForeground(new java.awt.Color(255, 255, 255));

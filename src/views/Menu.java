@@ -29,7 +29,9 @@ public class Menu extends javax.swing.JFrame {
         //TITULO
         super("Egiladmin Conserjería: Menú");
         initComponents();
+        
         this.rutUsuario = rutUsuario;
+        
         //MAXIMIZA LA VENTANA
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         //CENTRA VENTANA
@@ -44,7 +46,7 @@ public class Menu extends javax.swing.JFrame {
         asignarEstado = new AsignarEstado(rutUsuario);
         listarEstado = new ListarEstado();
         reservaSala = new ReservaSala();
-        listarReserva = new ListarReserva();
+        //listarReserva = new ListarReserva();
         
         // Agregar JInternalFrame a JDesktopPane
         escritorio.add(registroVisita);    
@@ -53,7 +55,7 @@ public class Menu extends javax.swing.JFrame {
         escritorio.add(asignarEstado);
         escritorio.add(listarEstado);
         escritorio.add(reservaSala);
-        escritorio.add(listarReserva);
+        //escritorio.add(listarReserva);
             
         Calendar cal=Calendar.getInstance();
         
@@ -328,6 +330,7 @@ public class Menu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
           
             public void run() {
+                rutUsuario = "19604018-8";
                 new Menu(rutUsuario).setVisible(true);
             }
         });

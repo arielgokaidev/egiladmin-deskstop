@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import models.Estado;
 
 public class EstadoDao {
     
@@ -17,7 +20,8 @@ public class EstadoDao {
     private int idTipoEstado;
     private String fecha;
     private String observacion;
-    private int restriccion;
+    private String restriccion;
+    private String nombreTipoEstado;
 
     public EstadoDao() {
         db = new Db();
@@ -66,6 +70,45 @@ public class EstadoDao {
             System.out.println("Error: " + e);
         }
         return id;
+    }
+    
+    public List<Estado> listadoEstadosDepartamento(String departamento) {
+        List<Estado> listadoEstadosDepartamento = new ArrayList<Estado>();
+        String sql = "SELECT * FROM estado INNER JOIN tipoestado "
+                + "ON tipoestado.idtipoestado = estado.tipoestado_idtipoestado "
+                + "WHERE departamento_numerodpto = '"+departamento+"' "
+                + "ORDER BY fechaestado DESC;";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                numeroDepartamento = rs.getString("departamento_numerodpto");
+                fecha = limpiarFecha(rs.getString("fechaestado"));
+                observacion = rs.getString("observacion");
+                restriccion = rs.getString("restriccion");
+                nombreTipoEstado = rs.getString("estado");
+                Estado estado = new Estado(numeroDepartamento, fecha, observacion, restriccion, nombreTipoEstado);
+                listadoEstadosDepartamento.add(estado);
+            }
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        } 
+        return listadoEstadosDepartamento;
+        
+    }
+    
+    public String limpiarFecha(String fecha) {
+        if (fecha != null) {
+            String[] partes = fecha.split("\\.");
+            return partes[0];
+        } else {
+            fecha = "-";
+            return fecha;
+        }
     }
     
 }

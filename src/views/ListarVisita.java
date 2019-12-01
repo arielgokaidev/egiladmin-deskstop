@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.JInternalFrame;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import models.Departamento;
 import models.Visita;
 
@@ -29,6 +30,33 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         
         // Obtener modelo tabla
         modeloTabla = (DefaultTableModel) tblVisita.getModel();
+        
+        // Obtener columnas tabla
+        TableColumn columna1 = tblVisita.getColumn("Depto");
+        TableColumn columna2 = tblVisita.getColumn("Fecha ingreso");
+        TableColumn columna3 = tblVisita.getColumn("Fecha salida");
+        TableColumn columna4 = tblVisita.getColumn("Rut");
+        //TableColumn columna5 = tblVisita.getColumn("Nombre");
+        //TableColumn columna6 = tblVisita.getColumn("Apellido");
+        TableColumn columna7 = tblVisita.getColumn("Autorización");
+        TableColumn columna8 = tblVisita.getColumn("Estacionamiento");
+        TableColumn columna9 = tblVisita.getColumn("Patente");
+        
+        // Fijar ancho minimo y maximo
+        columna1.setMinWidth(50);
+        columna1.setMaxWidth(50);
+        columna2.setMinWidth(130);
+        columna2.setMaxWidth(130);
+        columna3.setMinWidth(130);
+        columna3.setMaxWidth(130);
+        columna4.setMinWidth(80);
+        columna4.setMaxWidth(80);
+        columna7.setMinWidth(80);
+        columna7.setMaxWidth(80);
+        columna8.setMinWidth(110);
+        columna8.setMaxWidth(110);
+        columna9.setMinWidth(70);
+        columna9.setMaxWidth(70);
 
          //import java.util.Calendar;
         Calendar cal=Calendar.getInstance();
@@ -93,7 +121,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "N° Depto", "Fecha ingreso", "Fecha salida", "Rut", "Nombre", "Apellido", "Autorización", "Estacionamiento", "Patente"
+                "Depto", "Fecha ingreso", "Fecha salida", "Rut", "Nombre", "Apellido", "Autorización", "Estacionamiento", "Patente"
             }
         ) {
             Class[] types = new Class [] {
@@ -111,9 +139,12 @@ public class ListarVisita extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblVisita.setSurrendersFocusOnKeystroke(true);
+        tblVisita.getTableHeader().setResizingAllowed(false);
+        tblVisita.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblVisita);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 920, 330));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 980, 330));
 
         btnVolver.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnVolver.setText("CERRAR");
@@ -139,7 +170,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 50));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 50));
 
         jlMensaje.setForeground(new java.awt.Color(255, 255, 255));
         jlMensaje.setText("SIN VISITAS REGISTRADAS");
@@ -199,7 +230,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
                         Vector fila = new Vector();
                         estacionamiento = visitas.get(i).getIdEstacionamiento();
                         numeroDepartamento = visitas.get(i).getNumeroDepartamento();
-                        if (visitas.get(i).getAutorizaResidente() == null) {
+                        if (visitas.get(i).getAutorizaResidente() == null || visitas.get(i).getAutorizaResidente().isEmpty()) {
                             autorizaResidente = "-";
                         } else {
                             autorizaResidente = visitas.get(i).getAutorizaResidente();

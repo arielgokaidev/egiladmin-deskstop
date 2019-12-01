@@ -8,11 +8,12 @@ public class Estado {
     private int idTipoEstado;
     private String fecha;
     private String observacion;
-    private int restriccion;
+    private String restriccion;
+    private String nombreTipoEstado;
     
     public Estado() {}
 
-    public Estado(int id, String usuarioRut, String numeroDepartamento, int idTipoEstado, String fecha, String observacion, int restriccion) {
+    public Estado(int id, String usuarioRut, String numeroDepartamento, int idTipoEstado, String fecha, String observacion, String restriccion) {
         this.id = id;
         this.usuarioRut = usuarioRut;
         this.numeroDepartamento = numeroDepartamento;
@@ -20,6 +21,14 @@ public class Estado {
         this.fecha = fecha;
         this.observacion = observacion;
         this.restriccion = restriccion;
+    }
+
+    public Estado(String numeroDepartamento, String fecha, String observacion, String restriccion, String nombreTipoEstado) {
+        this.numeroDepartamento = numeroDepartamento;
+        this.fecha = fecha;
+        this.observacion = observacion;
+        this.restriccion = restriccion;
+        this.nombreTipoEstado = nombreTipoEstado;
     }
 
     public int getId() {
@@ -69,15 +78,21 @@ public class Estado {
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
-    
-    
 
-    public int getRestriccion() {
+    public String getRestriccion() {
         return restriccion;
     }
 
-    public void setRestriccion(int restriccion) {
+    public void setRestriccion(String restriccion) {
         this.restriccion = restriccion;
     }
-   
+
+    public String getNombreTipoEstado() {
+        return nombreTipoEstado;
+    }
+
+    public void setNombreTipoEstado(String nombreTipoEstado) {
+        this.nombreTipoEstado = nombreTipoEstado;
+    }
+    
 }

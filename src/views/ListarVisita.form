@@ -56,7 +56,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="130" width="920" height="330"/>
+              <AbsoluteConstraints x="10" y="130" width="980" height="330"/>
             </Constraint>
           </Constraints>
 
@@ -66,7 +66,7 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="9" rowCount="0">
-                    <Column editable="false" title="N&#xb0; Depto" type="java.lang.String"/>
+                    <Column editable="false" title="Depto" type="java.lang.String"/>
                     <Column editable="false" title="Fecha ingreso" type="java.lang.String"/>
                     <Column editable="false" title="Fecha salida" type="java.lang.String"/>
                     <Column editable="false" title="Rut" type="java.lang.String"/>
@@ -126,8 +126,9 @@
                     </Column>
                   </TableColumnModel>
                 </Property>
+                <Property name="surrendersFocusOnKeystroke" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                  <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
                 </Property>
               </Properties>
             </Component>
@@ -162,7 +163,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="940" height="50"/>
+              <AbsoluteConstraints x="0" y="0" width="1000" height="50"/>
             </Constraint>
           </Constraints>
 
