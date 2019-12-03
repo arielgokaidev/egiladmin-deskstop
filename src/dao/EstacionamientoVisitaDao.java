@@ -40,8 +40,8 @@ public class EstacionamientoVisitaDao {
                 EstacionamientoVisita estacionamiento = new EstacionamientoVisita(id, numero, estado, valor);
                 listadoEstacionamientos.add(estacionamiento);
             }
+            statement.close();
             db.desconectar();
-            
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 

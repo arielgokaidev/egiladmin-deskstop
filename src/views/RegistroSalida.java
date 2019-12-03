@@ -28,16 +28,32 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         
-        //import java.util.Calendar;
-        Calendar cal=Calendar.getInstance();
-        
-        String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
-        String hora=cal.get(cal.HOUR_OF_DAY)+ ":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
-        String fechahora=fecha +" : "+hora;
-       
-        //fecha y hora sistema
-        //JOptionPane.showMessageDialog(null, fechahora);
-        this.LbFechaHora.setText(fechahora);
+        // Fecha y hora
+        Calendar cal = Calendar.getInstance();
+        String fecha;
+        String hora;
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int meses = cal.get(cal.MONTH) + 1;
+        if (dia < 10) {
+            fecha = "0" + dia + "/" + meses + "/"+cal.get(cal.YEAR);
+        } else {
+            fecha = dia + "/" + meses + "/" + cal.get(cal.YEAR);
+        }
+        int horas = cal.get(cal.HOUR_OF_DAY); 
+        if (horas < 10) {
+            hora = "0" + horas;
+        } else {
+            hora = String.valueOf(horas);
+        }
+        int minutos = cal.get(cal.MINUTE);
+        if (minutos < 10) {
+            hora += ":0" + minutos;
+        } else {
+            hora += ":" + String.valueOf(minutos);
+        }      
+        String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
+        this.lbFechaHora.setText(fechahora);
+        // Fin fecha y hora
         
         //Check apagado visita
         cbSeleccionarVisita.setEnabled(false);
@@ -74,8 +90,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         cbSeleccionarVisita = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        LbFechaHora = new javax.swing.JLabel();
+        lbFechaHora = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
@@ -129,12 +144,9 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         jLabel10.setText("REGISTRO DE SALIDA");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("FECHA Y HORA:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
-
-        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 200, 22));
+        lbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbFechaHora.setText("FECHA Y HORA:");
+        jPanel3.add(lbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, -10, -1, 70));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 50));
 
@@ -204,8 +216,11 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             }          
         }
         if (ingreso) {
+            Menu.getListarVisita().recargarTabla();
             JOptionPane.showMessageDialog(this, "¡Salida de visita registrada correctamente!");
             cargarVisitas(departamento);
+        } else {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
         }
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
@@ -268,7 +283,6 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnGuardarVisita;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
@@ -277,9 +291,9 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbFechaHora;
     private javax.swing.JTextField txtPatente;
     // End of variables declaration//GEN-END:variables
 }

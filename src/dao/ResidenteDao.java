@@ -44,6 +44,7 @@ public class ResidenteDao {
                 Residente residente = new Residente(rut, idTipoResidente, nombres, apellidos, correo, numeroDepartamento);
                 listadoResidentes.add(residente);
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);
@@ -53,11 +54,6 @@ public class ResidenteDao {
     
     public List<Residente> listadoResidentesDepartamento(String departamento) {
         List<Residente> listadoResidentes = new ArrayList<Residente>();
-        /*String sql = "SELECT numerodpto, rut, nombres, apellidos " +
-            "FROM departamento " +
-            "INNER JOIN estado ON estado.departamento_numerodpto = departamento.numerodpto " +
-            "INNER JOIN residente ON residente.rut = estado.residente_rut " +
-            "WHERE numerodpto = '" + departamento + "';";*/
         String sql = "SELECT * FROM residente WHERE departamento_numerodpto = '" + departamento + "';";
         System.out.println(sql);
         try {
@@ -75,6 +71,7 @@ public class ResidenteDao {
                 Residente residente = new Residente(rut, idTipoResidente, nombres, apellidos, correo, numeroDepartamento);
                 listadoResidentes.add(residente);
             }
+            statement.close();
             db.desconectar();      
         } catch (SQLException e) {
             System.out.println("Error: " + e);

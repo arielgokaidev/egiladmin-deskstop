@@ -25,21 +25,19 @@ public class TipoEstadoDao {
         List<TipoEstado> listadoTipoEstados = new ArrayList<TipoEstado>();
         String sql = "SELECT * FROM tipoestado;";
         System.out.println(sql);
-        
         try {
             db.conectar();
             conexion = db.getConexion();
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-
             while (rs.next()) {
                 id = rs.getInt("idtipoestado");
                 nombreEstado = rs.getString("estado");
                 TipoEstado estado = new TipoEstado(id, nombreEstado);
                 listadoTipoEstados.add(estado);
             }
+            statement.close();
             db.desconectar();
-            
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 

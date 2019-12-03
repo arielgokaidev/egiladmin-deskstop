@@ -16,6 +16,8 @@ public class ListarEstado extends javax.swing.JInternalFrame {
     private DepartamentoDao departamentoDao;
     private EstadoDao estadoDao;
     
+    List<Estado> estados;
+    
     //CREA LA TABLA
     DefaultTableModel modeloTabla;
   
@@ -46,21 +48,37 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         columna4.setMinWidth(210);
         columna4.setMaxWidth(210);
         
-        //import java.util.Calendar;
-        Calendar cal=Calendar.getInstance();
-        
-        String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
-        String hora=cal.get(cal.HOUR_OF_DAY)+ ":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
-        String fechahora=fecha +" : "+hora;
-       
-        //fecha y hora sistema
-       // JOptionPane.showMessageDialog(null, fechahora);
-        this.LbFechaHora.setText(fechahora);
+        // Fecha y hora
+        Calendar cal = Calendar.getInstance();
+        String fecha;
+        String hora;
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int meses = cal.get(cal.MONTH) + 1;
+        if (dia < 10) {
+            fecha = "0" + dia + "/" + meses + "/"+cal.get(cal.YEAR);
+        } else {
+            fecha = dia + "/" + meses + "/" + cal.get(cal.YEAR);
+        }
+        int horas = cal.get(cal.HOUR_OF_DAY); 
+        if (horas < 10) {
+            hora = "0" + horas;
+        } else {
+            hora = String.valueOf(horas);
+        }
+        int minutos = cal.get(cal.MINUTE);
+        if (minutos < 10) {
+            hora += ":0" + minutos;
+        } else {
+            hora += ":" + String.valueOf(minutos);
+        }      
+        String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
+        this.lbFechaHora.setText(fechahora);
+        // Fin fecha y hora
       
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
-            cbSeleccionarDpto.addItem("-");
+            cbSeleccionarDpto.addItem("Todos");
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
@@ -70,6 +88,12 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        
+        // ESTADOS
+        recargarTabla();
+        
+        // MENSAJE
+        jlMensaje.setVisible(false);
         
     }
 
@@ -84,11 +108,11 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         btnCerrar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        LbFechaHora = new javax.swing.JLabel();
+        lbFechaHora = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jlMensaje = new javax.swing.JLabel();
 
-        setTitle("LISTAR Y ELIMINAR ESTADOS");
+        setTitle("LISTADO DE ESTADOS DE DEPARTAMENTOS");
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -144,15 +168,12 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("ASIGNACIÓN DE ESTADOS A DEPARTAMENTOS");
+        jLabel10.setText("LISTADO DE ESTADOS DE DEPARTAMENTOS");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("FECHA Y HORA:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
-
-        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
+        lbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbFechaHora.setText("FECHA Y HORA:");
+        jPanel3.add(lbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 50));
 
@@ -160,6 +181,10 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Seleccionar Departamento");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 238, -1));
+
+        jlMensaje.setForeground(new java.awt.Color(255, 255, 255));
+        jlMensaje.setText("DEPARTAMENTO SIN ESTADO REGISTRADO");
+        jPanel1.add(jlMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,7 +201,6 @@ public class ListarEstado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_btnCerrarActionPerformed
 
@@ -188,55 +212,102 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         String observacion;
         String actionCommand = evt.getActionCommand();
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
-        if (actionCommand.equals("comboBoxChanged") && !departamento.equals("-")) {
-            try {   
-                estadoDao = new EstadoDao();
-                List<Estado> estados = estadoDao.listadoEstadosDepartamento(departamento);
-                modeloTabla.setRowCount(0);
-                if (estados.size() > 0) {
-                    for (int i = 0; i < estados.size(); i++) {
-                        Vector fila = new Vector();
-                        numeroDepartamento = estados.get(i).getNumeroDepartamento();
-                        fecha = estados.get(i).getFecha();
-                        estado = estados.get(i).getNombreTipoEstado();
-                        if (estados.get(i).getRestriccion() == null || estados.get(i).getRestriccion().isEmpty()) {
-                            restriccion = "-";
-                        } else {
-                            restriccion = estados.get(i).getRestriccion();
+        jlMensaje.setVisible(false);
+        if (actionCommand.equals("comboBoxChanged")) {
+            if (!departamento.equals("Todos")) {
+                try {   
+                    estadoDao = new EstadoDao();
+                    estados = estadoDao.listadoEstadosDepartamento(departamento);
+                    modeloTabla.setRowCount(0);
+                    if (estados.size() > 0) {
+                        for (int i = 0; i < estados.size(); i++) {
+                            Vector fila = new Vector();
+                            numeroDepartamento = estados.get(i).getNumeroDepartamento();
+                            fecha = estados.get(i).getFecha();
+                            estado = estados.get(i).getNombreTipoEstado();
+                            if (estados.get(i).getRestriccion() == null || estados.get(i).getRestriccion().isEmpty()) {
+                                restriccion = "-";
+                            } else {
+                                restriccion = estados.get(i).getRestriccion();
+                            }
+                            if (estados.get(i).getObservacion() == null || estados.get(i).getObservacion().isEmpty()) {
+                                observacion = "-";
+                            } else {
+                                observacion = estados.get(i).getObservacion();
+                            }
+                            fila.add(numeroDepartamento);
+                            fila.add(fecha);
+                            fila.add(estado);
+                            fila.add(restriccion);
+                            fila.add(observacion);
+                            modeloTabla.addRow(fila);
                         }
-                        if (estados.get(i).getObservacion() == null || estados.get(i).getObservacion().isEmpty()) {
-                            observacion = "-";
-                        } else {
-                            observacion = estados.get(i).getObservacion();
-                        }
-                        fila.add(numeroDepartamento);
-                        fila.add(fecha);
-                        fila.add(estado);
-                        fila.add(restriccion);
-                        fila.add(observacion);
-                        modeloTabla.addRow(fila);
+                    } else {
+                        // Sin estado
+                        jlMensaje.setVisible(true);
                     }
-                } else {
-                    // Sin visitas
-                    //jlMensaje.setVisible(true);
+                } catch (Exception e) {
+                    System.out.println("Error: " + e);
                 }
-            } catch (Exception e) {
-                System.out.println("Error: " + e);
+            } else {
+                recargarTabla();
             }
         }
     }//GEN-LAST:event_cbSeleccionarDptoActionPerformed
 
+    public void recargarTabla() {
+        String numeroDepartamento;
+        String estado;
+        String restriccion;
+        String fecha;
+        String observacion;
+        jlMensaje.setVisible(false);
+        try {   
+            estadoDao = new EstadoDao();
+            estados = estadoDao.listadoEstadosDepartamentos();
+            modeloTabla.setRowCount(0);
+            if (estados.size() > 0) {
+                for (int i = 0; i < estados.size(); i++) {
+                    Vector fila = new Vector();
+                    numeroDepartamento = estados.get(i).getNumeroDepartamento();
+                    fecha = estados.get(i).getFecha();
+                    estado = estados.get(i).getNombreTipoEstado();
+                    if (estados.get(i).getRestriccion() == null || estados.get(i).getRestriccion().isEmpty()) {
+                        restriccion = "-";
+                    } else {
+                        restriccion = estados.get(i).getRestriccion();
+                    }
+                    if (estados.get(i).getObservacion() == null || estados.get(i).getObservacion().isEmpty()) {
+                        observacion = "-";
+                    } else {
+                        observacion = estados.get(i).getObservacion();
+                    }
+                    fila.add(numeroDepartamento);
+                    fila.add(fecha);
+                    fila.add(estado);
+                    fila.add(restriccion);
+                    fila.add(observacion);
+                    modeloTabla.addRow(fila);
+                }
+            } else {
+                // Sin estado
+                jlMensaje.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jlMensaje;
+    private javax.swing.JLabel lbFechaHora;
     private javax.swing.JTable tblListaEstado;
     // End of variables declaration//GEN-END:variables
 }

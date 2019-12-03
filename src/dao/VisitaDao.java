@@ -124,6 +124,7 @@ public class VisitaDao {
             while (rs.next()) {
                 id = rs.getInt("id");
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);
@@ -131,7 +132,38 @@ public class VisitaDao {
         return id;
     }
     
-    public List<Visita> listadoRegistroVisitas(String departamento) {
+    public List<Visita> listadoRegistroVisitas() {
+        List<Visita> listadoRegistroVisitas = new ArrayList<Visita>();
+        String sql = "SELECT * FROM registrovisita ORDER BY fechaingreso DESC;";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                id = rs.getInt("idregistrovisita");
+                idEstacionamiento = rs.getInt("estacionamientovisita_idestacionamientovisita");
+                numeroDepartamento = rs.getString("departamento_numerodpto");
+                autorizaResidente = rs.getString("autorizaresidente");
+                fechaIngreso = limpiarFecha(rs.getString("fechaingreso"));
+                fechaSalida = limpiarFecha(rs.getString("fechasalida"));
+                rut = rs.getString("rut");
+                nombres = rs.getString("nombres");
+                apellidos = rs.getString("apellidos");
+                patente = rs.getString("patente");
+                Visita visita = new Visita(id, idEstacionamiento, numeroDepartamento, autorizaResidente, fechaIngreso, fechaSalida, rut, nombres, apellidos, patente);
+                listadoRegistroVisitas.add(visita);
+            }
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        } 
+        return listadoRegistroVisitas;
+    }
+    
+    public List<Visita> listadoRegistroVisitasDepartamento(String departamento) {
         List<Visita> listadoRegistroVisitas = new ArrayList<Visita>();
         String sql = "SELECT * FROM registrovisita WHERE departamento_numerodpto = '" + departamento + "' ORDER BY fechaingreso DESC;";
         System.out.println(sql);
@@ -154,6 +186,7 @@ public class VisitaDao {
                 Visita visita = new Visita(id, idEstacionamiento, numeroDepartamento, autorizaResidente, fechaIngreso, fechaSalida, rut, nombres, apellidos, patente);
                 listadoRegistroVisitas.add(visita);
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);
@@ -182,6 +215,7 @@ public class VisitaDao {
                 Visita visita = new Visita(idEstacionamiento, numeroDepartamento, fechaIngreso, rut, nombres, apellidos, patente);
                 listadoRegistroVisitas.add(visita);
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);

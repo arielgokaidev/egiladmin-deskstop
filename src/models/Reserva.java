@@ -3,31 +3,39 @@ package models;
 public class Reserva {
     
     private int id;
-    private int idValorTurno;
     private String residenteRut;
     private String numeroDepartamento;
     private String usuarioRut;
     private String fecha;
+    private int valorTurno;
     private String turno;
+    private String nombres;
+    private String apellidos;
     
     private Reserva() {}
 
-    public Reserva(int id, int idValorTurno, String residenteRut, String numeroDepartamento, String usuarioRut, String fecha, String turno) {
+    public Reserva(int id, String residenteRut, String numeroDepartamento, String usuarioRut, String fecha, int valorTurno, String turno) {
         this.id = id;
-        this.idValorTurno = idValorTurno;
         this.residenteRut = residenteRut;
         this.numeroDepartamento = numeroDepartamento;
         this.usuarioRut = usuarioRut;
         this.fecha = fecha;
+        this.valorTurno = valorTurno;
         this.turno = turno;
     }
 
-    public Reserva(int idreservasala, String residenterut, String departamentonumerodpto, String usuariointernorut, String fechareserva, int valorturno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Reserva(int id, String residenteRut, String numeroDepartamento, String fecha, String turno, String nombres, String apellidos) {
+        this.id = id;
+        this.residenteRut = residenteRut;
+        this.numeroDepartamento = numeroDepartamento;
+        this.fecha = fecha;
+        this.turno = turno;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
     }
 
-    public Reserva(int idreservasala, String residenterut, String departamentonumerodpto, String usuariointernorut, String fechareserva, int valorturno, String turno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Reserva(String fecha) {
+        this.fecha = fecha;
     }
 
     public int getId() {
@@ -36,14 +44,6 @@ public class Reserva {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdValorTurno() {
-        return idValorTurno;
-    }
-
-    public void setIdValorTurno(int idValorTurno) {
-        this.idValorTurno = idValorTurno;
     }
 
     public String getResidenteRut() {
@@ -77,6 +77,7 @@ public class Reserva {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
     public String getTurno() {
         return turno;
     }
@@ -84,4 +85,29 @@ public class Reserva {
     public void setTurno(String turno) {
         this.turno = turno;
     }
+
+    public int getValorTurno() {
+        return valorTurno;
+    }
+
+    public void setValorTurno(int valorTurno) {
+        this.valorTurno = valorTurno;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+    
 }

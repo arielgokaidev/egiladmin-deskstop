@@ -65,6 +65,7 @@ public class EstadoDao {
             while (rs.next()) {
                 id = rs.getInt("id");
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);
@@ -93,12 +94,41 @@ public class EstadoDao {
                 Estado estado = new Estado(numeroDepartamento, fecha, observacion, restriccion, nombreTipoEstado);
                 listadoEstadosDepartamento.add(estado);
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);
         } 
         return listadoEstadosDepartamento;
-        
+    }
+    
+    public List<Estado> listadoEstadosDepartamentos() {
+        List<Estado> listadoEstadosDepartamento = new ArrayList<Estado>();
+        String sql = "SELECT * FROM tipoestado INNER JOIN "
+                + "(SELECT * FROM estado GROUP BY departamento_numerodpto DESC) AS a "
+                + "ON a.tipoestado_idtipoestado = tipoestado.idtipoestado "
+                + "ORDER BY departamento_numerodpto";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                numeroDepartamento = rs.getString("departamento_numerodpto");
+                fecha = limpiarFecha(rs.getString("fechaestado"));
+                observacion = rs.getString("observacion");
+                restriccion = rs.getString("restriccion");
+                nombreTipoEstado = rs.getString("estado");
+                Estado estado = new Estado(numeroDepartamento, fecha, observacion, restriccion, nombreTipoEstado);
+                listadoEstadosDepartamento.add(estado);
+            }
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        } 
+        return listadoEstadosDepartamento;
     }
     
     public String limpiarFecha(String fecha) {
@@ -109,6 +139,32 @@ public class EstadoDao {
             fecha = "-";
             return fecha;
         }
+    }
+    
+    public boolean revisarRestriccion(String departamento) {
+        boolean restriccion = false;
+        String resultado = "";
+        String sql = "SELECT restriccion FROM estado WHERE fechaestado = "
+                + "(SELECT MAX(fechaestado) FROM estado WHERE departamento_numerodpto = '"+departamento+"');";
+        System.out.println(sql);
+        try {
+            db.conectar();
+            conexion = db.getConexion();
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                resultado = rs.getString("restriccion");
+            }
+            statement.close();
+            db.desconectar();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
+        }
+        System.out.println("Restricción: " + resultado);
+        if (!resultado.isEmpty() && resultado.equals("Restriccion uso espacios comunes")) {
+            restriccion = true;
+        }
+        return restriccion;
     }
     
 }

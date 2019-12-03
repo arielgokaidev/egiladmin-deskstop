@@ -42,6 +42,7 @@ public class DepartamentoDao {
                 Departamento departamento = new Departamento(numeroDepartamento, torre, mt2, numeroBodega, numeroEstacionamiento);
                 listadoDepartamentos.add(departamento);
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);

@@ -32,7 +32,6 @@ public class UsuarioDao {
             "FROM usuariointerno " +
             "INNER JOIN tipousuario ON tipousuario.idtipousuario = usuariointerno.tipousuario_idtipousuario " +
             "WHERE nombreusuario = '" + usuario + "';";
-        //String sql = "SELECT nombreusuario, contrasena FROM conexion WHERE nombreusuario = '" + usuario + "';";
         System.out.println(sql);        
         try {
             db.conectar();
@@ -50,6 +49,7 @@ public class UsuarioDao {
                 Usuario login = new Usuario(rut, user, password, nombres, apellidos, idTipoUsuario, tipoUsuario);
                 credenciales.add(login);
             }
+            statement.close();
             db.desconectar();
         } catch (SQLException e) {
             System.out.println("Error: " + e);

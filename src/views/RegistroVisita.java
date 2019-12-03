@@ -5,7 +5,6 @@ import dao.EstacionamientoVisitaDao;
 import dao.ResidenteDao;
 import dao.VisitaDao;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JInternalFrame;
@@ -35,16 +34,32 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         
-        //import java.util.Calendar;
-        Calendar cal=Calendar.getInstance();
-        
-        String fecha=cal.get(Calendar.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
-        String hora=cal.get(cal.HOUR_OF_DAY)+ ":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
-        String fechahora=fecha +" : "+hora;
-       
-        //fecha y hora sistema
-        //JOptionPane.showMessageDialog(null, fechahora);
-        this.LbFechaHora.setText(fechahora);
+        // Fecha y hora
+        Calendar cal = Calendar.getInstance();
+        String fecha;
+        String hora;
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+        int meses = cal.get(cal.MONTH) + 1;
+        if (dia < 10) {
+            fecha = "0" + dia + "/" + meses + "/"+cal.get(cal.YEAR);
+        } else {
+            fecha = dia + "/" + meses + "/" + cal.get(cal.YEAR);
+        }
+        int horas = cal.get(cal.HOUR_OF_DAY); 
+        if (horas < 10) {
+            hora = "0" + horas;
+        } else {
+            hora = String.valueOf(horas);
+        }
+        int minutos = cal.get(cal.MINUTE);
+        if (minutos < 10) {
+            hora += ":0" + minutos;
+        } else {
+            hora += ":" + String.valueOf(minutos);
+        }      
+        String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
+        this.lbFechaHora.setText(fechahora);
+        // Fin fecha y hora
         
         //Check apagado residente
         cbSeleccionarResidente.setEnabled(false);
@@ -83,8 +98,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        LbFechaHora = new javax.swing.JLabel();
+        lbFechaHora = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
@@ -170,12 +184,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jLabel10.setText("INGRESO DE VISITAS");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel8.setText("FECHA Y HORA:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
-
-        LbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jPanel3.add(LbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 11, 200, 22));
+        lbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbFechaHora.setText("FECHA Y HORA:");
+        jPanel3.add(lbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
 
@@ -294,6 +305,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 }
                 // Acciones después de ingresar
                 if (ingreso) {
+                    Menu.getListarVisita().recargarTabla();
                     JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
                     cbSeleccionarDpto.setSelectedItem("-");
                     txtRut.setText("");
@@ -303,7 +315,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                     chSeleccionarEstacionamientoVisita.setSelected(false);
                     txtPatente.setText("");
                     cbSeleccionarEstacionamiento.setEnabled(false);
-                    cbSeleccionarEstacionamiento.removeAllItems();
                     cargarEstacionamientos();
                 } else {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
@@ -452,7 +463,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LbFechaHora;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnGuardarVisita;
     private javax.swing.JComboBox<String> cbSeleccionarDpto;
@@ -468,9 +478,9 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbFechaHora;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPatente;
