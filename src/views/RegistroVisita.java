@@ -58,7 +58,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             hora += ":" + String.valueOf(minutos);
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
-        this.lbFechaHora.setText(fechahora);
         // Fin fecha y hora
         
         //Check apagado residente
@@ -98,7 +97,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         cbSeleccionarResidente = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        lbFechaHora = new javax.swing.JLabel();
         txtPatente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
@@ -183,10 +181,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("INGRESO DE VISITAS");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
-        lbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbFechaHora.setText("FECHA Y HORA:");
-        jPanel3.add(lbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
 
@@ -480,7 +474,6 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel lbFechaHora;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPatente;

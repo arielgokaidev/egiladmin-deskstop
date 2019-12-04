@@ -79,7 +79,6 @@ public class ListarReserva extends javax.swing.JInternalFrame {
             hora += ":" + String.valueOf(minutos);
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
-        this.lbFechaHora.setText(fechahora);
         // Fin fecha y hora
         
         // DEPARTAMENTOS
@@ -126,7 +125,6 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        lbFechaHora = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cbSeleccionarFecha = new javax.swing.JComboBox<>();
@@ -192,10 +190,6 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("LISTAR RESERVA DE SALA EVENTOS");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
-
-        lbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbFechaHora.setText("FECHA Y HORA:");
-        jPanel3.add(lbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(544, 15, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, 50));
 
@@ -338,7 +332,6 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlMensaje;
-    private javax.swing.JLabel lbFechaHora;
     private javax.swing.JTable tblListarReserva;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,7 +47,6 @@ public class Login extends javax.swing.JFrame {
             hora += ":" + String.valueOf(minutos);
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
-        this.lbFechaHora.setText(fechahora);
         // Fin fecha y hora
     }
         
@@ -65,7 +64,6 @@ public class Login extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
-        lbFechaHora = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -155,11 +153,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 118, 50));
-
-        lbFechaHora.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbFechaHora.setForeground(new java.awt.Color(255, 255, 255));
-        lbFechaHora.setText("FECHA Y HORA:");
-        jPanel2.add(lbFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,7 +245,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel lbFechaHora;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
