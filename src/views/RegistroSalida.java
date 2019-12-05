@@ -89,9 +89,9 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         cbSeleccionarVisita = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        txtPatente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         cbSeleccionarDpto = new javax.swing.JComboBox<>();
+        txtPatente = new javax.swing.JTextField();
 
         setResizable(true);
         setTitle("REGISTRAR SALIDA");
@@ -144,9 +144,6 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 50));
 
-        txtPatente.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(txtPatente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 130, -1));
-
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("SELECCIONAR NUMERO DEPARTAMENTO:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
@@ -157,6 +154,11 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 360, -1));
+
+        txtPatente.setBackground(new java.awt.Color(204, 204, 204));
+        txtPatente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtPatente.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        jPanel1.add(txtPatente, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 150, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 340));
 

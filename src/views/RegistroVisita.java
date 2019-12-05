@@ -204,7 +204,8 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         jPanel1.add(cbSeleccionarDpto, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 250, -1));
 
         txtRut.setBackground(new java.awt.Color(204, 204, 204));
-        txtRut.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtRut.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtRut.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 157, -1));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,10 +218,12 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
 
         txtNombre.setBackground(new java.awt.Color(204, 204, 204));
         txtNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtNombre.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 157, -1));
 
         txtApellido.setBackground(new java.awt.Color(204, 204, 204));
         txtApellido.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        txtApellido.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 157, -1));
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
