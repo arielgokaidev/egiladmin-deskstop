@@ -23,6 +23,7 @@ public class Login extends javax.swing.JFrame {
         
         usuarioDao = new UsuarioDao();
         
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -48,6 +49,8 @@ public class Login extends javax.swing.JFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
+        */
+        
     }
         
     @SuppressWarnings("unchecked")

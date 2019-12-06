@@ -30,7 +30,6 @@ public class ListarReserva extends javax.swing.JInternalFrame {
     DefaultTableModel modeloTabla;
     
     public ListarReserva() {
-        System.out.println("ListarReserva");
         initComponents();
         // Bloquear redimension
         this.setResizable(false);
@@ -54,7 +53,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         columna2.setMaxWidth(120);
         columna3.setMinWidth(60);
         columna3.setMaxWidth(60);
-        
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -80,7 +79,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
-        
+        */
         // DEPARTAMENTOS
         cbSeleccionarDpto.addItem("Todos");
         try {
@@ -88,7 +87,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
@@ -103,7 +102,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
             List<Reserva> fechas = reservaDao.listadoRegistroFechas();
             for (int i = 0; i < fechas.size(); i++) {
                 fechaCombobox = fechas.get(i).getFecha();
-                System.out.println("Fecha: " + fechaCombobox);
+                //System.out.println("Fecha: " + fechaCombobox);
                 cbSeleccionarFecha.addItem(fechaCombobox);
             }
         } catch (Exception e) {
@@ -249,7 +248,7 @@ public class ListarReserva extends javax.swing.JInternalFrame {
         String fecha, turno;
         String mensaje = "¿Está seguro que desea eliminar esta reserva?";
         int index = tblListarReserva.getSelectedRow();
-        System.out.println("Row index: " + index);
+        //System.out.println("Row index: " + index);
         if (index == -1) {
             JOptionPane.showMessageDialog(null, "¡Debe seleccionar una reserva!");
         } else {

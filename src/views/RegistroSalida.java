@@ -27,7 +27,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
  
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
-        
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -53,7 +53,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
-        
+        */
         //Check apagado visita
         cbSeleccionarVisita.setEnabled(false);
         //Check apagado uso estacionamiento
@@ -66,7 +66,7 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
@@ -194,30 +194,46 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "¡Debe seleccionar un departamento!");
         } else if (visita.equals("Sin visitas")) {
             JOptionPane.showMessageDialog(this, "¡No hay visitas registradas en este departamento!");
+        } else if (patente.equals("SIN PATENTE")) {
+            int indexVisita = cbSeleccionarVisita.getSelectedIndex();
+            //System.out.println("indexVisita: " + indexVisita);
+            rut = visitas.get(indexVisita).getRut();
+            //System.out.println("Rut: " + rut);
+            String mensaje = "Se registrará la salida.\n¿Desea continuar?";
+            int opcion = JOptionPane.showConfirmDialog(null, mensaje, "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
+            if (opcion == 0){
+                ingreso = visitaDao.ingresarSalida(departamento, rut, fecha);
+                if (ingreso) {
+                    Menu.getListarVisita().setDepartamentosTodos();
+                    cargarVisitas(departamento);
+                    cbSeleccionarDpto.setSelectedItem("-");
+                    JOptionPane.showMessageDialog(this, "¡Salida de visita registrada correctamente!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
+                }
+            }
         } else {
             int indexVisita = cbSeleccionarVisita.getSelectedIndex();
-            System.out.println("indexVisita: " + indexVisita);
+            //System.out.println("indexVisita: " + indexVisita);
             rut = visitas.get(indexVisita).getRut();
-            System.out.println("Rut: " + rut);
-            if (patente.equals("SIN PATENTE")) {
-                ingreso = visitaDao.ingresarSalida(departamento, rut, fecha);
-            } else {
-                estacionamiento = visitas.get(indexVisita).getIdEstacionamiento();
-                String mensaje = "Se desocupará el estacionamiento n° " + estacionamiento + "\n¿Desea continuar?";
-                int opcion = JOptionPane.showConfirmDialog(null, mensaje, "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
-                if (opcion == 0){
-                    System.out.println("N° estacionamiento: " + estacionamiento);
-                    ingreso = visitaDao.ingresarSalidaEstacionamiento(departamento, rut, fecha, estacionamiento);
-                }
-            }          
+            //System.out.println("Rut: " + rut);
+            estacionamiento = visitas.get(indexVisita).getIdEstacionamiento();
+            String mensaje = "Se desocupará el estacionamiento n° " + estacionamiento + "\n¿Desea continuar?";
+            int opcion = JOptionPane.showConfirmDialog(null, mensaje, "¡ATENCIÓN!", JOptionPane.YES_NO_OPTION);
+            if (opcion == 0){
+                //System.out.println("N° estacionamiento: " + estacionamiento);
+                ingreso = visitaDao.ingresarSalidaEstacionamiento(departamento, rut, fecha, estacionamiento);
+                if (ingreso) {
+                    Menu.getListarVisita().setDepartamentosTodos();
+                    cargarVisitas(departamento);
+                    cbSeleccionarDpto.setSelectedItem("-");
+                    JOptionPane.showMessageDialog(this, "¡Salida de visita registrada correctamente!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
+                }  
+            }
         }
-        if (ingreso) {
-            Menu.getListarVisita().recargarTabla();
-            JOptionPane.showMessageDialog(this, "¡Salida de visita registrada correctamente!");
-            cargarVisitas(departamento);
-        } else {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
-        }
+        
     }//GEN-LAST:event_btnGuardarVisitaActionPerformed
 
     private void cbSeleccionarDptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSeleccionarDptoActionPerformed
@@ -260,9 +276,9 @@ public class RegistroSalida extends javax.swing.JInternalFrame {
                     for (int i = 0; i < visitas.size(); i++) {
                         nombre = visitas.get(i).getNombres() + " " + visitas.get(i).getApellidos();
                         fecha = visitas.get(i).getFechaIngreso();                      
-                        System.out.println("Position: " + i);
-                        System.out.println("Nombre: " + nombre);
-                        System.out.println("Rut: " +  visitas.get(i).getRut());
+                        //System.out.println("Position: " + i);
+                        //System.out.println("Nombre: " + nombre);
+                        //System.out.println("Rut: " +  visitas.get(i).getRut());
                         cbSeleccionarVisita.addItem(fecha + " - " + nombre);
                     }
                     cbSeleccionarVisita.setEnabled(true);

@@ -136,7 +136,7 @@ public class ReservaDao {
     
     public List<Reserva> listadoRegistroFechas() {
         List<Reserva> listadoRegistroReservas = new ArrayList<>();
-        String sql = "SELECT DISTINCT fechareserva FROM reservasala ORDER BY fechareserva DESC;";
+        String sql = "SELECT DISTINCT fechareserva FROM reservasala ORDER BY fechareserva;";
         System.out.println(sql);
         try {
             db.conectar();

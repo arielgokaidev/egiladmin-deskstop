@@ -60,7 +60,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         columna8.setMaxWidth(110);
         columna9.setMinWidth(70);
         columna9.setMaxWidth(70);
-
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -86,7 +86,7 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
-        
+        */
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
@@ -94,15 +94,12 @@ public class ListarVisita extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDepto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        
-        // VISITAS
-        recargarTabla();
         
         // Ocultar mensaje
         jlMensaje.setVisible(false);
@@ -209,6 +206,10 @@ public class ListarVisita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setDepartamentosTodos() {
+        cbSeleccionarDepto.setSelectedItem("Todos");
+    }
+    
     public void recargarTabla() {
         String numeroDepartamento;
         String autorizaResidente;

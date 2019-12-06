@@ -35,7 +35,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         this.setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
         
         String numeroDepartamento = "";
-        
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -61,7 +61,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
-        
+        */
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
@@ -69,7 +69,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
@@ -243,7 +243,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         boolean ingreso = false;
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
         String residente = cbSeleccionarResidente.getSelectedItem().toString();
-        System.out.println("Fecha: " + calendarioReserva.getDate());
+        //System.out.println("Fecha: " + calendarioReserva.getDate());
         SimpleDateFormat dateFormatSql = new SimpleDateFormat("yyyy-MM-dd");
         String fecha;
         int valorTurno = 5000;
@@ -257,7 +257,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
         } else {
             turno = "";
         }
-        System.out.println("Turno: " + turno);
+        //System.out.println("Turno: " + turno);
         if (departamento.equals("-") || calendarioReserva.getDate() == null || turno.isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡Debe completar todos los campos!");
         } else if (residente.equals("Sin residentes")) {
@@ -266,7 +266,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
             int indexResidente = cbSeleccionarResidente.getSelectedIndex();
             String rut = residentes.get(indexResidente).getRut();
             fecha = dateFormatSql.format(calendarioReserva.getDate());
-            System.out.println("Fecha final: "+ fecha);
+            //System.out.println("Fecha final: "+ fecha);
             // Consultar restriccion
             EstadoDao estadoDao = new EstadoDao();
             restriccion = estadoDao.revisarRestriccion(departamento);
@@ -278,7 +278,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
             } else if (fechaDisponible) {
                 ingreso = reservaDao.ingresarReserva(rut, departamento, rutUsuario, fecha, valorTurno, turno);
                 if (ingreso) {
-                    cbSeleccionarDpto.setSelectedItem("Todos");
+                    cbSeleccionarDpto.setSelectedItem("-");
                     calendarioReserva.setCalendar(null);
                     chTurno10.setSelected(false);
                     chTurno14.setSelected(false);
@@ -304,7 +304,7 @@ public class ReservaSala extends javax.swing.JInternalFrame {
                 if (residentes.size() > 0) {
                     for (int i = 0; i < residentes.size(); i++) {
                         nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                        System.out.println("Nombre: " + nombre);
+                        //System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
                 } else {

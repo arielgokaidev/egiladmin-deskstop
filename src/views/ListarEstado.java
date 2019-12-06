@@ -47,7 +47,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         columna3.setMaxWidth(170);
         columna4.setMinWidth(210);
         columna4.setMaxWidth(210);
-        
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -73,7 +73,7 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
-      
+        */
         // DEPARTAMENTOS
         try {
             departamentoDao = new DepartamentoDao();
@@ -81,15 +81,12 @@ public class ListarEstado extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-        
-        // ESTADOS
-        recargarTabla();
         
         // MENSAJE
         jlMensaje.setVisible(false);
@@ -194,6 +191,10 @@ public class ListarEstado extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setDepartamentosTodos() {
+        cbSeleccionarDpto.setSelectedItem("Todos");
+    }
+    
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnCerrarActionPerformed

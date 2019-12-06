@@ -40,7 +40,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         String nombreEstado = "";
-        
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -66,7 +66,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+ hora;
         // Fin fecha y hora
-        
+        */
         //check de observacion desabilitado
         txtAreaObservacion.setBackground(Color.darkGray);
         txtAreaObservacion.setEnabled(false);
@@ -78,7 +78,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
             tipoEstados = tipoEstadoDao.listadoTipoEstados();
             for (int i = 0; i < tipoEstados.size(); i++) {
                 nombreEstado = tipoEstados.get(i).getNombreEstado();
-                System.out.println("Nombre estado: " + nombreEstado);
+                //System.out.println("Nombre estado: " + nombreEstado);
                 cbSeleccionarEstadoDpto.addItem(nombreEstado);
             }
         } catch (Exception e) {
@@ -241,7 +241,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_chObservacionActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        System.out.println(rutUsuario);
+        //System.out.println(rutUsuario);
         boolean ingreso = false;
         String departamento = cbSeleccionarDpto.getSelectedItem().toString();
         String residente = cbSeleccionarResidente.getSelectedItem().toString();
@@ -269,14 +269,14 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
                 hora = String.valueOf(horas) + ":" + String.valueOf(minutos) + ":" + String.valueOf(segundos);
             }
             String fecha = String.valueOf(year) + "-" + String.valueOf(mes) + "-" + String.valueOf(dia) + " " + hora;
-            System.out.println(fecha);
+            //System.out.println(fecha);
             if (!chRestriccion.isSelected()) {
                 restriccion = "";
             }
             estadoDao = new EstadoDao();
             ingreso = estadoDao.ingresarEstado(rutUsuario, departamento, estado, fecha, observacion, restriccion);
             if (ingreso) {
-                Menu.getListarEstado().recargarTabla();
+                Menu.getListarEstado().setDepartamentosTodos();
                 cbSeleccionarDpto.setSelectedItem("-");
                 chRestriccion.setSelected(false);
                 chObservacion.setSelected(false);
@@ -298,7 +298,7 @@ public class AsignarEstado extends javax.swing.JInternalFrame {
                 if (residentes.size() > 0) {
                     for (int i = 0; i < residentes.size(); i++) {
                         nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                        System.out.println("Nombre: " + nombre);
+                        //System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
                 } else {

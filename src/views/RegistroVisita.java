@@ -34,6 +34,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         // Variables para cargar combobox desde List
         String numeroDepartamento = "";
         
+        /*
         // Fecha y hora
         Calendar cal = Calendar.getInstance();
         String fecha;
@@ -59,6 +60,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
         }      
         String fechahora = "FECHA Y HORA: " + fecha + " - "+hora;
         // Fin fecha y hora
+        */
         
         //Check apagado residente
         cbSeleccionarResidente.setEnabled(false);
@@ -73,7 +75,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             List<Departamento> departamentos = departamentoDao.listadoDepartamentos();
             for (int i = 0; i < departamentos.size(); i++) {
                 numeroDepartamento = departamentos.get(i).getNumeroDepartamento();
-                System.out.println("Número: " + numeroDepartamento);
+                //System.out.println("Número: " + numeroDepartamento);
                 cbSeleccionarDpto.addItem(numeroDepartamento);
             }
         } catch (Exception e) {
@@ -291,19 +293,19 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             if (!valida){
                 JOptionPane.showMessageDialog(this, "¡Rut inválido!");
             } else {
-                System.out.println("Rut valido");
+                //System.out.println("Rut valido");
                 // Instancia visitaDao
                 visitaDao = new VisitaDao();
                 // Método para ingresar, condicional estacionamiento
                 if (chSeleccionarEstacionamientoVisita.isSelected()) {
                     ingreso = visitaDao.ingresarVisitaEstacionamiento(departamento, autorizaresidente, fecha, rut, nombres, apellidos, estacionamiento, patente);
                 } else {
-                    ingreso = visitaDao.ingresarVisita(departamento, autorizaresidente, fecha, rut, nombres, apellidos);        
+                    ingreso = visitaDao.ingresarVisita(departamento, autorizaresidente, fecha, rut, nombres, apellidos);
                 }
                 // Acciones después de ingresar
                 if (ingreso) {
-                    Menu.getListarVisita().recargarTabla();
-                    JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
+                    cargarEstacionamientos();
+                    Menu.getListarVisita().setDepartamentosTodos();
                     cbSeleccionarDpto.setSelectedItem("-");
                     txtRut.setText("");
                     txtNombre.setText("");
@@ -312,7 +314,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                     chSeleccionarEstacionamientoVisita.setSelected(false);
                     txtPatente.setText("");
                     cbSeleccionarEstacionamiento.setEnabled(false);
-                    cargarEstacionamientos();
+                    JOptionPane.showMessageDialog(this, "¡Visita ingresada correctamente al Sistema!");
                 } else {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error");
                 }
@@ -398,7 +400,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
                 if (residentes.size() > 0) {
                     for (int i = 0; i < residentes.size(); i++) {
                         nombre = residentes.get(i).getNombres() + " " + residentes.get(i).getApellidos();
-                        System.out.println("Nombre: " + nombre);
+                        //System.out.println("Nombre: " + nombre);
                         cbSeleccionarResidente.addItem(nombre);
                     }
                 } else {
@@ -424,7 +426,7 @@ public class RegistroVisita extends javax.swing.JInternalFrame {
             if (estacionamientos.size() > 0) {
                 for (int i = 0; i < estacionamientos.size(); i++) {
                     numeroEstacionamiento = String.valueOf(estacionamientos.get(i).getNumero());
-                    System.out.println("Número: " + numeroEstacionamiento);
+                    //System.out.println("Número: " + numeroEstacionamiento);
                     cbSeleccionarEstacionamiento.addItem(numeroEstacionamiento);
                 }
             } else {
